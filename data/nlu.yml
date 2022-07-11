@@ -90,10 +90,12 @@ nlu:
     - rematricula
     - como fazer a rematricula 
 
-# - intent: request_historic
-#   examples: |
-#     - gostaria do meu historico escolar
-
+- intent: request_historic
+  examples: |
+    - gostaria do meu historico escolar
+    - histórico escolar
+    - historico
+    
 
 - intent: request_email
   examples: |
