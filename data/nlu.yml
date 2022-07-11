@@ -202,6 +202,5 @@ nlu:
 - intent: request_laws
   examples: |
     - legislação do estágio
-    - regimento do estágio IFRS
-    - regimento estágio
-    
+    - regimento do estágio 
+    - regimento estágio IFRS
