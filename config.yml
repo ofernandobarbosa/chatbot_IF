@@ -12,12 +12,18 @@ pipeline:
   # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
   - name: SpacyNLP
     model: pt_core_news_lg
-    case_sensitive: False
+    case_sensitive: false
   - name: SpacyTokenizer
-    "intent_tokenization_flag": False
+    "intent_tokenization_flag": false
     "intent_split_symbol": "_"
     "token_pattern": None
   - name: SpacyFeaturizer
+  - name: LexicalSyntacticFeaturizer
+    "features": [
+      ["title"], # features from token before current one
+      ["title", "BOS", "EOS",], # features from current token
+      ["title"], # features from token after the current one
+    ]
 
   - name: DIETClassifier
     epochs: 100

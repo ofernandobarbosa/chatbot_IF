@@ -13,6 +13,8 @@ intents:
 - request_historic
 - request_email
 - request_matricula
+- inform_professor_name
+
 # - faq:
 #   is_retrieval_intent_: true
 
@@ -42,11 +44,25 @@ slots:
       entity: matricula
       conditions:
       - active_loop: name_form
+  
+  professor_name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: PER
+      conditions:
+      - active_loop: professor_name_form
+
 forms:
   name_form:
     required_slots:
     - name
     - matricula
+  professor_name_form:
+    required_slots:
+    - professor_name
+
 responses:
   utter_greet:
   - text: |-
@@ -57,6 +73,8 @@ responses:
       Qual seu nome?
   utter_ask_name:
   - text: Você poderia informar seu nome?
+  utter_ask_professor_name:
+  - text: Você poderia informar o nome do professor?
   utter_ask_help:
   - text: Em que posso ajudar {name}?
   utter_ask_matricula:
@@ -66,8 +84,15 @@ responses:
   - text: Até logo :)
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
+  utter_ask_professor:
+  - text: |-
+      Qual o nome do professor?
+      Me informa o nome do professor?
 actions:
 - utter_ask_help
 - utter_goodbye
 - utter_greet
 - utter_ask_matricula
+# custom action
+- action_buscar_professor
+- action_faq_comprovate
