@@ -40,6 +40,7 @@ class BuscarProfessor(Action):
         nome_professor = dispatcher.get_slot("professor_name")
 
         dispatcher.utter_message(text="fulano@riogrande.ifrs.edu.br")
+        return[]
 
 
 class BuscarFaq(Action):
@@ -50,9 +51,15 @@ class BuscarFaq(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        link_matricula = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
+        link_tutorial = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
         
-        dispatcher.utter_message(text="Para baixar o comprovante de matrícula você precisa acessar o link tal")
-        dispatcher.utter_message(text="Caso precise de alguma ajuda, assista no link tal")
+
+        dispatcher.utter_message(text=f"Para baixar o comprovante de matrícula você precisa acessar o link {link_matricula}")
+        dispatcher.utter_message(text=f"Caso precise de alguma ajuda, assista no link {link_tutorial}")
+
+        return []
 
 
 class ValidaNomeForm(FormValidationAction):
