@@ -1,91 +1,192 @@
 version: "3.1"
-
 nlu:
+#### intents "padrões"
 - intent: greet
   examples: |
     - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
-
+    - olá
+    - oi
+    - eae
+    - bom dia
+    - boa tarde
+    - boa noite
+    - bdia
+    - oie
+    - coe
+    - oe
+    - cpx
+    - buenas
 - intent: goodbye
   examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
+    - xau
+    - tchau
+    - até mais
+    - até
+    - adios
     - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
-
+    - até logo
+    - Tchau
 - intent: affirm
   examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
-
+    - sim
+    - s
+    - claro
+    - exato
+    - pode ser
+    - certo
+    - sempre
+    - si
 - intent: deny
   examples: |
-    - no
+    - não
     - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
-
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
-
+    - nao
+    - nunca
+    - acho que não
+    - não quero
+    - nops
 - intent: bot_challenge
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - você é um robo?
+    - você é um humano?
+    - estou falando com um robo?
+    - estou falando com um humano?
+
+  #### intents personalizadas
+- intent: inform_name
+  examples: |
+    - meu nome é fernando
+    - me chamo thais
+    - Ricardo
+    - sou a Samanta
+    - eu sou a Ivete
+    - Fernando é meu nome
+    - me chamam de João
+    - fernando
+    - thais
+    - Fernando
+
+- intent: request_doc_register
+  examples: |
+    - preciso do meu atestado de matricula
+    - matrícula
+    - preciso do meu comprovante de matrícula
+    - quero meu comprovante de matricula
+    - preciso do comprovante de frequencia
+    - quais documentos para a matricula
+    - matricula
+    - comprovante de matricula
+    - ver matricula
+    - informar comprovante de matricula
+
+- intent: request_to_register
+  examples: |
+    - quais documentos preciso para fazer a matricula
+    - período para fazer a matrícula
+    - horário para fazer matricula
+    - dias para fazer a matricula
+    - dias para fazer a rematricula
+    - solicitar rematricula
+    - rematricula
+    - como fazer a rematricula 
+
+# - intent: request_historic
+#   examples: |
+#     - gostaria do meu historico escolar
+
+
+- intent: request_email
+  examples: |
+    - e-mail do professor [nome_professor]
+    - e-mail da professora [nome_professor]
+    - email do professor [nome_professor]
+    - email da professora [nome_professor]
+    - contato prof 
+    - profs do IFRS
+    - contato dos professores
+    - email dos professores do curso [sistemas da informação]
+
+
+
+# # novos intents
+# - intent: ask_aulas_geral
+#   examples: |
+#     - preciso da grade de horarios de aulas
+#     - preciso saber das disciplians do semestre
+#     - grade curricular do [primeiro] semestre de [2022]
+#     - grade de disciplinas
+#     - grade de materias
+#     - grade disciplinar
+#     - disciplinas
+#     - grade curricular
+#     - aulas
+#     - materias do [segundo] semestre 
+#     - discplinas [primeiro]
+#     - aulas de [2022]
+#     - informações sobre as aulas
+#     - professores deste semestre [segundo]
+#     - quais professores são no semestre [primeiro]
+#     - professores das disciplinas do [primeiro] semestre
+#     - [primeiro]
+#     - [segundo]
+#     - dia de inicio de aulas
+#     - inicio das aulas
+#     - começo das aulas
+#     - inicio
+#     - reinicio
+#     - aulas comecam no ano (ano)
+#     - aulas começam
+#     - quando aulas começam
+#     - começo
+#     - perído letivo
+#     - início das férias de inverno
+#     - início das férias de verão
+#     - férias
+# - intent: ask_cursos
+#   examples: |
+#     - cursos do IFRS
+#     - cursos do IFRS de Rio Grande
+#     - cursos oferecidos
+#     - cursos ofertados
+#     - cursos disponíveis
+#     - IFRS no rio grande do sul
+#     - IFRS no estado
+#     - Instituto Federal do Rio grande do Sul no estado
+#     - locais de IFRS
+#     - cursos integrantes do IFRS
+#     - cursos de pós-graduação
+#     - quais os cursos livres ofertados
+#     - tipos de cursos
+#     - calendário
+# - intent: ask_documentacao
+#   examples: |
+#     - enviar documentos
+#     - documentos
+#     - quais documentos preciso
+#     - documentos
+#     - solicitar documentos
+#     - documento 
+#     - quais documento
+#     - qual documento
+#     - quais documentos
+#     - colar grau
+#     - documento para colar grau
+#     - o que fazer para colar grau
+#     - inserir publicação
+#     - enviar artigo 
+#     - artigo submeter ao sistema
+# - intent: ask_complementar_estagio
+#   examples: |
+#     - validar hora complementar 
+#     - inserir hora complementar
+#     - quais atividades complementares posso usar
+#     - carga horaria de atividade complementar
+#     - atividades complementares
+#     - o que são horas complementares
+#     - atividades adicionais
+#     - estagio 
+#     - hora de estagio
+#     - fazer estagio
+#     - legislação do estágio
+#     - regimento do IFRS
+#     - regimento

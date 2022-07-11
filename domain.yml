@@ -1,34 +1,57 @@
-version: "3.1"
-
-intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
+version: '3.1'
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+intents:
+- affirm
+- bot_challenge
+- deny
+- goodbye
+- greet
+- request_doc_register
+- request_to_register
+- request_historic
+- request_email
+
+- inform_name:
+    ignore_entities:
+    - LOC
+
+entities:
+- PER
+- LOC
+
+slots:
+  name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: PER
+      conditions:
+      - active_loop: name_form
+forms:
+  name_form:
+    required_slots:
+    - name
+responses:
+  utter_greet:
+  - text: |-
+      Eai, seja bem-vindo :)
+      Qual seu nome?
+  - text: |-
+      Olá, seja bem-vindo :)
+      Qual seu nome?
+  utter_ask_name:
+  - text: Você poderia informar seu nome?
+  utter_ask_help:
+  - text: Em que posso ajudar {name}?
+  utter_goodbye:
+  - text: Tchau
+  - text: Até logo :)
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+actions:
+- utter_ask_help
+- utter_goodbye
+- utter_greet
