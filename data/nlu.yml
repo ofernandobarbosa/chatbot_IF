@@ -107,7 +107,7 @@ nlu:
     - onde posso pegar meu historico escolar
     - onde fica o histórico escolar
     - fornecer historico escolar
-    - 
+
     
 
 - intent: request_email
