@@ -42,7 +42,7 @@ slots:
     - type: from_entity
       entity: PER
       conditions:
-      - active_loop: name_form
+      - active_loop: professor_name_form
 
 forms:
   name_form:
@@ -51,7 +51,7 @@ forms:
   professor_name_form:
     required_slots:
     - professor_name
-    
+
 responses:
   utter_greet:
   - text: |-
