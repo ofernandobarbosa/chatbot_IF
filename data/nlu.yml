@@ -106,6 +106,16 @@ nlu:
     - contato dos professores
     - email dos professores do curso [sistemas da informação]
 
+- intent: request_matricula
+  examples: |
+    - Meu número de matricula é [a10101010](matricula)
+    - Minha matricula é [a10101010](matricula)
+    - [a10101010](matricula)
+    - Meu número é [a10101010](matricula)
+    - matricula: [a10101010](matricula)
+    - O número de matricula é [a10101010](matricula)
+    - A matricula é [a10101010](matricula)
+
 
 
 # # novos intents

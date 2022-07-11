@@ -12,7 +12,7 @@ intents:
 - request_to_register
 - request_historic
 - request_email
-
+- request_matricula
 # - faq:
 #   is_retrieval_intent_: true
 
@@ -23,6 +23,7 @@ intents:
 entities:
 - PER
 - LOC
+- matricula
 
 slots:
   name:
@@ -33,10 +34,19 @@ slots:
       entity: PER
       conditions:
       - active_loop: name_form
+
+  matricula:
+    type: text
+    mappings: 
+    - type: from_entity
+      entity: matricula
+      conditions:
+      - active_loop: name_form
 forms:
   name_form:
     required_slots:
     - name
+    - matricula
 responses:
   utter_greet:
   - text: |-
@@ -49,6 +59,8 @@ responses:
   - text: Você poderia informar seu nome?
   utter_ask_help:
   - text: Em que posso ajudar {name}?
+  utter_ask_matricula:
+  - text: Você poderia informar sua matricula?
   utter_goodbye:
   - text: Tchau
   - text: Até logo :)
@@ -58,3 +70,4 @@ actions:
 - utter_ask_help
 - utter_goodbye
 - utter_greet
+- utter_ask_matricula

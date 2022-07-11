@@ -8,6 +8,8 @@ stories:
       - intent: inform_name
         entities:
           - PER: Thais
+      - action: utter_ask_matricula
+      - intent: request_matricula
       - action: name_form
       - active_loop: name_form
       - slot_was_set:
