@@ -28,6 +28,32 @@ class ActionHelloWorld(Action):
 
         return []
 
+class BuscarProfessor(Action):
+    
+    def name(self) -> Text:
+        return "action_buscar_professor"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        nome_professor = dispatcher.get_slot("professor_name")
+
+        dispatcher.utter_message(text="fulano@riogrande.ifrs.edu.br")
+
+
+class BuscarFaq(Action):
+    
+    def name(self) -> Text:
+        return "action_faq_comprovate"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="Para baixar o comprovante de matrícula você precisa acessar o link tal")
+        dispatcher.utter_message(text="Caso precise de alguma ajuda, assista no link tal")
+
 
 class ValidaNomeForm(FormValidationAction):
     def name(self) -> Text:
@@ -52,3 +78,4 @@ class ValidaNomeForm(FormValidationAction):
         print(name)
 
         return {"name": name, "sender_id": sai}
+

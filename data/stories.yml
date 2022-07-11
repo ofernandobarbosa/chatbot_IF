@@ -1,7 +1,7 @@
 version: "3.1"
 
 stories:
-  - story: interactive_story_1
+  - story: hello story
     steps:
       - intent: greet
       - action: utter_greet
@@ -20,4 +20,19 @@ stories:
   # - story: solicitar comprovante matricula
   #   steps:
   #     - intent: request_register
+  #     - action: action_faq_comprovate
 
+  # - story: solicitar contato de professores
+  #   steps:
+  #     - intent: request_email
+  #     - action: utter_ask_professor
+  #     - intent: inform_professor_name
+  #     - action: professor_name_form
+  #     - active_loop: professor_name_form
+  #     - slot_was_set:
+  #         - professor_name: Ricardo Gonçalves
+  #     - slot_was_set:
+  #         - requested_slot: null
+  #     - active_loop: null
+  #     - action: action_buscar_professor
+  #     - action: utter_ask_help

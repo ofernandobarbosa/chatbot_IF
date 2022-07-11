@@ -1,6 +1,6 @@
-version: "3.1"
+# version: "3.1"
 
-nlu:
-  - regex: name
-    examples: |
-      - /([A-Z a-z])/
+# nlu:
+#   - regex: name
+#     examples: |
+#       - /([A-Z a-z])/

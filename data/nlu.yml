@@ -55,16 +55,16 @@ nlu:
   #### intents personalizadas
 - intent: inform_name
   examples: |
-    - meu nome é fernando
-    - me chamo thais
-    - Ricardo
-    - sou a Samanta
-    - eu sou a Ivete
-    - Fernando é meu nome
-    - me chamam de João
-    - fernando
-    - thais
-    - Fernando
+    - meu nome é [fernando](PER)
+    - me chamo [thais](PER)
+    - [Ricardo](PER)
+    - sou a [Samanta](PER)
+    - eu sou a [Ivete](PER)
+    - [Fernando](PER) é meu nome
+    - me chamam de [João](PER)
+    - [fernando](PER)
+    - [thais](PER)
+    - [Fernando](PER)
 
 - intent: request_doc_register
   examples: |

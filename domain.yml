@@ -13,6 +13,9 @@ intents:
 - request_historic
 - request_email
 
+# - faq:
+#   is_retrieval_intent_: true
+
 - inform_name:
     ignore_entities:
     - LOC
