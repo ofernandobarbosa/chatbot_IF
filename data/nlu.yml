@@ -80,6 +80,9 @@ nlu:
     - quero meu comprovante de matricula
     - comprovante de matricula
     - mostrar comprovante de matricula
+    - quero um atestado
+    - quero um comprovante
+
 
 - intent: request_do_register
   examples: |
@@ -91,13 +94,18 @@ nlu:
     - período para fazer a matrícula
     - horário para fazer matricula
     - dias para fazer a matricula
+    - site para matricula
 
 - intent: request_redo_register
   examples: |
-    - dias para fazer a rematricula
+    - dias para fazer a rematrícula
     - solicitar rematricula
-    - rematricula
+    - rematrícula
     - como fazer a rematricula 
+    - onde faço a rematricula
+    - como solicitar rematrícula
+    - link da rematricula
+    - site para rematrícula
 
 - intent: request_historic
   examples: |
@@ -112,17 +120,16 @@ nlu:
 
 - intent: request_email
   examples: |
-    - e-mail do professor [nome_professor]
-    - e-mail da professora [nome_professor]
-    - email do professor [nome_professor]
-    - email da professora [nome_professor]
+    - e-mail do professor [Gustavo](professor_name)
+    - e-mail da professora [Luciano](professor_name)
+    - email do professor [Patricia](professor_name)
+    - email da professora [Ana](professor_name)
     - contato prof 
     - e-mail
     - email
     - contato
     - profs do IFRS
     - contato dos professores
-    - email dos professores do curso [sistemas da informação]
 
 
 

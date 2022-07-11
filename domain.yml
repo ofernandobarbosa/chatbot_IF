@@ -9,7 +9,8 @@ intents:
 - goodbye
 - greet
 - request_doc_register
-- request_to_register
+- request_do_register
+- request_redo_register
 - request_historic
 - request_email
 - inform_professor_name
@@ -79,6 +80,7 @@ actions:
 - utter_ask_help
 - utter_goodbye
 - utter_greet
+
 # custom action
 - action_buscar_professor
 - action_faq_comprovate
