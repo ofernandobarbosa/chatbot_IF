@@ -91,41 +91,45 @@ class BuscarCalendar(Action):
 
 
 class BuscarCursos(Action):
-     def name(self) -> Text:
+    def name(self) -> Text:
         return "action_buscar_courses"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
+
         link_cursos = "https://ifrs.edu.br/riogrande/cursos/"
 
-        dispatcher.utter_message(text=f"Confira aqui os cursos disponíveis no IFRS {link_cursos}")
+        dispatcher.utter_message(
+            text=f"Confira aqui os cursos disponíveis no IFRS {link_cursos}")
 
         return []
 
+
 class Buscardocumentos(Action):
-     def name(self) -> Text:
+    def name(self) -> Text:
         return "action_buscar_documents"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        dispatcher.utter_message(text=f"Estes são os documentos que você precisa manter atualizados no IFRS: CPF, Comprovante de residência e dados cadastrais")
+
+        dispatcher.utter_message(
+            text=f"Estes são os documentos que você precisa manter atualizados no IFRS: CPF, Comprovante de residência e dados cadastrais")
 
         return []
-    
+
+
 class ValidaNomeForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_name_form"
 
     async def validate_name(self,
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
+                            slot_value: Any,
+                            dispatcher: CollectingDispatcher,
+                            tracker: Tracker,
+                            domain: DomainDict,
+                            ) -> Dict[Text, Any]:
         name = slot_value
         sai = tracker.get_slot("sender_id")
         if(sai == None):

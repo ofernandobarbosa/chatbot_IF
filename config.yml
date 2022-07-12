@@ -20,11 +20,6 @@ pipeline:
   - name: SpacyFeaturizer
   - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
-    "features": [
-      ["title"], # features from token before current one
-      ["title", "BOS", "EOS",], # features from current token
-      ["title"], # features from token after the current one
-    ]
   - name: DIETClassifier
     epochs: 100
     constrain_similarities: True

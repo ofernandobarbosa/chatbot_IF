@@ -13,23 +13,18 @@ intents:
 - request_historic
 - request_email
 - request_matricula
-- inform_professor_name
 - request_classes
 - request_calendar
 - request_courses
 - request_documentation
-
+- request_do_register
+- request_redo_register
 - inform_name:
     ignore_entities:
     - LOC
 - inform_professor_name:
     ignore_entities:
     - LOC
-- request_do_register
-- request_doc_register
-- request_email
-- request_historic
-- request_redo_register
 entities:
 - PER
 - LOC
@@ -49,13 +44,6 @@ slots:
       entity: PER
       conditions:
       - active_loop: name_form
-  matricula:
-    type: text
-    mappings: 
-    - type: from_entity
-      entity: matricula
-      conditions:
-      - active_loop: name_form
   professor_name:
     type: text
     influence_conversation: false
@@ -66,50 +54,62 @@ slots:
       entity: PER
       conditions:
       - active_loop: professor_name_form
-
-classes:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: classes
-      conditions:
-        - active_loop: classes_form
-
-calendar:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: calendar
-      conditions:
-        - active_loop: calendar_form
-
-courses:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: courses
-      conditions:
-        - active_loop: courses_form
-
-docuemntation:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: documentation
-      conditions:
-        - active_loop: documentation_form
+  # register:
+  #   type: text
+  #   mappings: 
+  #   - type: from_entity
+  #     entity: register
+  #     conditions:
+  #     - active_loop: name_form
+  # classes:
+  #   type: text
+  #   mappings:
+  #     - type: from_entity
+  #       entity: classes
+  #       conditions:
+  #         - active_loop: classes_form
+  # calendar:
+  #   type: text
+  #   mappings:
+  #     - type: from_entity
+  #       entity: calendar
+  #       conditions:
+  #         - active_loop: calendar_form
+  # courses:
+  #   type: text
+  #   mappings:
+  #     - type: from_entity
+  #       entity: courses
+  #       conditions:
+  #         - active_loop: courses_form
+  # documentation:
+  #   type: text
+  #   mappings:
+  #     - type: from_entity
+  #       entity: documentation
+  #       conditions:
+  #         - active_loop: documentation_form
 
 forms:
   name_form:
     required_slots:
     - name
-    - matricula
   professor_name_form:
     required_slots:
     - professor_name
-  register_form:
-    required_slots:
-    - register
+  # register_form:
+  #   required_slots:
+  #   - register
+  # calendar_form:
+  #   required_slots:
+  #   - calendar
+  # courses_form:
+  #   required_slots:
+  #   - courses
+  # documents_form:
+  #   required_slots:
+  #   - documentation
+
 responses:
   utter_greet:
   - text: Eai, seja bem-vindo :)
@@ -139,8 +139,6 @@ responses:
   - text: Os documentos que você deve apresentar no IFRS campus Rio Grande e manter atualizados são.....!
 
 actions:
-- action_buscar_professor
-- action_faq_comprovate
 - utter_ask_help
 - utter_goodbye
 - utter_greet
@@ -149,6 +147,9 @@ actions:
 - utter_ask_calendar
 - utter_ask_courses
 - utter_ask_documentation
+# custom actions
+- action_buscar_professor
+- action_faq_comprovate
 - action_buscar_classes
 - action_buscar_calendar
 - action_buscar_cursos
