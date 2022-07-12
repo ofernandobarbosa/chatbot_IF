@@ -5,11 +5,14 @@ stories:
     steps:
       - intent: greet
       - action: utter_greet
+<<<<<<< HEAD
       - intent: inform_name
         entities:
           - PER: Thais
       - action: utter_ask_matricula
       - intent: request_matricula
+=======
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
       - action: name_form
       - active_loop: name_form
       - slot_was_set:
@@ -30,14 +33,64 @@ stories:
     steps:
       - checkpoint: check_ask_help
       - intent: request_email
-      - action: utter_ask_professor
-      - intent: inform_professor_name
       - action: professor_name_form
       - active_loop: professor_name_form
       - slot_was_set:
-          - professor_name: Ricardo Gonçalves
+          - requested_slot: professor_name
+      - slot_was_set:
+          - professor_name: Gustavo Guanabara
       - slot_was_set:
           - requested_slot: null
       - active_loop: null
       - action: action_buscar_professor
       - action: utter_ask_help
+
+  - story: solicitar iformações horarios das aulas
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_classes
+      - action: utter_ask_classes
+
+  - story: solicitar calendário acadêmico
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_calendar
+      - action: utter_ask_calendar
+      - action: calendar_form
+      - active_loop: calendar_form
+      - slot_was_set:
+          - calendar_form: calendario
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: action_buscar_calendar
+      - action: utter_ask_help
+
+  - story: solicitar cursos
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_courses
+      - action: utter_ask_courses
+      - action: courses_form
+      - active_loop: courses_form
+      - slot_was_set:
+          - courses_form: automacao
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: action_buscar_cursos
+      - action: utter_ask_help
+
+  - story: solicitar documentos
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_documentation
+      - action: utter_ask_documentation
+      - action: documents_form
+      - active_loop: documents_form
+      - slot_was_set:
+          - documents_form: CPF
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: action_buscar_documentos
