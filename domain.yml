@@ -145,7 +145,20 @@ intents:
 - deny
 - goodbye
 - greet
+<<<<<<< HEAD
 - i
+=======
+- request_doc_register
+- request_to_register
+- request_historic
+- request_email
+- request_matricula
+- inform_professor_name
+
+# - faq:
+#   is_retrieval_intent_: true
+
+>>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
 - inform_name:
     ignore_entities:
     - LOC
@@ -160,7 +173,12 @@ intents:
 entities:
 - PER
 - LOC
+<<<<<<< HEAD
 - register
+=======
+- matricula
+
+>>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
 slots:
   name:
     type: text
@@ -172,6 +190,18 @@ slots:
       entity: PER
       conditions:
       - active_loop: name_form
+<<<<<<< HEAD
+=======
+
+  matricula:
+    type: text
+    mappings: 
+    - type: from_entity
+      entity: matricula
+      conditions:
+      - active_loop: name_form
+  
+>>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
   professor_name:
     type: text
     influence_conversation: false
@@ -186,6 +216,7 @@ forms:
   name_form:
     required_slots:
     - name
+    - matricula
   professor_name_form:
     required_slots:
     - professor_name
@@ -203,6 +234,8 @@ responses:
   - text: Você poderia informar o nome do professor?
   utter_ask_help:
   - text: Em que posso ajudar {name}?
+  utter_ask_matricula:
+  - text: Você poderia informar sua matricula?
   utter_goodbye:
   - text: Tchau
   - text: Até logo :)
@@ -217,4 +250,11 @@ actions:
 - utter_ask_help
 - utter_goodbye
 - utter_greet
+<<<<<<< HEAD
 >>>>>>> 33722055ef37abe992e343d59e14496d8a77180b
+=======
+- utter_ask_matricula
+# custom action
+- action_buscar_professor
+- action_faq_comprovate
+>>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6

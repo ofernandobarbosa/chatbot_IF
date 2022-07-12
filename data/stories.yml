@@ -75,6 +75,14 @@ stories:
     steps:
       - intent: greet
       - action: utter_greet
+<<<<<<< HEAD
+=======
+      - intent: inform_name
+        entities:
+          - PER: Thais
+      - action: utter_ask_matricula
+      - intent: request_matricula
+>>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
       - action: name_form
       - active_loop: name_form
       - slot_was_set:
