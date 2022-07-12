@@ -36,3 +36,53 @@ stories:
       - active_loop: null
       - action: action_buscar_professor
       - action: utter_ask_help
+
+  - story: solicitar iformações horarios das aulas
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_classes
+      - action: utter_ask_classes
+
+  - story: solicitar calendário acadêmico
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_calendar
+      - action: utter_ask_calendar
+      - action: calendar_form
+      - active_loop: calendar_form
+      - slot_was_set:
+          - calendar_form: calendario
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: action_buscar_calendar
+      - action: utter_ask_help
+
+  - story: solicitar cursos
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_courses
+      - action: utter_ask_courses
+      - action: courses_form
+      - active_loop: courses_form
+      - slot_was_set:
+          - courses_form: automacao
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: action_buscar_cursos
+      - action: utter_ask_help
+
+  - story: solicitar documentos
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_documentation
+      - action: utter_ask_documentation
+      - action: documents_form
+      - active_loop: documents_form
+      - slot_was_set:
+          - documents_form: CPF
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: action_buscar_documentos
