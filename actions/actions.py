@@ -55,6 +55,52 @@ class BuscarFaq(Action):
         dispatcher.utter_message(text="Caso precise de alguma ajuda, assista no link tal")
 
 
+
+class BuscarClasses(Action):
+    
+    def name(self) -> Text:
+        return "action_buscar_classes"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        link_classes = "XXXX"
+
+        dispatcher.utter_message(text=f"Os horários de suas aulas e disciplinas você pode conferir neste link {link_classes}!")
+
+        return []
+
+class BuscarCalendar(Action):
+    
+    def name(self) -> Text:
+        return "action_buscar_calendar"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        link_calender = "https://ifrs.edu.br/riogrande/ensino/calendario-academico/"
+
+        dispatcher.utter_message(text=f"Confira aqui seu calendário acadêmico {link_calender}")
+
+         return []
+
+class BuscarCursos(Action)
+     def name(self) -> Text:
+        return "action_buscar_cursos
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        link_cursos = "https://ifrs.edu.br/riogrande/cursos/"
+
+        dispatcher.utter_message(text=f"Confira aqui os cursos disponíveis no IFRS {link_cursos}")
+
+        return []
+
+
 class ValidaNomeForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_name_form"
@@ -78,4 +124,3 @@ class ValidaNomeForm(FormValidationAction):
         print(name)
 
         return {"name": name, "sender_id": sai}
-

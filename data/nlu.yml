@@ -112,19 +112,19 @@ nlu:
   examples: |
     - preciso da grade de horarios de aulas
     - preciso saber das disciplians do semestre
-    - grade curricular do [primeiro] semestre de [2022]
+    - grade curricular do primeiro semestre de 2022
     - grade de disciplinas
     - grade de materias
     - grade disciplinar
     - disciplinas
     - grade curricular
-    - aulas da grade do curso [curso]
-    - materias do [segundo] semestre 
-    - disciplinas [primeiro]
-    - aulas de [2022]
+    - aulas da grade do curso 
+    - materias do segundo semestre 
+    - disciplinas primeiro
+    - aulas de 2022
     - informações sobre as aulas
-    - [primeiro]
-    - [segundo]
+    - primeiro
+    - segundo
 
 - intent: request_calendar
   examples: |
@@ -133,7 +133,7 @@ nlu:
     - começo das aulas
     - inicio
     - reinicio
-    - aulas comecam no ano (ano)
+    - aulas comecam no ano 
     - aulas começam
     - quando aulas começam
     - começo
@@ -162,45 +162,45 @@ nlu:
     - EAD
     
 
-- intent: request_documentation
-  examples: |
-    - enviar documentos
-    - documentos
-    - quais documentos preciso
-    - como enviar documentos
-    - solicitar documentos
-    - documento 
-    - quais documento
-    - qual documento
-    - quais documentos
-    - quais documentos levar no IFRS
+# - intent: request_documentation
+#   examples: |
+#     - enviar documentos
+#     - documentos
+#     - quais documentos preciso
+#     - como enviar documentos
+#     - solicitar documentos
+#     - documento 
+#     - quais documento
+#     - qual documento
+#     - quais documentos
+#     - quais documentos levar no IFRS
 
-- intent: request_degree
-    - colar grau
-    - documento para colar grau
-    - o que fazer para colar grau
-    - como solicitar o fim dos meus estudos
-    - documentos para pedir a colação de grau do curso [nome_curso]
+# - intent: request_degree
+#     - colar grau
+#     - documento para colar grau
+#     - o que fazer para colar grau
+#     - como solicitar o fim dos meus estudos
+#     - documentos para pedir a colação de grau do curso [nome_curso]
 
-- intent: request_activities
-  examples: |
-    - validar hora complementar 
-    - inserir hora complementar
-    - quais atividades complementares posso usar
-    - carga horaria de atividade complementar
-    - atividades complementares
-    - o que são horas complementares
-    - atividades adicionais
+# - intent: request_activities
+#   examples: |
+#     - validar hora complementar 
+#     - inserir hora complementar
+#     - quais atividades complementares posso usar
+#     - carga horaria de atividade complementar
+#     - atividades complementares
+#     - o que são horas complementares
+#     - atividades adicionais
 
-- intent: request_internship
-  examples: |
-    - estagio 
-    - hora de estagio
-    - fazer estagio
-    - onde posso fazer estágio 
+# - intent: request_internship
+#   examples: |
+#     - estagio 
+#     - hora de estagio
+#     - fazer estagio
+#     - onde posso fazer estágio 
 
-- intent: request_laws
-  examples: |
-    - legislação do estágio
-    - regimento do estágio 
-    - regimento estágio IFRS
+# - intent: request_laws
+#   examples: |
+#     - legislação do estágio
+#     - regimento do estágio 
+#     - regimento estágio IFRS

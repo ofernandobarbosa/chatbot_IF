@@ -12,6 +12,9 @@ intents:
 - request_to_register
 - request_historic
 - request_email
+- request_classes
+- request_calendar
+- request_courses
 
 # - faq:
 #   is_retrieval_intent_: true
@@ -23,6 +26,8 @@ intents:
 entities:
 - PER
 - LOC
+- classes
+- calendar 
 
 slots:
   name:
@@ -33,10 +38,37 @@ slots:
       entity: PER
       conditions:
       - active_loop: name_form
+
+classes:
+    type: text
+    mappings: 
+    - type: from_entity
+      entity: classes
+      conditions:
+      - active_loop: classes_form
+
+calendar:
+    type: text
+    mappings: 
+    - type: from_entity
+      entity: calendar
+      conditions:
+      - active_loop: calendar_form
+
+
 forms:
   name_form:
     required_slots:
     - name
+
+  classes_form:
+    required_slots:
+    - classes
+
+  calendar_form:
+    required_slots:   
+    - calendar
+
 responses:
   utter_greet:
   - text: |-
@@ -47,6 +79,12 @@ responses:
       Qual seu nome?
   utter_ask_name:
   - text: Você poderia informar seu nome?
+  utter_ask_classes:
+  - text: Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!
+  utter_ask_calendar:
+  - text: Confira aqui seu calendário acadêmico {link_calender}!
+  utter_ask_courses:
+  - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui {link_cursos}!
   utter_ask_help:
   - text: Em que posso ajudar {name}?
   utter_goodbye:
@@ -54,7 +92,15 @@ responses:
   - text: Até logo :)
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
+
 actions:
 - utter_ask_help
 - utter_goodbye
 - utter_greet
+- utter_ask_classes
+- utter_ask_calendar
+- utter_ask_courses
+- action_buscar_classes
+- action_buscar_calendar
+- action_buscar_cursos
+

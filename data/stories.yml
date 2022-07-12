@@ -17,22 +17,33 @@ stories:
       - active_loop: null
       - action: utter_ask_help
 
-  # - story: solicitar comprovante matricula
-  #   steps:
-  #     - intent: request_register
-  #     - action: action_faq_comprovate
+  - story: solicitar iformações horarios das aulas
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_classes
+      - action: utter_ask_classes
 
-  # - story: solicitar contato de professores
-  #   steps:
-  #     - intent: request_email
-  #     - action: utter_ask_professor
-  #     - intent: inform_professor_name
-  #     - action: professor_name_form
-  #     - active_loop: professor_name_form
-  #     - slot_was_set:
-  #         - professor_name: Ricardo Gonçalves
-  #     - slot_was_set:
-  #         - requested_slot: null
-  #     - active_loop: null
-  #     - action: action_buscar_professor
-  #     - action: utter_ask_help
+  - story: solicitar calendário acadêmico
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_calendar
+      - action: utter_ask_calendar
+      - active_loop: calendar_form
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: action_buscar_calendar
+      - action: utter_ask_help
+
+  - story: solicitar cursos
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_courses
+      - action: utter_ask_courses
+      - active_loop: courses_form
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: action_buscar_cursos
+      - action: utter_ask_help
+
