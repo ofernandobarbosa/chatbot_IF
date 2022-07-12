@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: "3.1"
 session_config:
   session_expiration_time: 60
@@ -133,3 +134,87 @@ actions:
   - action_buscar_calendar
   - action_buscar_cursos
   - action_buscar_documentos
+=======
+version: '3.1'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- affirm
+- bot_challenge
+- deny
+- goodbye
+- greet
+- i
+- inform_name:
+    ignore_entities:
+    - LOC
+- inform_professor_name:
+    ignore_entities:
+    - LOC
+- request_do_register
+- request_doc_register
+- request_email
+- request_historic
+- request_redo_register
+entities:
+- PER
+- LOC
+- register
+slots:
+  name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      intent: inform_name
+      not_intent: inform_professor_name
+      entity: PER
+      conditions:
+      - active_loop: name_form
+  professor_name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      intent: inform_professor_name
+      not_intent: inform_name
+      entity: PER
+      conditions:
+      - active_loop: professor_name_form
+forms:
+  name_form:
+    required_slots:
+    - name
+  professor_name_form:
+    required_slots:
+    - professor_name
+  register_form:
+    required_slots:
+    - register
+responses:
+  utter_greet:
+  - text: Eai, seja bem-vindo :)
+  - text: Olá, seja bem-vindo :)
+  utter_ask_name:
+  - text: Qual é seu nome?
+  - text: Me informa seu nome?
+  utter_ask_professor_name:
+  - text: Você poderia informar o nome do professor?
+  utter_ask_help:
+  - text: Em que posso ajudar {name}?
+  utter_goodbye:
+  - text: Tchau
+  - text: Até logo :)
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_professor:
+  - text: Qual o nome do professor?
+  - text: Me informa o nome do professor?
+actions:
+- action_buscar_professor
+- action_faq_comprovate
+- utter_ask_help
+- utter_goodbye
+- utter_greet
+>>>>>>> 33722055ef37abe992e343d59e14496d8a77180b
