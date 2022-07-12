@@ -1,106 +1,135 @@
-version: '3.1'
+version: "3.1"
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- affirm
-- bot_challenge
-- deny
-- goodbye
-- greet
-- request_doc_register
-- request_to_register
-- request_historic
-- request_email
-- request_classes
-- request_calendar
-- request_courses
+  - affirm
+  - bot_challenge
+  - deny
+  - goodbye
+  - greet
+  - request_doc_register
+  - request_to_register
+  - request_historic
+  - request_email
+  - request_classes
+  - request_calendar
+  - request_courses
+  - request_documentation
 
-# - faq:
-#   is_retrieval_intent_: true
+  # - faq:
+  #   is_retrieval_intent_: true
 
-- inform_name:
-    ignore_entities:
-    - LOC
+  - inform_name:
+      ignore_entities:
+        - LOC
 
 entities:
-- PER
-- LOC
-- classes
-- calendar 
+  - PER
+  - LOC
+  - classes
+  - calendar
+  - courses
+  - documentation
 
 slots:
   name:
     type: text
     influence_conversation: false
     mappings:
-    - type: from_entity
-      entity: PER
-      conditions:
-      - active_loop: name_form
+      - type: from_entity
+        entity: PER
+        conditions:
+          - active_loop: name_form
 
 classes:
-    type: text
-    mappings: 
+  type: text
+  mappings:
     - type: from_entity
       entity: classes
       conditions:
-      - active_loop: classes_form
+        - active_loop: classes_form
 
 calendar:
-    type: text
-    mappings: 
+  type: text
+  mappings:
     - type: from_entity
       entity: calendar
       conditions:
-      - active_loop: calendar_form
+        - active_loop: calendar_form
 
+courses:
+  type: text
+  mappings:
+    - type: from_entity
+      entity: courses
+      conditions:
+        - active_loop: courses_form
+
+docuemntation:
+  type: text
+  mappings:
+    - type: from_entity
+      entity: documentation
+      conditions:
+        - active_loop: documentation_form
 
 forms:
   name_form:
     required_slots:
-    - name
+      - name
 
   classes_form:
     required_slots:
-    - classes
+      - classes
 
   calendar_form:
-    required_slots:   
-    - calendar
+    required_slots:
+      - calendar
+
+  courses_form:
+    required_slots:
+      - courses
+      
+  documentation_form:
+    required_slots:
+      - docuemntation 
 
 responses:
   utter_greet:
-  - text: |-
-      Eai, seja bem-vindo :)
-      Qual seu nome?
-  - text: |-
-      Olá, seja bem-vindo :)
-      Qual seu nome?
+    - text: |-
+        Eai, seja bem-vindo :)
+        Qual seu nome?
+    - text: |-
+        Olá, seja bem-vindo :)
+        Qual seu nome?
   utter_ask_name:
-  - text: Você poderia informar seu nome?
+    - text: Você poderia informar seu nome?
   utter_ask_classes:
-  - text: Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!
+    - text: Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!
   utter_ask_calendar:
-  - text: Confira aqui seu calendário acadêmico {link_calender}!
+    - text: Confira aqui seu calendário acadêmico {link_calender}!
   utter_ask_courses:
-  - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui {link_cursos}!
+    - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui {link_cursos}!
+  utter_ask_documentation:
+    - text: Os documentos que você deve apresentar no IFRS campus Rio Grande e manter atualizados são.....!
   utter_ask_help:
-  - text: Em que posso ajudar {name}?
+    - text: Em que posso ajudar {name}?
   utter_goodbye:
-  - text: Tchau
-  - text: Até logo :)
+    - text: Tchau
+    - text: Até logo :)
   utter_iamabot:
-  - text: I am a bot, powered by Rasa.
+    - text: I am a bot, powered by Rasa.
 
 actions:
-- utter_ask_help
-- utter_goodbye
-- utter_greet
-- utter_ask_classes
-- utter_ask_calendar
-- utter_ask_courses
-- action_buscar_classes
-- action_buscar_calendar
-- action_buscar_cursos
-
+  - utter_ask_help
+  - utter_goodbye
+  - utter_greet
+  - utter_ask_classes
+  - utter_ask_calendar
+  - utter_ask_courses
+  - utter_ask_documentation
+  - action_buscar_classes
+  - action_buscar_calendar
+  - action_buscar_cursos
+  - action_buscar_documentos

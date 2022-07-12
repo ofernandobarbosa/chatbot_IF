@@ -55,6 +55,11 @@ class BuscarFaq(Action):
         dispatcher.utter_message(text="Caso precise de alguma ajuda, assista no link tal")
 
 
+        # classes = tracker.get_slot('classes')
+        # calendar = tracker.get_slot('calendar')
+        # courses = tracker.get._slot('courses')
+        # documents = tracker.get_slot('documents')
+
 
 class BuscarClasses(Action):
     
@@ -88,7 +93,7 @@ class BuscarCalendar(Action):
 
 class BuscarCursos(Action)
      def name(self) -> Text:
-        return "action_buscar_cursos
+        return "action_buscar_courses"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -100,6 +105,17 @@ class BuscarCursos(Action)
 
         return []
 
+class Buscardocumentos(Action)
+     def name(self) -> Text:
+        return "action_buscar_documents"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+         dispatcher.utter_message(text=f"Estes são os documentos que você precisa manter atualizados no IFRS: CPF, Comprovante de residência e dados cadastrais")
+
+        return []
 
 class ValidaNomeForm(FormValidationAction):
     def name(self) -> Text:

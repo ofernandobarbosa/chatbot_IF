@@ -161,19 +161,18 @@ nlu:
     - quais cursos
     - EAD
     
-
-# - intent: request_documentation
-#   examples: |
-#     - enviar documentos
-#     - documentos
-#     - quais documentos preciso
-#     - como enviar documentos
-#     - solicitar documentos
-#     - documento 
-#     - quais documento
-#     - qual documento
-#     - quais documentos
-#     - quais documentos levar no IFRS
+- intent: request_documentation
+  examples: |
+    - enviar documentos
+    - documentos
+    - quais documentos preciso
+    - como enviar documentos
+    - solicitar documentos
+    - documento 
+    - quais documento
+    - qual documento
+    - quais documentos
+    - quais documentos levar no IFRS
 
 # - intent: request_degree
 #     - colar grau
