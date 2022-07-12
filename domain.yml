@@ -8,43 +8,43 @@ intents:
 - deny
 - goodbye
 - greet
-- request_doc_register
-- request_do_register
-- request_redo_register
-- request_historic
-- request_email
-- inform_professor_name
-
-# - faq:
-#   is_retrieval_intent_: true
-
+- i
 - inform_name:
     ignore_entities:
     - LOC
-
+- inform_professor_name:
+    ignore_entities:
+    - LOC
+- request_do_register
+- request_doc_register
+- request_email
+- request_historic
+- request_redo_register
 entities:
 - PER
 - LOC
-
+- register
 slots:
   name:
     type: text
     influence_conversation: false
     mappings:
     - type: from_entity
+      intent: inform_name
+      not_intent: inform_professor_name
       entity: PER
       conditions:
       - active_loop: name_form
-  
   professor_name:
     type: text
     influence_conversation: false
     mappings:
     - type: from_entity
+      intent: inform_professor_name
+      not_intent: inform_name
       entity: PER
       conditions:
       - active_loop: professor_name_form
-
 forms:
   name_form:
     required_slots:
@@ -52,17 +52,16 @@ forms:
   professor_name_form:
     required_slots:
     - professor_name
-
+  register_form:
+    required_slots:
+    - register
 responses:
   utter_greet:
-  - text: |-
-      Eai, seja bem-vindo :)
-      Qual seu nome?
-  - text: |-
-      Olá, seja bem-vindo :)
-      Qual seu nome?
+  - text: Eai, seja bem-vindo :)
+  - text: Olá, seja bem-vindo :)
   utter_ask_name:
-  - text: Você poderia informar seu nome?
+  - text: Qual é seu nome?
+  - text: Me informa seu nome?
   utter_ask_professor_name:
   - text: Você poderia informar o nome do professor?
   utter_ask_help:
@@ -73,14 +72,11 @@ responses:
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   utter_ask_professor:
-  - text: |-
-      Qual o nome do professor?
-      Me informa o nome do professor?
+  - text: Qual o nome do professor?
+  - text: Me informa o nome do professor?
 actions:
+- action_buscar_professor
+- action_faq_comprovate
 - utter_ask_help
 - utter_goodbye
 - utter_greet
-
-# custom action
-- action_buscar_professor
-- action_faq_comprovate

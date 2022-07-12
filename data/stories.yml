@@ -5,9 +5,6 @@ stories:
     steps:
       - intent: greet
       - action: utter_greet
-      - intent: inform_name
-        entities:
-          - PER: Thais
       - action: name_form
       - active_loop: name_form
       - slot_was_set:
@@ -28,12 +25,12 @@ stories:
     steps:
       - checkpoint: check_ask_help
       - intent: request_email
-      - action: utter_ask_professor
-      - intent: inform_professor_name
       - action: professor_name_form
       - active_loop: professor_name_form
       - slot_was_set:
-          - professor_name: Ricardo Gonçalves
+          - requested_slot: professor_name
+      - slot_was_set:
+          - professor_name: Gustavo Guanabara
       - slot_was_set:
           - requested_slot: null
       - active_loop: null
