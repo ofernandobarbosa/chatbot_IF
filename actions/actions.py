@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # This files contains your custom actions which can be used to run
 # custom Python code.
 #
@@ -151,8 +152,9 @@ class ValidaNomeForm(FormValidationAction):
 
 # This is a simple example for a custom action which utters "Hello World!"
 
+=======
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
 from typing import Any, Text, Dict, List
-
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
@@ -210,16 +212,76 @@ class BuscarFaq(Action):
         return []
 
 
+class BuscarClasses(Action):
+
+    def name(self) -> Text:
+        return "action_buscar_classes"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        link_classes = "XXXX"
+
+        dispatcher.utter_message(
+            text=f"Os horários de suas aulas e disciplinas você pode conferir neste link {link_classes}!")
+
+        return []
+
+
+class BuscarCalendar(Action):
+
+    def name(self) -> Text:
+        return "action_buscar_calendar"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        link_calender = "https://ifrs.edu.br/riogrande/ensino/calendario-academico/"
+
+        dispatcher.utter_message(
+            text=f"Confira aqui seu calendário acadêmico {link_calender}")
+
+        return []
+
+
+class BuscarCursos(Action):
+     def name(self) -> Text:
+        return "action_buscar_courses"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        link_cursos = "https://ifrs.edu.br/riogrande/cursos/"
+
+        dispatcher.utter_message(text=f"Confira aqui os cursos disponíveis no IFRS {link_cursos}")
+
+        return []
+
+class Buscardocumentos(Action):
+     def name(self) -> Text:
+        return "action_buscar_documents"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text=f"Estes são os documentos que você precisa manter atualizados no IFRS: CPF, Comprovante de residência e dados cadastrais")
+
+        return []
+    
 class ValidaNomeForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_name_form"
 
     async def validate_name(self,
-                            slot_value: Any,
-                            dispatcher: CollectingDispatcher,
-                            tracker: Tracker,
-                            domain: DomainDict,
-                            ) -> Dict[Text, Any]:
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
         name = slot_value
         sai = tracker.get_slot("sender_id")
         if(sai == None):

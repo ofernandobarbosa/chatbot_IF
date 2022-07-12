@@ -333,14 +333,21 @@ nlu:
     - profs do IFRS
     - contato dos professores
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    - email dos professores do curso [sistemas da informação]
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
 - synonym: atestado
   examples: |
     - atestado de matricula
     - comprovante de matricula
+<<<<<<< HEAD
 >>>>>>> 33722055ef37abe992e343d59e14496d8a77180b
 =======
     - email dos professores do curso [sistemas da informação]
 
+=======
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
 - intent: request_matricula
   examples: |
     - Meu número de matricula é [a10101010](matricula)
@@ -350,6 +357,7 @@ nlu:
     - matricula: [a10101010](matricula)
     - O número de matricula é [a10101010](matricula)
     - A matricula é [a10101010](matricula)
+<<<<<<< HEAD
 
 
 
@@ -436,3 +444,67 @@ nlu:
 #     - regimento do IFRS
 #     - regimento
 >>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
+=======
+- intent: request_classes
+  examples: |
+    - preciso da grade de horarios de aulas
+    - preciso saber das disciplians do semestre
+    - grade curricular do primeiro semestre de 2022
+    - grade de disciplinas
+    - grade de materias
+    - grade disciplinar
+    - disciplinas
+    - grade curricular
+    - aulas da grade do curso 
+    - materias do segundo semestre 
+    - disciplinas primeiro
+    - aulas de 2022
+    - informações sobre as aulas
+    - primeiro
+    - segundo
+- intent: request_calendar
+  examples: |
+    - dia de inicio de aulas
+    - inicio das aulas
+    - começo das aulas
+    - inicio
+    - reinicio
+    - aulas comecam no ano 
+    - aulas começam
+    - quando aulas começam
+    - começo
+    - perído letivo
+    - início das férias de inverno
+    - início das férias de verão
+    - férias
+    - fim das férias de verão
+    - fim das ferias de inverno
+    - fim das ferias
+- intent: request_courses
+  examples: |
+    - cursos do IFRS
+    - cursos do IFRS de Rio Grande
+    - cursos oferecidos
+    - cursos ofertados
+    - cursos disponíveis
+    - IFRS no rio grande do sul
+    - IFRS no estado
+    - cursos integrantes do IFRS
+    - cursos de pós-graduação IFRS Rio Grande
+    - quais os cursos livres ofertados 
+    - tipos de cursos
+    - quais cursos
+    - EAD    
+- intent: request_documentation
+  examples: |
+    - enviar documentos
+    - documentos
+    - quais documentos preciso
+    - como enviar documentos
+    - solicitar documentos
+    - documento 
+    - quais documento
+    - qual documento
+    - quais documentos
+    - quais documentos levar no IFRS
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1

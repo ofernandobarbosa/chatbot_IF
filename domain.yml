@@ -146,19 +146,30 @@ intents:
 - goodbye
 - greet
 <<<<<<< HEAD
+<<<<<<< HEAD
 - i
 =======
+=======
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
 - request_doc_register
 - request_to_register
 - request_historic
 - request_email
 - request_matricula
 - inform_professor_name
+<<<<<<< HEAD
 
 # - faq:
 #   is_retrieval_intent_: true
 
 >>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
+=======
+- request_classes
+- request_calendar
+- request_courses
+- request_documentation
+
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
 - inform_name:
     ignore_entities:
     - LOC
@@ -175,10 +186,17 @@ entities:
 - LOC
 <<<<<<< HEAD
 - register
+<<<<<<< HEAD
 =======
 - matricula
 
 >>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
+=======
+- classes
+- calendar
+- courses
+- documentation
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
 slots:
   name:
     type: text
@@ -191,8 +209,11 @@ slots:
       conditions:
       - active_loop: name_form
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
+=======
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
   matricula:
     type: text
     mappings: 
@@ -200,8 +221,11 @@ slots:
       entity: matricula
       conditions:
       - active_loop: name_form
+<<<<<<< HEAD
   
 >>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
+=======
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
   professor_name:
     type: text
     influence_conversation: false
@@ -212,6 +236,39 @@ slots:
       entity: PER
       conditions:
       - active_loop: professor_name_form
+
+classes:
+  type: text
+  mappings:
+    - type: from_entity
+      entity: classes
+      conditions:
+        - active_loop: classes_form
+
+calendar:
+  type: text
+  mappings:
+    - type: from_entity
+      entity: calendar
+      conditions:
+        - active_loop: calendar_form
+
+courses:
+  type: text
+  mappings:
+    - type: from_entity
+      entity: courses
+      conditions:
+        - active_loop: courses_form
+
+docuemntation:
+  type: text
+  mappings:
+    - type: from_entity
+      entity: documentation
+      conditions:
+        - active_loop: documentation_form
+
 forms:
   name_form:
     required_slots:
@@ -244,12 +301,22 @@ responses:
   utter_ask_professor:
   - text: Qual o nome do professor?
   - text: Me informa o nome do professor?
+  utter_ask_classes:
+  - text: Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!
+  utter_ask_calendar:
+  - text: Confira aqui seu calendário acadêmico {link_calender}!
+  utter_ask_courses:
+  - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui {link_cursos}!
+  utter_ask_documentation:
+  - text: Os documentos que você deve apresentar no IFRS campus Rio Grande e manter atualizados são.....!
+
 actions:
 - action_buscar_professor
 - action_faq_comprovate
 - utter_ask_help
 - utter_goodbye
 - utter_greet
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 33722055ef37abe992e343d59e14496d8a77180b
 =======
@@ -258,3 +325,14 @@ actions:
 - action_buscar_professor
 - action_faq_comprovate
 >>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
+=======
+- utter_ask_matricula
+- utter_ask_classes
+- utter_ask_calendar
+- utter_ask_courses
+- utter_ask_documentation
+- action_buscar_classes
+- action_buscar_calendar
+- action_buscar_cursos
+- action_buscar_documentos
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
