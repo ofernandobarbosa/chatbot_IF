@@ -15,7 +15,7 @@ intents:
 - request_matricula
 - request_classes
 - request_calendar
-- request_courses
+- request_cursos
 - request_documentation
 - request_do_register
 - request_redo_register
@@ -31,7 +31,7 @@ entities:
 - register
 - classes
 - calendar
-- courses
+- cursos
 - documentation
 slots:
   name:
@@ -75,13 +75,13 @@ slots:
   #       entity: calendar
   #       conditions:
   #         - active_loop: calendar_form
-  # courses:
-  #   type: text
-  #   mappings:
-  #     - type: from_entity
-  #       entity: courses
-  #       conditions:
-  #         - active_loop: courses_form
+  cursos:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: cursos
+        conditions:
+          - active_loop: cursos_form
   # documentation:
   #   type: text
   #   mappings:
@@ -103,9 +103,9 @@ forms:
   # calendar_form:
   #   required_slots:
   #   - calendar
-  # courses_form:
-  #   required_slots:
-  #   - courses
+  cursos_form:
+    required_slots:
+    - cursos
   # documents_form:
   #   required_slots:
   #   - documentation
@@ -133,7 +133,7 @@ responses:
   - text: Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!
   utter_ask_calendar:
   - text: Confira aqui seu calendário acadêmico {link_calender}!
-  utter_ask_courses:
+  utter_ask_cursos:
   - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui {link_cursos}!
   utter_ask_documentation:
   - text: Os documentos que você deve apresentar no IFRS campus Rio Grande e manter atualizados são.....!
@@ -145,7 +145,7 @@ actions:
 - utter_ask_matricula
 - utter_ask_classes
 - utter_ask_calendar
-- utter_ask_courses
+- utter_ask_cursos
 - utter_ask_documentation
 # custom actions
 - action_buscar_professor

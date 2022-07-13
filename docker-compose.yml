@@ -1,0 +1,31 @@
+version: '3.0'
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: bot.dockerfile
+    public: true
+    depends_on:
+      - actions
+    ports:
+      - 5005:5056
+    volumes:
+      - ./:/app
+    command:
+      - run
+      - --enable-api
+      - --cors
+      - "*"
+      - --credentials
+      - credentials.yml
+      - --debug
+      - -p 5056
+
+  actions:
+    build:
+      context: .
+      dockerfile: actions.dockerfile
+    ports:
+      - 5055:5055
+    volumes:
+      - ./actions:/app/actions

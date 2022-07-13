@@ -58,20 +58,20 @@ stories:
   #     - action: action_buscar_calendar
   #     - action: utter_ask_help
 
-  # - story: solicitar cursos
-  #   steps:
-  #     - checkpoint: check_ask_help
-  #     - intent: request_courses
-  #     - action: utter_ask_courses
-  #     - action: courses_form
-  #     - active_loop: courses_form
-  #     - slot_was_set:
-  #         - courses_form: automacao
-  #     - slot_was_set:
-  #         - requested_slot: null
-  #     - active_loop: null
-  #     - action: action_buscar_cursos
-  #     - action: utter_ask_help
+  - story: solicitar cursos
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_cursos
+      # - action: utter_ask_cursos
+      # - action: cursos_form
+      # - active_loop: cursos_form
+      # - slot_was_set:
+      #     - cursos_form: automacao
+      # - slot_was_set:
+      #     - requested_slot: null
+      # - active_loop: null
+      - action: action_buscar_cursos
+      - action: utter_ask_help
 
   # - story: solicitar documentos
   #   steps:

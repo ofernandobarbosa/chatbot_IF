@@ -92,7 +92,7 @@ class BuscarCalendar(Action):
 
 class BuscarCursos(Action):
     def name(self) -> Text:
-        return "action_buscar_courses"
+        return "action_buscar_cursos"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,

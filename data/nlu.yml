@@ -174,7 +174,7 @@ nlu:
     - fim das férias de verão
     - fim das ferias de inverno
     - fim das ferias
-- intent: request_courses
+- intent: request_cursos
   examples: |
     - cursos do IFRS
     - cursos do IFRS de Rio Grande
