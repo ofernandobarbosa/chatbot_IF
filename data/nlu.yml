@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: "3.1"
 nlu:
 #### intents "padrões"
@@ -202,3 +203,210 @@ nlu:
 #     - legislação do estágio
 #     - regimento do IFRS
 #     - regimento
+=======
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - olá
+    - oi
+    - eae
+    - bom dia
+    - boa tarde
+    - boa noite
+    - bdia
+    - oie
+    - coe
+    - oe
+    - cpx
+    - buenas
+- intent: goodbye
+  examples: |
+    - xau
+    - tchau
+    - até mais
+    - até
+    - adios
+    - bye
+    - até logo
+    - Tchau
+- intent: affirm
+  examples: |
+    - sim
+    - s
+    - claro
+    - exato
+    - pode ser
+    - certo
+    - sempre
+    - si
+- intent: deny
+  examples: |
+    - não
+    - n
+    - nao
+    - nunca
+    - acho que não
+    - não quero
+    - nops
+- intent: bot_challenge
+  examples: |
+    - você é um robo?
+    - você é um humano?
+    - estou falando com um robô?
+    - estou falando com um humano?
+- intent: inform_name
+  examples: |
+    - meu nome é [fernando](PER)
+    - me chamo [thais](PER)
+    - [Ricardo](PER)
+    - sou a [Samanta](PER)
+    - eu sou a [Ivete](PER)
+    - [Fernando](PER) é meu nome
+    - me chamam de [João](PER)
+    - [fernando](PER)
+    - [thais](PER)
+    - [Fernando](PER)
+    - [Fernando](PER)
+- intent: request_doc_register
+  examples: |
+    - atestado
+    - comprovante
+    - preciso do meu atestado de matricula
+    - preciso do meu comprovante de matrícula
+    - quero meu comprovante de matricula
+    - comprovante de matricula
+    - mostrar comprovante de matricula
+    - quero um atestado
+    - quero um comprovante
+- intent: request_do_register
+  examples: |
+    - quais documentos preciso para fazer a matricula
+    - onde faço a matrícula
+    - como faço a matrícula
+    - onde fazer a matrícula
+    - como fazer a matricula
+    - período para fazer a matrícula
+    - horário para fazer matricula
+    - dias para fazer a matricula
+    - site para matricula
+- intent: request_redo_register
+  examples: |
+    - dias para fazer a rematrícula
+    - solicitar rematricula
+    - rematrícula
+    - como fazer a rematricula
+    - onde faço a rematricula
+    - como solicitar rematrícula
+    - link da rematricula
+    - site para rematrícula
+- intent: request_historic
+  examples: |
+    - gostaria do meu historico escolar
+    - histórico escolar
+    - historico
+    - onde posso pegar meu historico escolar
+    - onde fica o histórico escolar
+    - fornecer historico escolar
+- intent: inform_professor_name
+  examples: |
+    - o nome do professor é [Gustavo Guanabara](PER)
+    - é [Luciano Pedrosa](PER)
+    - o nome dela é [Ana Maria](PER)
+    - [Patrícia dos Santos](PER)
+    - [rodrigo](PER)
+    - [Gustavo Guanabara][{"entity": "PER"}, {"entity": "PER"}]
+    - [Gustavo Guanabara](PER)
+- intent: request_email
+  examples: |
+    - e-mail do professor [Gustavo Guanabara](PER)
+    - e-mail da professora [Luciano](PER)
+    - email do professor [Patricia](PER)
+    - email da professora [Ana Maria](PER)
+    - email dos professores
+    - contato prof
+    - e-mail
+    - email
+    - contato
+    - profs do IFRS
+    - contato dos professores
+    - email dos professores do curso [sistemas da informação]
+- synonym: atestado
+  examples: |
+    - atestado de matricula
+    - comprovante de matricula
+- intent: request_classes
+  examples: |
+    - preciso da grade de horarios de aulas
+    - preciso saber das disciplians do semestre
+    - grade curricular do primeiro semestre de 2022
+    - grade de disciplinas
+    - grade de materias
+    - grade disciplinar
+    - disciplinas
+    - grade curricular
+    - aulas da grade do curso 
+    - materias do segundo semestre 
+    - disciplinas primeiro
+    - aulas de 2022
+    - informações sobre as aulas
+    - primeiro
+    - segundo
+- intent: request_calendar
+  examples: |
+    - dia de inicio de aulas
+    - inicio das aulas
+    - começo das aulas
+    - inicio
+    - reinicio
+    - aulas comecam no ano 
+    - aulas começam
+    - quando aulas começam
+    - começo
+    - perído letivo
+    - início das férias de inverno
+    - início das férias de verão
+    - férias
+    - fim das férias de verão
+    - fim das ferias de inverno
+    - fim das ferias
+- intent: request_courses
+  examples: |
+    - cursos do IFRS
+    - cursos do IFRS de Rio Grande
+    - cursos oferecidos
+    - cursos ofertados
+    - cursos disponíveis
+    - IFRS no rio grande do sul
+    - IFRS no estado
+    - cursos integrantes do IFRS
+    - cursos de pós-graduação IFRS Rio Grande
+    - quais os cursos livres ofertados 
+    - tipos de cursos
+    - quais cursos
+    - EAD    
+- intent: request_documents
+  examples: |
+    - enviar documentos
+    - documentos
+    - quais documentos preciso
+    - como enviar documentos
+    - solicitar documentos
+    - documento 
+    - quais documento
+    - qual documento
+    - quais documentos
+    - quais documentos levar no IFRS
+
+- intent: request_internship
+  examples: |
+    - estagio 
+    - estágio
+    - hora de estagio
+    - fazer estagio
+    - como fazer estágio
+    - estagios
+    - estágios
+    
+>>>>>>> 44db2c0bfae2c3892db5ec127b64400f4d26735f
