@@ -9,11 +9,15 @@ stories:
         entities:
           - PER: Thais
       - action: utter_ask_matricula
-      - intent: request_matricula
+      - intent: inform_matricula
       - action: name_form
       - active_loop: name_form
+      - slot_was_set: 
+          - requested_slot: matricula
       - slot_was_set:
           - name: Thais
+      - slot_was_set:
+          - matricula: a10203040
       - slot_was_set:
           - requested_slot: null
       - active_loop: null

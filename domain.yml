@@ -12,7 +12,7 @@ intents:
 - request_to_register
 - request_historic
 - request_email
-- request_matricula
+- inform_matricula
 - inform_professor_name
 
 # - faq:
@@ -42,6 +42,7 @@ slots:
     mappings: 
     - type: from_entity
       entity: matricula
+      not_intent: greet
       conditions:
       - active_loop: name_form
   
