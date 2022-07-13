@@ -130,15 +130,6 @@ nlu:
   examples: |
     - atestado de matricula
     - comprovante de matricula
-- intent: request_matricula
-  examples: |
-    - Meu número de matricula é [a10101010](matricula)
-    - Minha matricula é [a10101010](matricula)
-    - [a10101010](matricula)
-    - Meu número é [a10101010](matricula)
-    - matricula: [a10101010](matricula)
-    - O número de matricula é [a10101010](matricula)
-    - A matricula é [a10101010](matricula)
 - intent: request_classes
   examples: |
     - preciso da grade de horarios de aulas
@@ -174,7 +165,7 @@ nlu:
     - fim das férias de verão
     - fim das ferias de inverno
     - fim das ferias
-- intent: request_cursos
+- intent: request_courses
   examples: |
     - cursos do IFRS
     - cursos do IFRS de Rio Grande
@@ -189,7 +180,7 @@ nlu:
     - tipos de cursos
     - quais cursos
     - EAD    
-- intent: request_documentation
+- intent: request_documents
   examples: |
     - enviar documentos
     - documentos
@@ -201,3 +192,14 @@ nlu:
     - qual documento
     - quais documentos
     - quais documentos levar no IFRS
+
+- intent: request_internship
+  examples: |
+    - estagio 
+    - estágio
+    - hora de estagio
+    - fazer estagio
+    - como fazer estágio
+    - estagios
+    - estágios
+    

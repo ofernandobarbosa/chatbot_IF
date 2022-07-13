@@ -32,6 +32,7 @@ class BuscarProfessor(Action):
         nome_professor = tracker.get_slot("professor_name")
 
         dispatcher.utter_message(text="fulano@riogrande.ifrs.edu.br")
+        dispatcher.utter_message(text= nome_professor)
 
         return[SlotSet("professor_name", None)]
 
@@ -65,10 +66,10 @@ class BuscarClasses(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link_classes = "XXXX"
+        link_classes = "https://ifrs.edu.br/riogrande/ensino/retorno-do-calendario/horarios/"
 
         dispatcher.utter_message(
-            text=f"Os horários de suas aulas e disciplinas você pode conferir neste link {link_classes}!")
+            text=f"Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!")
 
         return []
 
@@ -92,7 +93,7 @@ class BuscarCalendar(Action):
 
 class BuscarCursos(Action):
     def name(self) -> Text:
-        return "action_buscar_cursos"
+        return "action_buscar_courses"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -104,7 +105,6 @@ class BuscarCursos(Action):
             text=f"Confira aqui os cursos disponíveis no IFRS {link_cursos}")
 
         return []
-
 
 class Buscardocumentos(Action):
     def name(self) -> Text:
@@ -119,6 +119,20 @@ class Buscardocumentos(Action):
 
         return []
 
+class BuscarEstagios(Action):
+    def name(self) -> Text:
+        return "action_buscar_internship"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        link_estagio = "https://ifrs.edu.br/riogrande/extensao/estagios/"
+
+        dispatcher.utter_message(
+            text=f"Confira aqui maiores informações sobre estágios no IFRS! {link_estagio}")
+
+        return []
 
 class ValidaNomeForm(FormValidationAction):
     def name(self) -> Text:
