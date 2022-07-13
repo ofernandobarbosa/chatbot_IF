@@ -1,6 +1,5 @@
 version: "3.1"
 nlu:
-#### intents "padrões"
 - intent: greet
   examples: |
     - hey
@@ -49,10 +48,8 @@ nlu:
   examples: |
     - você é um robo?
     - você é um humano?
-    - estou falando com um robo?
+    - estou falando com um robô?
     - estou falando com um humano?
-
-  #### intents personalizadas
 - intent: inform_name
   examples: |
     - meu nome é [fernando](PER)
@@ -65,50 +62,83 @@ nlu:
     - [fernando](PER)
     - [thais](PER)
     - [Fernando](PER)
-
+    - [Fernando](PER)
 - intent: request_doc_register
   examples: |
+    - atestado
+    - comprovante
     - preciso do meu atestado de matricula
-    - matrícula
     - preciso do meu comprovante de matrícula
     - quero meu comprovante de matricula
-    - preciso do comprovante de frequencia
-    - quais documentos para a matricula
-    - matricula
     - comprovante de matricula
-    - ver matricula
-    - informar comprovante de matricula
-
-- intent: request_to_register
+    - mostrar comprovante de matricula
+    - quero um atestado
+    - quero um comprovante
+- intent: request_do_register
   examples: |
     - quais documentos preciso para fazer a matricula
+    - onde faço a matrícula
+    - como faço a matrícula
+    - onde fazer a matrícula
+    - como fazer a matricula
     - período para fazer a matrícula
     - horário para fazer matricula
     - dias para fazer a matricula
-    - dias para fazer a rematricula
+    - site para matricula
+- intent: request_redo_register
+  examples: |
+    - dias para fazer a rematrícula
     - solicitar rematricula
-    - rematricula
-    - como fazer a rematricula 
-
+    - rematrícula
+    - como fazer a rematricula
+    - onde faço a rematricula
+    - como solicitar rematrícula
+    - link da rematricula
+    - site para rematrícula
 - intent: request_historic
   examples: |
     - gostaria do meu historico escolar
     - histórico escolar
     - historico
-    
-
+    - onde posso pegar meu historico escolar
+    - onde fica o histórico escolar
+    - fornecer historico escolar
+- intent: inform_professor_name
+  examples: |
+    - o nome do professor é [Gustavo Guanabara](PER)
+    - é [Luciano Pedrosa](PER)
+    - o nome dela é [Ana Maria](PER)
+    - [Patrícia dos Santos](PER)
+    - [rodrigo](PER)
+    - [Gustavo Guanabara][{"entity": "PER"}, {"entity": "PER"}]
+    - [Gustavo Guanabara](PER)
 - intent: request_email
   examples: |
-    - e-mail do professor [nome_professor]
-    - e-mail da professora [nome_professor]
-    - email do professor [nome_professor]
-    - email da professora [nome_professor]
-    - contato prof 
+    - e-mail do professor [Gustavo Guanabara](PER)
+    - e-mail da professora [Luciano](PER)
+    - email do professor [Patricia](PER)
+    - email da professora [Ana Maria](PER)
+    - email dos professores
+    - contato prof
+    - e-mail
+    - email
+    - contato
     - profs do IFRS
     - contato dos professores
     - email dos professores do curso [sistemas da informação]
+<<<<<<< HEAD
 
+<<<<<<< HEAD
 - intent: inform_matricula
+=======
+=======
+- synonym: atestado
+  examples: |
+    - atestado de matricula
+    - comprovante de matricula
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
+- intent: request_matricula
+>>>>>>> 251402c72299199695139d2294321a8ee2130822
   examples: |
     - Meu número de matricula é [a10101010](matricula)
     - Minha matricula é [a10101010](matricula)
@@ -117,6 +147,7 @@ nlu:
     - matricula: [a10101010](matricula)
     - O número de matricula é [a10101010](matricula)
     - A matricula é [a10101010](matricula)
+<<<<<<< HEAD
 
 
 
@@ -202,3 +233,67 @@ nlu:
 #     - legislação do estágio
 #     - regimento do IFRS
 #     - regimento
+=======
+- intent: request_classes
+  examples: |
+    - preciso da grade de horarios de aulas
+    - preciso saber das disciplians do semestre
+    - grade curricular do primeiro semestre de 2022
+    - grade de disciplinas
+    - grade de materias
+    - grade disciplinar
+    - disciplinas
+    - grade curricular
+    - aulas da grade do curso 
+    - materias do segundo semestre 
+    - disciplinas primeiro
+    - aulas de 2022
+    - informações sobre as aulas
+    - primeiro
+    - segundo
+- intent: request_calendar
+  examples: |
+    - dia de inicio de aulas
+    - inicio das aulas
+    - começo das aulas
+    - inicio
+    - reinicio
+    - aulas comecam no ano 
+    - aulas começam
+    - quando aulas começam
+    - começo
+    - perído letivo
+    - início das férias de inverno
+    - início das férias de verão
+    - férias
+    - fim das férias de verão
+    - fim das ferias de inverno
+    - fim das ferias
+- intent: request_courses
+  examples: |
+    - cursos do IFRS
+    - cursos do IFRS de Rio Grande
+    - cursos oferecidos
+    - cursos ofertados
+    - cursos disponíveis
+    - IFRS no rio grande do sul
+    - IFRS no estado
+    - cursos integrantes do IFRS
+    - cursos de pós-graduação IFRS Rio Grande
+    - quais os cursos livres ofertados 
+    - tipos de cursos
+    - quais cursos
+    - EAD    
+- intent: request_documentation
+  examples: |
+    - enviar documentos
+    - documentos
+    - quais documentos preciso
+    - como enviar documentos
+    - solicitar documentos
+    - documento 
+    - quais documento
+    - qual documento
+    - quais documentos
+    - quais documentos levar no IFRS
+>>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1

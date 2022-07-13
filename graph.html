@@ -138,6 +138,7 @@
 0 [class="start active", fillcolor=green, fontsize=12, label=START, style=filled];
 "-1" [class=end, fillcolor=red, fontsize=12, label=END, style=filled];
 1 [class="", fontsize=12, label=utter_greet];
+<<<<<<< HEAD
 2 [class="", fontsize=12, label=utter_ask_matricula];
 3 [class="", fontsize=12, label=name_form];
 4 [class="", fontsize=12, label=utter_ask_help];
@@ -181,6 +182,41 @@
 23 -> 11  [class="", key=0];
 24 -> 15  [class="", key=0];
 25 -> 17  [class="", key=0];
+=======
+2 [class="", fontsize=12, label=name_form];
+3 [class="", fontsize=12, label=utter_ask_help];
+4 [class="", fontsize=12, label=action_faq_comprovate];
+8 [class="", fontsize=12, label=professor_name_form];
+9 [class="", fontsize=12, label=action_buscar_professor];
+10 [class="", fontsize=12, label=utter_ask_help];
+11 [class="", fontsize=12, label="..."];
+12 [class="", fontsize=12, label=utter_goodbye];
+14 [class="", fontsize=12, label=utter_iamabot];
+15 [class=intent, fillcolor=lightblue, label=eae, shape=rect, style=filled];
+16 [class=intent, fillcolor=lightblue, label="quero um atestado", shape=rect, style=filled];
+17 [class=intent, fillcolor=lightblue, label="email dos professores", shape=rect, style=filled];
+18 [class=intent, fillcolor=lightblue, label=adios, shape=rect, style=filled];
+19 [class=intent, fillcolor=lightblue, label="estou falando com um robô?", shape=rect, style=filled];
+0 -> 11  [class="", key=NONE, label=""];
+0 -> 15  [class="", key=0];
+1 -> 2  [class="", key=NONE, label=""];
+2 -> 3  [class="", key=NONE, label=""];
+3 -> 16  [class="", key=0];
+3 -> 17  [class="", key=0];
+4 -> "-1"  [class="", key=NONE, label=""];
+8 -> 9  [class="", key=NONE, label=""];
+9 -> 10  [class="", key=NONE, label=""];
+10 -> "-1"  [class="", key=NONE, label=""];
+11 -> 18  [class="", key=0];
+11 -> 19  [class="", key=0];
+12 -> "-1"  [class="", key=NONE, label=""];
+14 -> "-1"  [class="", key=NONE, label=""];
+15 -> 1  [class="", key=0];
+16 -> 4  [class="", key=0];
+17 -> 8  [class="", key=0];
+18 -> 12  [class="", key=0];
+19 -> 14  [class="", key=0];
+>>>>>>> 251402c72299199695139d2294321a8ee2130822
 }
 `;
     drawGraph(graph);
