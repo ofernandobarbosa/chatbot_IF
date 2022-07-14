@@ -6,20 +6,6 @@ from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import SlotSet
 
 
-class ActionHelloWorld(Action):
-
-    def name(self) -> Text:
-        return "action_hello_world"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        dispatcher.utter_message(text="Hello World!")
-
-        return []
-
-
 class BuscarProfessor(Action):
 
     def name(self) -> Text:
@@ -31,8 +17,8 @@ class BuscarProfessor(Action):
 
         nome_professor = tracker.get_slot("professor_name")
 
-        dispatcher.utter_message(text="fulano@riogrande.ifrs.edu.br")
-        dispatcher.utter_message(text= nome_professor)
+        dispatcher.utter_message(
+            text=f"{nome_professor}@riogrande.ifrs.edu.br")
 
         return[SlotSet("professor_name", None)]
 
@@ -52,7 +38,7 @@ class BuscarFaq(Action):
         dispatcher.utter_message(
             text=f"Para baixar o comprovante de matrícula você precisa acessar o link {link_matricula}")
         dispatcher.utter_message(
-            text=f"Caso precise de alguma ajuda, assista no link {link_tutorial}")
+            text=f"Caso precise de alguma ajuda, assista o tutorial no link {link_tutorial}")
 
         return []
 
@@ -106,18 +92,44 @@ class BuscarCursos(Action):
 
         return []
 
-class Buscardocumentos(Action):
+
+class DocToRegister(Action):
     def name(self) -> Text:
-        return "action_buscar_documents"
+        return "action_inform_do_register"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        link = "https://ingresso.ifrs.edu.br/"
+
         dispatcher.utter_message(
-            text=f"Estes são os documentos que você precisa manter atualizados no IFRS: CPF, Comprovante de residência e dados cadastrais")
+            text=f"Através do link abaixo tu pode te matricular em um dos nossos cursos:")
+        dispatcher.utter_message(
+            url=link)
 
         return []
+
+
+class DocToRedoRegister(Action):
+    def name(self) -> Text:
+        return "action_inform_redo_register"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        link_tutorial = "https://www.youtube.com/watch?v=STZYUidrVAg"
+        link = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
+
+        dispatcher.utter_message(
+            text=f"As rematrículas dos cursos das modalidades **Superior** e **Subsequente** ocorrerão dos dias **25/07** à **27/07** através do link abaixo: ")
+        dispatcher.utter_message(url=link)
+        dispatcher.utter_message(
+            text="Caso esteja com dificuldades consulte o link abaixo 👇")
+        dispatcher.utter_message(url=link_tutorial)
+
+        return []
+
 
 class BuscarEstagios(Action):
     def name(self) -> Text:
@@ -133,6 +145,8 @@ class BuscarEstagios(Action):
             text=f"Confira aqui maiores informações sobre estágios no IFRS! {link_estagio}")
 
         return []
+
+
 class BotDo(Action):
     def name(self) -> Text:
         return "action_bot_do"
@@ -142,9 +156,10 @@ class BotDo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(
-            text=f"Tu pode me solicitar:\n-> Contato dos professores\n-> Calendário Acadêmico\n-> Cursos disponíveis\n-> Informações sobre estágio\n-> Comprovante de matrícula\n-> Informações sobre as aulas\n-> Documentos para matricula\n-> Como fazer a rematrícula")
+            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário Acadêmico\n➡️ Cursos disponíveis\n➡️ Informações sobre estágio\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
 
         return []
+
 
 class ValidaNomeForm(FormValidationAction):
     def name(self) -> Text:
