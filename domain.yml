@@ -157,6 +157,10 @@ responses:
     - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
   utter_ask_internship:
     - text: Confira aqui maiores informações sobre estágios no IFRS! {link_estagio}!
+  # utter_ask_research:
+  #   - text: Confira aqui os principais grupos {link_grupos} e
+  #    projetos {link_} 
+  #    de pesquisa e extensão do IFRS 
 
 actions:
   - utter_ask_help
@@ -168,6 +172,7 @@ actions:
   - utter_ask_courses
   - utter_ask_documents
   - utter_ask_internship
+  # - utter_ask_research
   # custom actions
   - action_buscar_professor
   - action_faq_comprovate
@@ -176,3 +181,4 @@ actions:
   - action_buscar_courses
   - action_buscar_documents
   - action_buscar_internship
+  # - action_buscar_research

@@ -5,7 +5,7 @@ stories:
 - story: happy path 1
   steps:
   - user: |
-      hello there!
+      Olá!
     intent: greet
   - action: utter_greet
   - user: |
