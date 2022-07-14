@@ -2,6 +2,7 @@ version: "3.1"
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+
 intents:
   - affirm
   - bot_challenge
@@ -9,16 +10,14 @@ intents:
   - goodbye
   - greet
   - request_doc_register
-  - request_to_register
+  - request_do_register
   - request_historic
   - request_email
-  # - request_matricula
   - request_classes
   - request_calendar
   - request_courses
   - request_documents
   - request_internship
-  - request_do_register
   - request_redo_register
   - inform_name:
       ignore_entities:
@@ -26,6 +25,8 @@ intents:
   - inform_professor_name:
       ignore_entities:
         - LOC
+  - ask_what_bot_do
+
 entities:
   - PER
   - LOC
@@ -35,6 +36,7 @@ entities:
   - courses
   - documents
   - internship
+
 slots:
   name:
     type: text
@@ -56,13 +58,6 @@ slots:
         entity: PER
         conditions:
           - active_loop: professor_name_form
-  # register:
-  #   type: text
-  #   mappings:
-  #   - type: from_entity
-  #     entity: register
-  #     conditions:
-  #     - active_loop: name_form
   classes:
     type: text
     mappings:
@@ -91,7 +86,6 @@ slots:
         entity: documents
         conditions:
           - active_loop: documents_form
-
   internship:
     type: text
     mappings:
@@ -99,6 +93,13 @@ slots:
         entity: internship
         conditions:
           - active_loop: internship_form
+  # register:
+  #   type: text
+  #   mappings:
+  #   - type: from_entity
+  #     entity: register
+  #     conditions:
+  #     - active_loop: name_form
 
 forms:
   name_form:
@@ -107,9 +108,6 @@ forms:
   professor_name_form:
     required_slots:
       - professor_name
-  # register_form:
-  #   required_slots:
-  #   - register
   classes_form:
     required_slots:
       - classes
@@ -125,6 +123,9 @@ forms:
   internship_form:
     required_slots:
       - internship
+  # register_form:
+  #   required_slots:
+  #   - register
 
 responses:
   utter_greet:
@@ -142,8 +143,6 @@ responses:
     - text: Até logo :)
   utter_iamabot:
     - text: I am a bot, powered by Rasa.
-  # utter_ask_matricula:
-  #   - text: digite seu código de matricula
   utter_ask_professor:
     - text: Qual o nome do professor?
     - text: Me informa o nome do professor?
@@ -157,17 +156,19 @@ responses:
     - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
   utter_ask_internship:
     - text: Confira aqui maiores informações sobre estágios no IFRS! {link_estagio}!
+  # utter_ask_register:
+  #   - text: digite seu número de matricula
 
 actions:
   - utter_ask_help
   - utter_goodbye
   - utter_greet
-  # - utter_ask_matricula
   - utter_ask_classes
   - utter_ask_calendar
   - utter_ask_courses
   - utter_ask_documents
   - utter_ask_internship
+
   # custom actions
   - action_buscar_professor
   - action_faq_comprovate
@@ -176,3 +177,4 @@ actions:
   - action_buscar_courses
   - action_buscar_documents
   - action_buscar_internship
+  - action_bot_do
