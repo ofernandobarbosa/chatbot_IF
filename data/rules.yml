@@ -10,3 +10,8 @@ rules:
     steps:
       - intent: bot_challenge
       - action: utter_iamabot
+
+  - rule: Inform what the bot can do
+    steps:
+      - intent: ask_what_bot_do
+      - action: action_bot_do

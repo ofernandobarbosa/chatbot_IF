@@ -133,6 +133,18 @@ class BuscarEstagios(Action):
             text=f"Confira aqui maiores informações sobre estágios no IFRS! {link_estagio}")
 
         return []
+class BotDo(Action):
+    def name(self) -> Text:
+        return "action_bot_do"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        dispatcher.utter_message(
+            text=f"Tu pode me solicitar:\n-> Contato dos professores\n-> Calendário Acadêmico\n-> Cursos disponíveis\n-> Informações sobre estágio\n-> Comprovante de matrícula\n-> Informações sobre as aulas\n-> Documentos para matricula\n-> Como fazer a rematrícula")
+
+        return []
 
 class ValidaNomeForm(FormValidationAction):
     def name(self) -> Text:

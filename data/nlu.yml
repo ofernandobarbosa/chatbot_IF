@@ -85,6 +85,8 @@ nlu:
     - horário para fazer matricula
     - dias para fazer a matricula
     - site para matricula
+    - documentos para matricula
+    - documentos que preciso para matricula
 - intent: request_redo_register
   examples: |
     - dias para fazer a rematrícula
@@ -126,10 +128,6 @@ nlu:
     - profs do IFRS
     - contato dos professores
     - email dos professores do curso [sistemas da informação]
-- synonym: atestado
-  examples: |
-    - atestado de matricula
-    - comprovante de matricula
 - intent: request_classes
   examples: |
     - preciso da grade de horarios de aulas
@@ -140,8 +138,8 @@ nlu:
     - grade disciplinar
     - disciplinas
     - grade curricular
-    - aulas da grade do curso 
-    - materias do segundo semestre 
+    - aulas da grade do curso
+    - materias do segundo semestre
     - disciplinas primeiro
     - aulas de 2022
     - informações sobre as aulas
@@ -154,7 +152,7 @@ nlu:
     - começo das aulas
     - inicio
     - reinicio
-    - aulas comecam no ano 
+    - aulas comecam no ano
     - aulas começam
     - quando aulas começam
     - começo
@@ -176,10 +174,10 @@ nlu:
     - IFRS no estado
     - cursos integrantes do IFRS
     - cursos de pós-graduação IFRS Rio Grande
-    - quais os cursos livres ofertados 
+    - quais os cursos livres ofertados
     - tipos de cursos
     - quais cursos
-    - EAD    
+    - EAD
 - intent: request_documents
   examples: |
     - enviar documentos
@@ -187,19 +185,29 @@ nlu:
     - quais documentos preciso
     - como enviar documentos
     - solicitar documentos
-    - documento 
+    - documento
     - quais documento
     - qual documento
     - quais documentos
     - quais documentos levar no IFRS
-
 - intent: request_internship
   examples: |
-    - estagio 
+    - estagio
     - estágio
     - hora de estagio
     - fazer estagio
     - como fazer estágio
     - estagios
     - estágios
+- intent: ask_what_bot_do
+  examples: |
+    - o que você faz?
+    - o que tu pode fazer?
+    - me diz o que tu faz
+    - tu faz o que?
+    - faz o que?
     
+- synonym: atestado
+  examples: |
+    - atestado de matricula
+    - comprovante de matricula
