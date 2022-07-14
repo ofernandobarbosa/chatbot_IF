@@ -75,11 +75,18 @@ stories:
       - action: action_buscar_courses
       - action: utter_ask_help
 
-  - story: solicitar documentos
+  - story: solicitar documentos para matricula
     steps:
       - checkpoint: check_ask_help
-      - intent: request_documents
-      - action: action_buscar_documents
+      - intent: request_do_register
+      - action: action_inform_do_register
+      - action: utter_ask_help
+
+  - story: solicitar documentos para rematricula
+    steps:
+      - checkpoint: check_ask_help
+      - intent: request_redo_register
+      - action: action_inform_redo_register
       - action: utter_ask_help
 
   - story: solicitar iformações sobre estagios

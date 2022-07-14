@@ -92,6 +92,10 @@ nlu:
     - dias para fazer a rematrícula
     - solicitar rematricula
     - rematrícula
+    - rematricula
+    - Rematrícula
+    - rematricula
+    - rematricola
     - como fazer a rematricula
     - onde faço a rematricula
     - como solicitar rematrícula
@@ -178,18 +182,6 @@ nlu:
     - tipos de cursos
     - quais cursos
     - EAD
-- intent: request_documents
-  examples: |
-    - enviar documentos
-    - documentos
-    - quais documentos preciso
-    - como enviar documentos
-    - solicitar documentos
-    - documento
-    - quais documento
-    - qual documento
-    - quais documentos
-    - quais documentos levar no IFRS
 - intent: request_internship
   examples: |
     - estagio

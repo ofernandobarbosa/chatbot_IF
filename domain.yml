@@ -16,7 +16,6 @@ intents:
   - request_classes
   - request_calendar
   - request_courses
-  - request_documents
   - request_internship
   - request_redo_register
   - inform_name:
@@ -136,6 +135,8 @@ responses:
     - text: Me informa seu nome?
   utter_ask_professor_name:
     - text: Você poderia informar o nome do professor?
+    - text: Qual o nome do professor?
+    - text: Me informa o nome do professor?
   utter_ask_help:
     - text: Em que posso ajudar {name}?
   utter_goodbye:
@@ -143,19 +144,16 @@ responses:
     - text: Até logo :)
   utter_iamabot:
     - text: I am a bot, powered by Rasa.
-  utter_ask_professor:
-    - text: Qual o nome do professor?
-    - text: Me informa o nome do professor?
   utter_ask_classes:
-    - text: Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!
+    - text: Os horários de suas aulas e disciplinas você pode conferir aqui!
   utter_ask_calendar:
-    - text: Confira aqui seu calendário acadêmico {link_calender}!
+    - text: Confira aqui seu calendário acadêmico!
   utter_ask_courses:
-    - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui {link_cursos}!
+    - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui!
   utter_ask_documents:
     - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
   utter_ask_internship:
-    - text: Confira aqui maiores informações sobre estágios no IFRS! {link_estagio}!
+    - text: Confira aqui maiores informações sobre estágios no IFRS!
   # utter_ask_register:
   #   - text: digite seu número de matricula
 
@@ -175,6 +173,7 @@ actions:
   - action_buscar_classes
   - action_buscar_calendar
   - action_buscar_courses
-  - action_buscar_documents
+  - action_inform_do_register
+  - action_inform_redo_register
   - action_buscar_internship
   - action_bot_do
