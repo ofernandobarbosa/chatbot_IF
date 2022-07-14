@@ -111,6 +111,12 @@ nlu:
     - fornecer historico escolar
 - intent: inform_professor_name
   examples: |
+    - [ricardo](PER)
+    - [Ricardo](PER)
+    - sim, é [Serguei](PER)
+    - claro, é [Robson](PER)
+    - [Raquel](PER)
+    - [raquel](PER)
     - o nome do professor é [Gustavo Guanabara](PER)
     - é [Luciano Pedrosa](PER)
     - o nome dela é [Ana Maria](PER)
