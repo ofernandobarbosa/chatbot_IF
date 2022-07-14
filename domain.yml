@@ -105,6 +105,9 @@ forms:
     required_slots:
       - name
   professor_name_form:
+    ignored_intents:
+    - greet
+    - inform_name
     required_slots:
       - professor_name
   classes_form:
@@ -128,8 +131,18 @@ forms:
 
 responses:
   utter_greet:
-    - text: Eai, seja bem-vindo :)
-    - text: Olá, seja bem-vindo :)
+    - text: |
+        Eai, seja bem-vindo :)
+
+        Me pergunte a qualquer momento 
+        'o que tu pode fazer?' 
+        para ver algumas opções
+    - text: |
+        Olá, seja bem-vindo :)
+
+        Me pergunte a qualquer momento 
+        'o que tu pode fazer?' 
+        para ver algumas opções
   utter_ask_name:
     - text: Qual é seu nome?
     - text: Me informa seu nome?
