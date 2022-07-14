@@ -2,17 +2,6 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
-- story: happy path 1
-  steps:
-  - user: |
-      Olá!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
-
 - story: hello story
   steps:
   - user: |
@@ -20,14 +9,29 @@ stories:
     intent: greet
   - action: utter_greet
   - action: name_form
-  - user: |
-      Ana
-    intent: inform_name
   - active_loop: name_form
-  - slot_was_set:
-      - name: Thais
-  - slot_was_set:
-      - requested_slot: null
+  - user: |
+      [Ana](PER)
+    intent: inform_name
+  - action: name_form
   - active_loop: null
   - action: utter_ask_help
   - checkpoint: check_ask_help
+
+- story: comprovante story
+  steps:
+  - checkpoint: check_ask_help
+  - user: |
+      preciso do meu atestado de matricula
+    intent: request_doc_register
+  - action: action_faq_comprovate
+  - action: utter_ask_help
+
+- story: comprovante story
+  steps:
+  - checkpoint: check_ask_help
+  - user: |
+      preciso do meu atestado de matricula
+    intent: request_doc_register
+  - action: action_faq_comprovate
+  - action: utter_ask_help
