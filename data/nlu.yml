@@ -54,7 +54,6 @@ nlu:
   examples: |
     - meu nome é [fernando](PER)
     - me chamo [thais](PER)
-    - [Ricardo](PER)
     - sou a [Samanta](PER)
     - eu sou a [Ivete](PER)
     - [Fernando](PER) é meu nome
@@ -94,27 +93,27 @@ nlu:
     - rematrícula
     - rematricula
     - Rematrícula
-    - rematricula
     - rematricola
     - como fazer a rematricula
     - onde faço a rematricula
     - como solicitar rematrícula
     - link da rematricula
     - site para rematrícula
-- intent: request_historic
-  examples: |
-    - gostaria do meu historico escolar
-    - histórico escolar
-    - historico
-    - onde posso pegar meu historico escolar
-    - onde fica o histórico escolar
-    - fornecer historico escolar
+# - intent: request_historic
+#   examples: |
+#     - gostaria do meu historico escolar
+#     - histórico escolar
+#     - historico
+#     - onde posso pegar meu historico escolar
+#     - onde fica o histórico escolar
+#     - fornecer historico escolar
 - intent: inform_professor_name
   examples: |
     - [ricardo](PER)
     - [Ricardo](PER)
     - sim, é [Serguei](PER)
     - claro, é [Robson](PER)
+    - [Serguei](PER)
     - [Raquel](PER)
     - [raquel](PER)
     - o nome do professor é [Gustavo Guanabara](PER)
@@ -138,6 +137,7 @@ nlu:
     - profs do IFRS
     - contato dos professores
     - email dos professores do curso [sistemas da informação]
+    - email dos prof
 - intent: request_classes
   examples: |
     - preciso da grade de horarios de aulas
