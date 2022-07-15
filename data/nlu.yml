@@ -94,7 +94,6 @@ nlu:
     - rematrícula
     - rematricula
     - Rematrícula
-    - rematricula
     - rematricola
     - como fazer a rematricula
     - onde faço a rematricula
@@ -115,6 +114,7 @@ nlu:
     - [Ricardo](PER)
     - sim, é [Serguei](PER)
     - claro, é [Robson](PER)
+    - [Serguei](PER)
     - [Raquel](PER)
     - [raquel](PER)
     - o nome do professor é [Gustavo Guanabara](PER)
@@ -138,6 +138,7 @@ nlu:
     - profs do IFRS
     - contato dos professores
     - email dos professores do curso [sistemas da informação]
+    - email dos prof
 - intent: request_classes
   examples: |
     - preciso da grade de horarios de aulas
