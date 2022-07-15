@@ -11,7 +11,7 @@ intents:
   - greet
   - request_doc_register
   - request_do_register
-  - request_historic
+  # - request_historic
   - request_email
   - request_classes
   - request_calendar
