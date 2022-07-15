@@ -102,6 +102,9 @@ slots:
 
 forms:
   name_form:
+    ignored_intents:
+    - greet
+    - inform_professor_name
     required_slots:
       - name
   professor_name_form:
@@ -190,3 +193,4 @@ actions:
   - action_inform_redo_register
   - action_buscar_internship
   - action_bot_do
+  # - validate_name_form
