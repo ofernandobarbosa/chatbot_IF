@@ -161,26 +161,25 @@ class BotDo(Action):
         return []
 
 
-class ValidaNomeForm(FormValidationAction):
-    def name(self) -> Text:
-        return "validate_name_form"
+# class ValidaNomeForm(FormValidationAction):
+#     def name(self) -> Text:
+#         return "validate_name_form"
 
-    async def validate_name(self,
-                            slot_value: Any,
-                            dispatcher: CollectingDispatcher,
-                            tracker: Tracker,
-                            domain: DomainDict,
-                            ) -> Dict[Text, Any]:
-        name = slot_value
-        sai = tracker.get_slot("sender_id")
-        if(sai == None):
-            volta = "!"
-            sai = tracker.sender_id
-        else:
-            volta = ", fico feliz com tua volta!"
+#     def validate_name_form(self,
+#                       slot_value: Any, 
+#                       dispatcher: CollectingDispatcher,
+#                       tracker: Tracker,
+#                       domain: DomainDict,
+#                       ) -> Dict[Text, Any]:
+#         name = slot_value
+#         sai = tracker.get_slot("sender_id")
+#         if(sai == None):
+#             volta = "!"
+#             sai = tracker.sender_id
+#         else:
+#             volta = ", fico feliz com tua volta!"
 
-        texto = "Olá " + name+volta+" O que vai hoje?"
-        dispatcher.utter_message(text=texto)
-        print(name)
+#         texto = "Olá " + name+volta+" O que vai hoje?"
+#         dispatcher.utter_message(text=texto)
 
-        return {"name": name, "sender_id": sai}
+#         return {"name": name, "sender_id": sai}
