@@ -24,7 +24,6 @@ pipeline:
     epochs: 100
     constrain_similarities: True
   - name: EntitySynonymMapper
-  - name: SpacyEntityExtractor
   - name: FallbackClassifier
     threshold: 0.3
     ambiguity_threshold: 0.1

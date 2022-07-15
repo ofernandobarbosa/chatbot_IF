@@ -8,10 +8,13 @@ stories:
     - action: name_form
     - active_loop: name_form
     - slot_was_set:
+        - requested_slot: name
+    - slot_was_set:
         - name: Thais
     - slot_was_set:
         - requested_slot: null
     - active_loop: null
+    - action: utter_examples
     - action: utter_ask_help
     - checkpoint: check_ask_help
 
@@ -20,7 +23,7 @@ stories:
     - checkpoint: check_ask_help
     - intent: request_doc_register
     - action: action_faq_comprovate
-    - action: utter_ask_help
+    - checkpoint: check_more_help
 
 - story: solicitar contato de professores
   steps:
@@ -36,62 +39,55 @@ stories:
         - requested_slot: null
     - active_loop: null
     - action: action_buscar_professor
-    - action: utter_ask_help
+    - checkpoint: check_more_help
 
 - story: solicitar iformações horarios das aulas
   steps:
     - checkpoint: check_ask_help
     - intent: request_classes
     - action: action_buscar_classes
-    - action: utter_ask_help
+    - checkpoint: check_more_help
 
 - story: solicitar calendário acadêmico
   steps:
     - checkpoint: check_ask_help
     - intent: request_calendar
-    # - action: utter_ask_calendar
-    # - action: calendar_form
-    # - active_loop: calendar_form
-    # - slot_was_set:
-    #     - calendar_form: calendario
-    # - slot_was_set:
-    #     - requested_slot: null
-    # - active_loop: null
-    - action: action_buscar_calendar
-    - action: utter_ask_help
+    - action: action_get_calendar
+    - checkpoint: check_more_help
 
 - story: solicitar cursos
   steps:
     - checkpoint: check_ask_help
     - intent: request_courses
-    # - action: utter_ask_courses
-    # - action: courses_form
-    # - active_loop: courses_form
-    # - slot_was_set:
-    #     - courses_form: automacao
-    # - slot_was_set:
-    #     - requested_slot: null
-    # - active_loop: null
     - action: action_buscar_courses
-    - action: utter_ask_help
+    - checkpoint: check_more_help
 
 - story: solicitar documentos para matricula
   steps:
     - checkpoint: check_ask_help
     - intent: request_do_register
     - action: action_inform_do_register
-    - action: utter_ask_help
+    - checkpoint: check_more_help
 
 - story: solicitar documentos para rematricula
   steps:
     - checkpoint: check_ask_help
     - intent: request_redo_register
     - action: action_inform_redo_register
-    - action: utter_ask_help
+    - checkpoint: check_more_help
 
 - story: solicitar iformações sobre estagios
   steps:
     - checkpoint: check_ask_help
     - intent: request_internship
     - action: action_buscar_internship
-    - action: utter_ask_help
+    - checkpoint: check_more_help
+  
+- story: precisa de mais alguma ajuda?
+  steps:
+    - checkpoint: check_more_help
+    - action: utter_ask_more_help
+    - or:
+      - intent: deny
+      - intent: goodbye
+    - action: utter_goodbye 

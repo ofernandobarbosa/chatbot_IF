@@ -14,7 +14,9 @@ intents:
   # - request_historic
   - request_email
   - request_classes
-  - request_calendar
+  - request_calendar:
+      ignore_entities:
+        - PER
   - request_courses
   - request_internship
   - request_redo_register
@@ -37,26 +39,30 @@ entities:
   - internship
 
 slots:
+  # teste validar nome
   name:
     type: text
-    influence_conversation: false
+    influence_conversation: true
     mappings:
-      - type: from_entity
-        intent: inform_name
-        not_intent: inform_professor_name
-        entity: PER
+      - type: from_text
+        # intent: inform_name
+        and:
+          - not_intent: inform_professor_name
+          - not_intent: greet
         conditions:
           - active_loop: name_form
+            requested_slot: name
   professor_name:
     type: text
-    influence_conversation: false
+    influence_conversation: true
     mappings:
-      - type: from_entity
+      - type: from_text
         intent: inform_professor_name
         not_intent: inform_name
-        entity: PER
         conditions:
           - active_loop: professor_name_form
+            requested_slot: professor_name
+
   classes:
     type: text
     mappings:
@@ -103,14 +109,14 @@ slots:
 forms:
   name_form:
     ignored_intents:
-    - greet
-    - inform_professor_name
+      - greet
+      - inform_professor_name
     required_slots:
       - name
   professor_name_form:
     ignored_intents:
-    - greet
-    - inform_name
+      - greet
+      - inform_name
     required_slots:
       - professor_name
   classes_form:
@@ -136,14 +142,11 @@ responses:
   utter_greet:
     - text: |
         Eai, seja bem-vindo :)
-
-        Me pergunte a qualquer momento 
-        'o que tu pode fazer?' 
-        para ver algumas opções
     - text: |
         Olá, seja bem-vindo :)
-
-        Me pergunte a qualquer momento 
+  utter_examples:
+    - text: |
+        Me pergunte
         'o que tu pode fazer?' 
         para ver algumas opções
   utter_ask_name:
@@ -170,8 +173,8 @@ responses:
     - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
   utter_ask_internship:
     - text: Confira aqui maiores informações sobre estágios no IFRS!
-  # utter_ask_register:
-  #   - text: digite seu número de matricula
+  utter_ask_more_help:
+    - text: Te ajudo em mais alguma coisa?
 
 actions:
   - utter_ask_help
@@ -187,10 +190,11 @@ actions:
   - action_buscar_professor
   - action_faq_comprovate
   - action_buscar_classes
-  - action_buscar_calendar
+  - action_get_calendar
   - action_buscar_courses
   - action_inform_do_register
   - action_inform_redo_register
   - action_buscar_internship
   - action_bot_do
-  # - validate_name_form
+  - validate_name_form
+  - validate_professor_name_form

@@ -63,16 +63,16 @@ class BuscarClasses(Action):
 class BuscarCalendar(Action):
 
     def name(self) -> Text:
-        return "action_buscar_calendar"
+        return "action_get_calendar"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link_calender = "https://ifrs.edu.br/riogrande/ensino/calendario-academico/"
+        link_calendar = "https://ifrs.edu.br/riogrande/ensino/calendario-academico/"
 
         dispatcher.utter_message(
-            text=f"Confira aqui seu calendário acadêmico {link_calender}")
+            text=f"Confira aqui seu calendário acadêmico {link_calendar}")
 
         return []
 
@@ -156,30 +156,48 @@ class BotDo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(
-            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário Acadêmico\n➡️ Cursos disponíveis\n➡️ Informações sobre estágio\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
+            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Informações sobre estágio\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
 
         return []
 
+# validate name
 
-# class ValidaNomeForm(FormValidationAction):
-#     def name(self) -> Text:
-#         return "validate_name_form"
 
-#     def validate_name_form(self,
-#                       slot_value: Any, 
-#                       dispatcher: CollectingDispatcher,
-#                       tracker: Tracker,
-#                       domain: DomainDict,
-#                       ) -> Dict[Text, Any]:
-#         name = slot_value
-#         sai = tracker.get_slot("sender_id")
-#         if(sai == None):
-#             volta = "!"
-#             sai = tracker.sender_id
-#         else:
-#             volta = ", fico feliz com tua volta!"
+def clean_name(name):
+    return "".join([c for c in name if c.isalpha()])
 
-#         texto = "Olá " + name+volta+" O que vai hoje?"
-#         dispatcher.utter_message(text=texto)
 
-#         return {"name": name, "sender_id": sai}
+class ValidaNomeForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_name_form"
+
+    def validate_name(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+
+        name = clean_name(slot_value).title()
+        if len(name) == 0:
+            dispatcher.utter_message(text="Não entendi, pode ter sido um erro de digitação")
+            return {"name": None}
+        return {"name": name}
+class ValidaNomeForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_professor_name_form"
+
+    def validate_professor_name(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+
+        name = clean_name(slot_value).title()
+        if len(name) == 0:
+            dispatcher.utter_message(text="Não entendi, pode ter sido um erro de digitação")
+            return {"professor_name": None}
+        return {"professor_name": name}
