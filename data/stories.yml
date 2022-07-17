@@ -83,11 +83,17 @@ stories:
     - action: action_buscar_internship
     - checkpoint: check_more_help
   
-- story: precisa de mais alguma ajuda?
+- story: precisa de mais alguma ajuda? sim
   steps:
     - checkpoint: check_more_help
     - action: utter_ask_more_help
-    - or:
-      - intent: deny
-      - intent: goodbye
-    - action: utter_goodbye 
+    - intent: affirm
+    - action: utter_req_to_ask
+    - checkpoint: check_ask_help
+
+- story: precisa de mais alguma ajuda? the end
+  steps:
+    - checkpoint: check_more_help
+    - action: utter_ask_more_help
+    - intent: deny
+    - action: action_goodbye_and_clear_slots

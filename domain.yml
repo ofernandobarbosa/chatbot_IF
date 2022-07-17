@@ -44,8 +44,9 @@ slots:
     type: text
     influence_conversation: true
     mappings:
-      - type: from_text
-        # intent: inform_name
+      - type: from_entity
+        intent: inform_name
+        entity: PER
         and:
           - not_intent: inform_professor_name
           - not_intent: greet
@@ -56,7 +57,8 @@ slots:
     type: text
     influence_conversation: true
     mappings:
-      - type: from_text
+      - type: from_entity
+        entity: PER
         intent: inform_professor_name
         not_intent: inform_name
         conditions:
@@ -159,8 +161,7 @@ responses:
   utter_ask_help:
     - text: Em que posso ajudar {name}?
   utter_goodbye:
-    - text: Tchau
-    - text: Até logo :)
+    - text: Até logo {name}! :)
   utter_iamabot:
     - text: I am a bot, powered by Rasa.
   utter_ask_classes:
@@ -173,8 +174,16 @@ responses:
     - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
   utter_ask_internship:
     - text: Confira aqui maiores informações sobre estágios no IFRS!
+  utter_req_to_ask:
+    - text: Pode dizer ou então me pergunte o que posso fazer!
   utter_ask_more_help:
-    - text: Te ajudo em mais alguma coisa?
+    - buttons:
+        - payload: /affirm
+          title: Sim
+        - payload: /deny
+          title: Não
+      button_type: inline
+      text: Gostaria de mais alguma ajuda?
 
 actions:
   - utter_ask_help
@@ -198,3 +207,4 @@ actions:
   - action_bot_do
   - validate_name_form
   - validate_professor_name_form
+  - action_goodbye_and_clear_slots
