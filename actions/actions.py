@@ -3,7 +3,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk.forms import FormValidationAction
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, AllSlotsReset
 
 
 class BuscarProfessor(Action):
@@ -60,6 +60,22 @@ class BuscarClasses(Action):
         return []
 
 
+class LimpaSlots(Action):
+
+    def name(self) -> Text:
+        return "action_goodbye_and_clear_slots"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+
+        dispatcher.utter_message(template="utter_goodbye")
+        return[AllSlotsReset()]
+
+
 class BuscarCalendar(Action):
 
     def name(self) -> Text:
@@ -69,10 +85,12 @@ class BuscarCalendar(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link_calendar = "https://ifrs.edu.br/riogrande/ensino/calendario-academico/"
+        link_calendar = "https://ifrs.edu.br/riogrande/wp-content/uploads/sites/16/2022/05/Calendario-Academico-Campus-Rio-Grande-2022-alterado-em-abril-2022.pdf"
 
         dispatcher.utter_message(
-            text=f"Confira aqui seu calendário acadêmico {link_calendar}")
+            text=f"Confira aqui seu calendário acadêmico 👇")
+        dispatcher.utter_message(
+            attachement=link_calendar)
 
         return []
 
@@ -123,10 +141,10 @@ class DocToRedoRegister(Action):
 
         dispatcher.utter_message(
             text=f"As rematrículas dos cursos das modalidades **Superior** e **Subsequente** ocorrerão dos dias **25/07** à **27/07** através do link abaixo: ")
-        dispatcher.utter_message(url=link)
+        dispatcher.utter_message(text=link)
         dispatcher.utter_message(
             text="Caso esteja com dificuldades consulte o link abaixo 👇")
-        dispatcher.utter_message(url=link_tutorial)
+        dispatcher.utter_message(text=link_tutorial)
 
         return []
 
@@ -181,9 +199,12 @@ class ValidaNomeForm(FormValidationAction):
 
         name = clean_name(slot_value).title()
         if len(name) == 0:
-            dispatcher.utter_message(text="Não entendi, pode ter sido um erro de digitação")
+            dispatcher.utter_message(
+                text="Não entendi, pode ter sido um erro de digitação")
             return {"name": None}
         return {"name": name}
+
+
 class ValidaNomeForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_professor_name_form"
@@ -198,6 +219,7 @@ class ValidaNomeForm(FormValidationAction):
 
         name = clean_name(slot_value).title()
         if len(name) == 0:
-            dispatcher.utter_message(text="Não entendi, pode ter sido um erro de digitação")
+            dispatcher.utter_message(
+                text="Não entendi, pode ter sido um erro de digitação")
             return {"professor_name": None}
         return {"professor_name": name}
