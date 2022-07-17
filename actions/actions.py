@@ -6,7 +6,7 @@ from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import SlotSet, AllSlotsReset
 
 
-class BuscarProfessor(Action):
+class GetProfessorContact(Action):
 
     def name(self) -> Text:
         return "action_get_professor_contact"
@@ -23,7 +23,7 @@ class BuscarProfessor(Action):
         return[SlotSet("professor_name", None)]
 
 
-class BuscarFaq(Action):
+class GetDocRegister(Action):
 
     def name(self) -> Text:
         return "action_get_doc_register"
@@ -43,7 +43,7 @@ class BuscarFaq(Action):
         return []
 
 
-class BuscarClasses(Action):
+class GetClasses(Action):
 
     def name(self) -> Text:
         return "action_get_classes"
@@ -60,7 +60,7 @@ class BuscarClasses(Action):
         return []
 
 
-class LimpaSlots(Action):
+class ClearSlots(Action):
 
     def name(self) -> Text:
         return "action_goodbye_and_clear_slots"
@@ -76,7 +76,7 @@ class LimpaSlots(Action):
         return[AllSlotsReset()]
 
 
-class BuscarCalendar(Action):
+class GetCalendar(Action):
 
     def name(self) -> Text:
         return "action_get_calendar"
@@ -95,7 +95,7 @@ class BuscarCalendar(Action):
         return []
 
 
-class BuscarCursos(Action):
+class GetCourses(Action):
     def name(self) -> Text:
         return "action_get_courses"
 
@@ -111,7 +111,7 @@ class BuscarCursos(Action):
         return []
 
 
-class DocToRegister(Action):
+class ImformToDoRegister(Action):
     def name(self) -> Text:
         return "action_inform_do_register"
 
@@ -129,7 +129,7 @@ class DocToRegister(Action):
         return []
 
 
-class DocToRedoRegister(Action):
+class InformToRedoRegister(Action):
     def name(self) -> Text:
         return "action_inform_redo_register"
 
@@ -149,7 +149,7 @@ class DocToRedoRegister(Action):
         return []
 
 
-class BuscarEstagios(Action):
+class GetInternshipInfo(Action):
     def name(self) -> Text:
         return "action_get_internship_info"
 
@@ -165,7 +165,7 @@ class BuscarEstagios(Action):
         return []
 
 
-class BotDo(Action):
+class WhatBotDo(Action):
     def name(self) -> Text:
         return "action_what_bot_do"
 
@@ -177,8 +177,6 @@ class BotDo(Action):
             text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Informações sobre estágio\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
 
         return []
-
-# validate name
 
 
 def clean_name(name):
