@@ -14,4 +14,4 @@ rules:
   - rule: Inform what the bot can do
     steps:
       - intent: ask_what_bot_do
-      - action: action_bot_do
+      - action: action_what_bot_do

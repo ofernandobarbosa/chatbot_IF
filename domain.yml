@@ -196,15 +196,17 @@ actions:
   - utter_ask_internship
 
   # custom actions
-  - action_buscar_professor
-  - action_faq_comprovate
-  - action_buscar_classes
+  - action_get_professor_contact
+  - action_get_doc_register
+  - action_get_classes
   - action_get_calendar
-  - action_buscar_courses
+  - action_get_courses
+  - action_get_internship_info
   - action_inform_do_register
   - action_inform_redo_register
-  - action_buscar_internship
-  - action_bot_do
+  - action_what_bot_do
+  - action_goodbye_and_clear_slots
+  
+  # custom validation
   - validate_name_form
   - validate_professor_name_form
-  - action_goodbye_and_clear_slots

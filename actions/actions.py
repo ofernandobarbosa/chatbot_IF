@@ -9,7 +9,7 @@ from rasa_sdk.events import SlotSet, AllSlotsReset
 class BuscarProfessor(Action):
 
     def name(self) -> Text:
-        return "action_buscar_professor"
+        return "action_get_professor_contact"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -26,7 +26,7 @@ class BuscarProfessor(Action):
 class BuscarFaq(Action):
 
     def name(self) -> Text:
-        return "action_faq_comprovate"
+        return "action_get_doc_register"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -46,7 +46,7 @@ class BuscarFaq(Action):
 class BuscarClasses(Action):
 
     def name(self) -> Text:
-        return "action_buscar_classes"
+        return "action_get_classes"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -88,7 +88,7 @@ class BuscarCalendar(Action):
         link_calendar = "https://ifrs.edu.br/riogrande/wp-content/uploads/sites/16/2022/05/Calendario-Academico-Campus-Rio-Grande-2022-alterado-em-abril-2022.pdf"
 
         dispatcher.utter_message(
-            text=f"Confira aqui seu calendário acadêmico 👇")
+            text=f"Confira aqui o calendário acadêmico 👇")
         dispatcher.utter_message(
             attachement=link_calendar)
 
@@ -97,7 +97,7 @@ class BuscarCalendar(Action):
 
 class BuscarCursos(Action):
     def name(self) -> Text:
-        return "action_buscar_courses"
+        return "action_get_courses"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -151,7 +151,7 @@ class DocToRedoRegister(Action):
 
 class BuscarEstagios(Action):
     def name(self) -> Text:
-        return "action_buscar_internship"
+        return "action_get_internship_info"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -167,7 +167,7 @@ class BuscarEstagios(Action):
 
 class BotDo(Action):
     def name(self) -> Text:
-        return "action_bot_do"
+        return "action_what_bot_do"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
