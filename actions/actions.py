@@ -183,7 +183,7 @@ def clean_name(name):
     return "".join([c for c in name if c.isalpha()])
 
 
-class ValidaNomeForm(FormValidationAction):
+class NameFormValidate(FormValidationAction):
     def name(self) -> Text:
         return "validate_name_form"
 
@@ -203,7 +203,7 @@ class ValidaNomeForm(FormValidationAction):
         return {"name": name}
 
 
-class ValidaNomeForm(FormValidationAction):
+class ProfessorNameFormValidate(FormValidationAction):
     def name(self) -> Text:
         return "validate_professor_name_form"
 
