@@ -16,3 +16,4 @@ okteto.yml
 # Rasa Ignore
 .rasa
 __pycache__
+./django/
