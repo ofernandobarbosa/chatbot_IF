@@ -9,7 +9,13 @@ class ListandoEventos(admin.ModelAdmin):
     list_filter = ('categoria_evento',)
     list_editable = ('visivel',)
     list_per_page = 30
+    
+class ListandoCategoria(admin.ModelAdmin):
+    list_display = ('id', 'nome_categoria', 'visivel')
+    list_display_links = ('id', 'nome_categoria')
+    search_fields = ('nome_categoria',)
+    list_editable = ('visivel',)
 
 
 admin.site.register(Calendario, ListandoEventos)
-admin.site.register(Categoria)
+admin.site.register(Categoria, ListandoCategoria)

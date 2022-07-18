@@ -23,9 +23,14 @@ class Calendario(models.Model):
     data_atualizacao = models.DateTimeField(default=datetime.now, blank=True)
     visivel = models.BooleanField(default=True)
     
+    def __str__(self):
+        return self.nome_evento
+    
 class Categoria(models.Model):
         
     nome_categoria = models.CharField(max_length=100)
     visivel = models.BooleanField(default=True)
     
+    def __str__(self):
+        return self.nome_categoria    
     
