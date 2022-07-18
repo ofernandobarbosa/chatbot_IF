@@ -5,7 +5,7 @@ from .models import Categoria
 
 def index(request):
     
-    calendarios = Calendario.objects.order_by('-data_atualizacao').filter(visivel=True)
+    calendarios = Calendario.objects.filter(visivel=True)
     categorias = Categoria.objects.all()
 
     dados = {
@@ -29,7 +29,7 @@ def calendario(request, calendario_id):
 def categoria(request, categoria_id):
     
     categoria = get_object_or_404(Categoria, pk=categoria_id)
-    calendarios = Calendario.objects.all()
+    calendarios = Calendario.objects.filter(visivel=True)
     categorias = Categoria.objects.all()
    
     categoria_a_exibir = {
