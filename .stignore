@@ -1,0 +1,19 @@
+# default .stignore for a go-based project
+okteto.yml
+.git
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with go test -c
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Rasa Ignore
+.rasa
+__pycache__
+./django/

@@ -1,0 +1,21 @@
+{% load static %}
+{% include 'partials/header.html' %}
+<body>
+    <table>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="/admin"><h5>ENTRAR COMO ADMINISTRADOR</h5></a><br><br></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><center><h1>PESQUISA</h1></center><br><br></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><section>
+                <div>
+                    {% include 'partials/organizador.html' %}
+                </div>
+            </section></td>
+    </table>
+{% include 'partials/footer.html' %}

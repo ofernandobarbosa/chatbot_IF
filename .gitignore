@@ -131,3 +131,4 @@ dmypy.json
 # Rasa docs
 models/
 .rasa
+credentials.yml

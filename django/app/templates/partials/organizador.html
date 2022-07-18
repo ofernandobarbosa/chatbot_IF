@@ -1,0 +1,20 @@
+{% load static %}
+{% if categorias %}
+{% for categoria in categorias %}
+    <div><h3><br>{{categoria.nome_categoria}}</h3>
+    {% if calendarios %}
+    {% for calendario in calendarios %}
+        {% if calendario.categoria_evento == categoria.id %}
+        <div>
+            <div>
+                <a href="{% url 'calendario' calendario.id %}">
+                <h6>{{calendario.nome_evento}}</h6>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    {% endif %}
+{% endfor %}
+{% endif %}

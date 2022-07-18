@@ -1,8 +1,8 @@
-<<<<<<< HEAD
 version: "3.1"
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+
 intents:
   - affirm
   - bot_challenge
@@ -10,117 +10,180 @@ intents:
   - goodbye
   - greet
   - request_doc_register
-  - request_to_register
-  - request_historic
+  - request_do_register
+  # - request_historic
   - request_email
   - request_classes
-  - request_calendar
+  - request_calendar:
+      ignore_entities:
+        - PER
   - request_courses
-  - request_documentation
-
-  # - faq:
-  #   is_retrieval_intent_: true
-
+  - request_internship
+  - request_redo_register
   - inform_name:
       ignore_entities:
         - LOC
+  - inform_professor_name:
+      ignore_entities:
+        - LOC
+  - ask_what_bot_do
 
 entities:
   - PER
   - LOC
+  - register
   - classes
   - calendar
   - courses
-  - documentation
+  - documents
+  - internship
 
 slots:
+  # teste validar nome
   name:
     type: text
-    influence_conversation: false
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        intent: inform_name
+        entity: PER
+        and:
+          - not_intent: inform_professor_name
+          - not_intent: greet
+        conditions:
+          - active_loop: name_form
+            requested_slot: name
+  professor_name:
+    type: text
+    influence_conversation: true
     mappings:
       - type: from_entity
         entity: PER
+        intent: inform_professor_name
+        not_intent: inform_name
         conditions:
-          - active_loop: name_form
+          - active_loop: professor_name_form
+            requested_slot: professor_name
 
-classes:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: classes
-      conditions:
-        - active_loop: classes_form
-
-calendar:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: calendar
-      conditions:
-        - active_loop: calendar_form
-
-courses:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: courses
-      conditions:
-        - active_loop: courses_form
-
-docuemntation:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: documentation
-      conditions:
-        - active_loop: documentation_form
+  classes:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: classes
+        conditions:
+          - active_loop: classes_form
+  calendar:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: calendar
+        conditions:
+          - active_loop: calendar_form
+  courses:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: courses
+        conditions:
+          - active_loop: courses_form
+  documents:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: documents
+        conditions:
+          - active_loop: documents_form
+  internship:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: internship
+        conditions:
+          - active_loop: internship_form
+  # register:
+  #   type: text
+  #   mappings:
+  #   - type: from_entity
+  #     entity: register
+  #     conditions:
+  #     - active_loop: name_form
 
 forms:
   name_form:
+    ignored_intents:
+      - greet
+      - inform_professor_name
     required_slots:
       - name
-
+  professor_name_form:
+    ignored_intents:
+      - greet
+      - inform_name
+    required_slots:
+      - professor_name
   classes_form:
     required_slots:
       - classes
-
   calendar_form:
     required_slots:
       - calendar
-
   courses_form:
     required_slots:
       - courses
-      
-  documentation_form:
+  documents_form:
     required_slots:
-      - docuemntation 
+      - documents
+  internship_form:
+    required_slots:
+      - internship
+  # register_form:
+  #   required_slots:
+  #   - register
 
 responses:
   utter_greet:
-    - text: |-
+    - text: |
         Eai, seja bem-vindo :)
-        Qual seu nome?
-    - text: |-
+    - text: |
         Olá, seja bem-vindo :)
-        Qual seu nome?
+  utter_examples:
+    - text: |
+        Me pergunte
+        'o que tu pode fazer?' 
+        para ver algumas opções
   utter_ask_name:
-    - text: Você poderia informar seu nome?
-  utter_ask_classes:
-    - text: Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!
-  utter_ask_calendar:
-    - text: Confira aqui seu calendário acadêmico {link_calender}!
-  utter_ask_courses:
-    - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui {link_cursos}!
-  utter_ask_documentation:
-    - text: Os documentos que você deve apresentar no IFRS campus Rio Grande e manter atualizados são.....!
+    - text: Qual é seu nome?
+    - text: Me informa seu nome?
+  utter_ask_professor_name:
+    - text: Você poderia informar o nome do professor?
+    - text: Qual o nome do professor?
+    - text: Me informa o nome do professor?
   utter_ask_help:
     - text: Em que posso ajudar {name}?
   utter_goodbye:
-    - text: Tchau
-    - text: Até logo :)
+    - text: Até logo {name}! :)
   utter_iamabot:
     - text: I am a bot, powered by Rasa.
+  utter_ask_classes:
+    - text: Os horários de suas aulas e disciplinas você pode conferir aqui!
+  utter_ask_calendar:
+    - text: Confira aqui seu calendário acadêmico!
+  utter_ask_courses:
+    - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui!
+  utter_ask_documents:
+    - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
+  utter_ask_internship:
+    - text: Confira aqui maiores informações sobre estágios no IFRS!
+  utter_req_to_ask:
+    - text: Pode dizer ou então me pergunte o que posso fazer!
+  utter_ask_more_help:
+    - buttons:
+        - payload: /affirm
+          title: Sim
+        - payload: /deny
+          title: Não
+      button_type: inline
+      text: Gostaria de mais alguma ajuda?
 
 actions:
   - utter_ask_help
@@ -129,210 +192,21 @@ actions:
   - utter_ask_classes
   - utter_ask_calendar
   - utter_ask_courses
-  - utter_ask_documentation
-  - action_buscar_classes
-  - action_buscar_calendar
-  - action_buscar_cursos
-  - action_buscar_documentos
-=======
-version: '3.1'
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
-intents:
-- affirm
-- bot_challenge
-- deny
-- goodbye
-- greet
-<<<<<<< HEAD
-<<<<<<< HEAD
-- i
-=======
-=======
->>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
-- request_doc_register
-- request_to_register
-- request_historic
-- request_email
-- request_matricula
-- inform_professor_name
-<<<<<<< HEAD
+  - utter_ask_documents
+  - utter_ask_internship
 
-# - faq:
-#   is_retrieval_intent_: true
-
->>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
-=======
-- request_classes
-- request_calendar
-- request_courses
-- request_documentation
-
->>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
-- inform_name:
-    ignore_entities:
-    - LOC
-- inform_professor_name:
-    ignore_entities:
-    - LOC
-- request_do_register
-- request_doc_register
-- request_email
-- request_historic
-- request_redo_register
-entities:
-- PER
-- LOC
-<<<<<<< HEAD
-- register
-<<<<<<< HEAD
-=======
-- matricula
-
->>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
-=======
-- classes
-- calendar
-- courses
-- documentation
->>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
-slots:
-  name:
-    type: text
-    influence_conversation: false
-    mappings:
-    - type: from_entity
-      intent: inform_name
-      not_intent: inform_professor_name
-      entity: PER
-      conditions:
-      - active_loop: name_form
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-=======
->>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
-  matricula:
-    type: text
-    mappings: 
-    - type: from_entity
-      entity: matricula
-      conditions:
-      - active_loop: name_form
-<<<<<<< HEAD
+  # custom actions
+  - action_get_professor_contact
+  - action_get_doc_register
+  - action_get_classes
+  - action_get_calendar
+  - action_get_courses
+  - action_get_internship_info
+  - action_inform_do_register
+  - action_inform_redo_register
+  - action_what_bot_do
+  - action_goodbye_and_clear_slots
   
->>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
-=======
->>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
-  professor_name:
-    type: text
-    influence_conversation: false
-    mappings:
-    - type: from_entity
-      intent: inform_professor_name
-      not_intent: inform_name
-      entity: PER
-      conditions:
-      - active_loop: professor_name_form
-
-classes:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: classes
-      conditions:
-        - active_loop: classes_form
-
-calendar:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: calendar
-      conditions:
-        - active_loop: calendar_form
-
-courses:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: courses
-      conditions:
-        - active_loop: courses_form
-
-docuemntation:
-  type: text
-  mappings:
-    - type: from_entity
-      entity: documentation
-      conditions:
-        - active_loop: documentation_form
-
-forms:
-  name_form:
-    required_slots:
-    - name
-    - matricula
-  professor_name_form:
-    required_slots:
-    - professor_name
-  register_form:
-    required_slots:
-    - register
-responses:
-  utter_greet:
-  - text: Eai, seja bem-vindo :)
-  - text: Olá, seja bem-vindo :)
-  utter_ask_name:
-  - text: Qual é seu nome?
-  - text: Me informa seu nome?
-  utter_ask_professor_name:
-  - text: Você poderia informar o nome do professor?
-  utter_ask_help:
-  - text: Em que posso ajudar {name}?
-  utter_ask_matricula:
-  - text: Você poderia informar sua matricula?
-  utter_goodbye:
-  - text: Tchau
-  - text: Até logo :)
-  utter_iamabot:
-  - text: I am a bot, powered by Rasa.
-  utter_ask_professor:
-  - text: Qual o nome do professor?
-  - text: Me informa o nome do professor?
-  utter_ask_classes:
-  - text: Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!
-  utter_ask_calendar:
-  - text: Confira aqui seu calendário acadêmico {link_calender}!
-  utter_ask_courses:
-  - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui {link_cursos}!
-  utter_ask_documentation:
-  - text: Os documentos que você deve apresentar no IFRS campus Rio Grande e manter atualizados são.....!
-
-actions:
-- action_buscar_professor
-- action_faq_comprovate
-- utter_ask_help
-- utter_goodbye
-- utter_greet
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 33722055ef37abe992e343d59e14496d8a77180b
-=======
-- utter_ask_matricula
-# custom action
-- action_buscar_professor
-- action_faq_comprovate
->>>>>>> f813e297ba957ad598dd527fb83cec2518999cb6
-=======
-- utter_ask_matricula
-- utter_ask_classes
-- utter_ask_calendar
-- utter_ask_courses
-- utter_ask_documentation
-- action_buscar_classes
-- action_buscar_calendar
-- action_buscar_cursos
-- action_buscar_documentos
->>>>>>> dd7e48da705fc874497f49d7b9840cd4d15ebbb1
+  # custom validation
+  - validate_name_form
+  - validate_professor_name_form
