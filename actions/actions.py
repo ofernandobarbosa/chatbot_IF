@@ -3,13 +3,13 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk.forms import FormValidationAction
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, AllSlotsReset
 
 
-class BuscarProfessor(Action):
+class GetProfessorContact(Action):
 
     def name(self) -> Text:
-        return "action_buscar_professor"
+        return "action_get_professor_contact"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -23,10 +23,10 @@ class BuscarProfessor(Action):
         return[SlotSet("professor_name", None)]
 
 
-class BuscarFaq(Action):
+class GetDocRegister(Action):
 
     def name(self) -> Text:
-        return "action_faq_comprovate"
+        return "action_get_doc_register"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -43,10 +43,10 @@ class BuscarFaq(Action):
         return []
 
 
-class BuscarClasses(Action):
+class GetClasses(Action):
 
     def name(self) -> Text:
-        return "action_buscar_classes"
+        return "action_get_classes"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -60,26 +60,44 @@ class BuscarClasses(Action):
         return []
 
 
-class BuscarCalendar(Action):
+class ClearSlots(Action):
 
     def name(self) -> Text:
-        return "action_buscar_calendar"
+        return "action_goodbye_and_clear_slots"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+
+        dispatcher.utter_message(template="utter_goodbye")
+        return[AllSlotsReset()]
+
+
+class GetCalendar(Action):
+
+    def name(self) -> Text:
+        return "action_get_calendar"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link_calender = "https://ifrs.edu.br/riogrande/ensino/calendario-academico/"
+        link_calendar = "https://ifrs.edu.br/riogrande/wp-content/uploads/sites/16/2022/05/Calendario-Academico-Campus-Rio-Grande-2022-alterado-em-abril-2022.pdf"
 
         dispatcher.utter_message(
-            text=f"Confira aqui seu calendário acadêmico {link_calender}")
+            text=f"Confira aqui o calendário acadêmico 👇")
+        dispatcher.utter_message(
+            attachement=link_calendar)
 
         return []
 
 
-class BuscarCursos(Action):
+class GetCourses(Action):
     def name(self) -> Text:
-        return "action_buscar_courses"
+        return "action_get_courses"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -93,7 +111,7 @@ class BuscarCursos(Action):
         return []
 
 
-class DocToRegister(Action):
+class ImformToDoRegister(Action):
     def name(self) -> Text:
         return "action_inform_do_register"
 
@@ -111,7 +129,7 @@ class DocToRegister(Action):
         return []
 
 
-class DocToRedoRegister(Action):
+class InformToRedoRegister(Action):
     def name(self) -> Text:
         return "action_inform_redo_register"
 
@@ -123,17 +141,17 @@ class DocToRedoRegister(Action):
 
         dispatcher.utter_message(
             text=f"As rematrículas dos cursos das modalidades **Superior** e **Subsequente** ocorrerão dos dias **25/07** à **27/07** através do link abaixo: ")
-        dispatcher.utter_message(url=link)
+        dispatcher.utter_message(text=link)
         dispatcher.utter_message(
             text="Caso esteja com dificuldades consulte o link abaixo 👇")
-        dispatcher.utter_message(url=link_tutorial)
+        dispatcher.utter_message(text=link_tutorial)
 
         return []
 
 
-class BuscarEstagios(Action):
+class GetInternshipInfo(Action):
     def name(self) -> Text:
-        return "action_buscar_internship"
+        return "action_get_internship_info"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -147,39 +165,59 @@ class BuscarEstagios(Action):
         return []
 
 
-class BotDo(Action):
+class WhatBotDo(Action):
     def name(self) -> Text:
-        return "action_bot_do"
+        return "action_what_bot_do"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(
-            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário Acadêmico\n➡️ Cursos disponíveis\n➡️ Informações sobre estágio\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
+            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Informações sobre estágio\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
 
         return []
 
 
-# class ValidaNomeForm(FormValidationAction):
-#     def name(self) -> Text:
-#         return "validate_name_form"
+def clean_name(name):
+    return "".join([c for c in name if c.isalpha()])
 
-#     def validate_name_form(self,
-#                       slot_value: Any, 
-#                       dispatcher: CollectingDispatcher,
-#                       tracker: Tracker,
-#                       domain: DomainDict,
-#                       ) -> Dict[Text, Any]:
-#         name = slot_value
-#         sai = tracker.get_slot("sender_id")
-#         if(sai == None):
-#             volta = "!"
-#             sai = tracker.sender_id
-#         else:
-#             volta = ", fico feliz com tua volta!"
 
-#         texto = "Olá " + name+volta+" O que vai hoje?"
-#         dispatcher.utter_message(text=texto)
+class NameFormValidate(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_name_form"
 
-#         return {"name": name, "sender_id": sai}
+    def validate_name(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+
+        name = clean_name(slot_value).title()
+        if len(name) == 0:
+            dispatcher.utter_message(
+                text="Não entendi, pode ter sido um erro de digitação")
+            return {"name": None}
+        return {"name": name}
+
+
+class ProfessorNameFormValidate(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_professor_name_form"
+
+    def validate_professor_name(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+
+        name = clean_name(slot_value).title()
+        if len(name) == 0:
+            dispatcher.utter_message(
+                text="Não entendi, pode ter sido um erro de digitação")
+            return {"professor_name": None}
+        return {"professor_name": name}

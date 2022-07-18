@@ -121,14 +121,9 @@ nlu:
     - o nome dela é [Ana Maria](PER)
     - [Patrícia dos Santos](PER)
     - [rodrigo](PER)
-    - [Gustavo Guanabara][{"entity": "PER"}, {"entity": "PER"}]
     - [Gustavo Guanabara](PER)
 - intent: request_email
   examples: |
-    - e-mail do professor [Gustavo Guanabara](PER)
-    - e-mail da professora [Luciano](PER)
-    - email do professor [Patricia](PER)
-    - email da professora [Ana Maria](PER)
     - email dos professores
     - contato prof
     - e-mail
@@ -136,7 +131,7 @@ nlu:
     - contato
     - profs do IFRS
     - contato dos professores
-    - email dos professores do curso [sistemas da informação]
+    - email dos professores do curso
     - email dos prof
 - intent: request_classes
   examples: |
@@ -160,19 +155,20 @@ nlu:
     - dia de inicio de aulas
     - inicio das aulas
     - começo das aulas
-    - inicio
-    - reinicio
     - aulas comecam no ano
     - aulas começam
     - quando aulas começam
-    - começo
-    - perído letivo
+    - período letivo
     - início das férias de inverno
     - início das férias de verão
     - férias
     - fim das férias de verão
     - fim das ferias de inverno
     - fim das ferias
+    - calenário academico
+    - calenário acadêmico
+    - calendario academico
+    - calendario acadêmico
 - intent: request_courses
   examples: |
     - cursos do IFRS
@@ -204,8 +200,3 @@ nlu:
     - me diz o que tu faz
     - tu faz o que?
     - faz o que?
-    
-- synonym: atestado
-  examples: |
-    - atestado de matricula
-    - comprovante de matricula

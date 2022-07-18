@@ -10,8 +10,20 @@
 # Server which runs your custom actions.
 # https://rasa.com/docs/rasa/custom-actions
 
+# rodando localhost
+# action_endpoint:
+#   url: "http://localhost:5055/webhook"
+
+# rodando no okteto
 action_endpoint:
   url: "http://actions:5055/webhook"
+
+tracker_store:
+  type: mongod
+  url: mongodb://mongo:27017
+  db: rasa
+  username: root
+  password: example
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.
 # https://rasa.com/docs/rasa/tracker-stores
@@ -23,13 +35,6 @@ action_endpoint:
 #    db: <number of your database within redis, e.g. 0>
 #    password: <password used for authentication>
 #    use_ssl: <whether or not the communication is encrypted, default false>
-
-#tracker_store:
-#    type: mongod
-#    url: <url to your mongo instance, e.g. mongodb://localhost:27017>
-#    db: <name of the db within your mongo instance, e.g. rasa>
-#    username: <username used for authentication>
-#    password: <password used for authentication>
 
 # Event broker which all conversation events should be streamed to.
 # https://rasa.com/docs/rasa/event-brokers
