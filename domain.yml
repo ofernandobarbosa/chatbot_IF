@@ -82,7 +82,7 @@ slots:
         conditions:
           - active_loop: calendar_form
 
-#forms action get course
+  #forms action get course
   courses_name:
     type: text
     mappings:
@@ -138,10 +138,8 @@ forms:
 
 responses:
   utter_greet:
-    - text: |
-        Eai, seja bem-vindo :)
-    - text: |
-        Olá, seja bem-vindo :)
+    - text: Eai, seja bem-vindo :)
+    - text: Olá, seja bem-vindo :)
   utter_examples:
     - text: Me pergunte o que faço para ver algumas opções
   utter_ask_name:
@@ -166,6 +164,8 @@ responses:
     - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
   utter_req_to_ask:
     - text: Pode dizer ou então me pergunte o que posso fazer!
+
+  # utter buttons
   utter_ask_more_help:
     - buttons:
         - payload: /affirm
