@@ -72,7 +72,7 @@ class ClearSlots(Action):
         domain: Dict[Text, Any]
     ) -> List[Dict[Text, Any]]:
 
-        dispatcher.utter_message(template="utter_goodbye")
+        dispatcher.utter_message(response="utter_goodbye")
         return[AllSlotsReset()]
 
 
@@ -88,9 +88,7 @@ class GetCalendar(Action):
         link_calendar = "https://ifrs.edu.br/riogrande/wp-content/uploads/sites/16/2022/05/Calendario-Academico-Campus-Rio-Grande-2022-alterado-em-abril-2022.pdf"
 
         dispatcher.utter_message(
-            text=f"Confira aqui o calendário acadêmico 👇")
-        dispatcher.utter_message(
-            attachement=link_calendar)
+            text=f"Confira aqui o calendário acadêmico 👇", attachment=link_calendar)
 
         return []
 
@@ -103,12 +101,104 @@ class GetCourses(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link_cursos = "https://ifrs.edu.br/riogrande/cursos/"
+        uri_base = "https://ifrs.edu.br/riogrande/cursos/"
+        modality = tracker.get_slot("courses_modality").lower()
+        print(modality)
 
-        dispatcher.utter_message(
-            text=f"Confira aqui os cursos disponíveis no IFRS {link_cursos}")
+        buttons_integrado = [
+            {"payload": '/courses{"courses_name":"automação"}',
+                "title": "Automação Industrial"},
+            {"payload": '/courses{"courses_name":"fabricação"}',
+                "title": "Fabricação Mecânica"},
+            {"payload": '/courses{"courses_name":"informática"}',
+                "title": "Informática para Internet"},
+            {"payload": '/courses{"courses_name":"geoprocessamento"}',
+                "title": "Geoprocessamento"},
+            {"payload": '/courses{"courses_name":"eletrotécnica"}',
+                "title": "Eletrotécnica"},
+            {"payload": '/courses{"courses_name":"refrigeração"}',
+                "title": "Refrigeração"}
+        ]
+        buttons_subsequente = [
+            {"payload": '/courses{"courses_name":"automação"}',
+                "title": "Automação Industrial"},
+            {"payload": '/courses{"courses_name":"fabricação"}',
+                "title": "Fabricação Mecânica"},
+            {"payload": '/courses{"courses_name":"geoprocessamento"}',
+                "title": "Geoprocessamento"},
+            {"payload": '/courses{"courses_name":"eletrotécnica"}',
+                "title": "Eletrotécnica"},
+            {"payload": '/courses{"courses_name":"refrigeração"}',
+                "title": "Refrigeração"},
+            {"payload": '/courses{"courses_name":"enfermagem"}', "title": "Enfermagem"}
+        ]
+        buttons_superior = [
+            {"payload": '/courses{"courses_name":"engenharia mecânica"}',
+                "title": "Engenharia Mecânica"},
+            {"payload": '/courses{"courses_name":"tads"}',
+                "title": "Análise e Desenvolvimendo de Software"},
+            {"payload": '/courses{"courses_name":"tce"}',
+                "title": "Construção de Edifícios"},
+            {"payload": '/courses{"courses_name":"formação pedagógica"}',
+                "title": "Curso de Formação Pedagógica"},
+            {"payload": '/courses{"courses_name":"formação pedagógica não licenciados"}',
+                "title": "Curso de Formação Pedagógica para não Licenciados"},
+        ]
 
-        return []
+        uri_modality = ''
+        if 'integrado' in modality:
+            uri_modality = 'cursos-tecnicos-integrados/'
+            dispatcher.utter_message(
+                title="Qual curso?", buttons=buttons_integrado)
+
+        elif 'subsequente' in modality:
+            uri_modality = 'cursos-tecnicos-subsequentes/'
+            dispatcher.utter_message(
+                title="Qual curso?", buttons=buttons_subsequente)
+
+        elif 'superior' in modality:
+            uri_modality = 'cursos-superiores/'
+            dispatcher.utter_message(
+                title="Qual curso?", buttons=buttons_superior)
+
+        complete_uri = uri_base+uri_modality
+
+        return [SlotSet("courses_link", complete_uri)]
+
+
+class GetInfoCours(Action):
+
+    def name(self) -> Text:
+        return "action_get_info_course"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        courses = {
+            "automação": "automacao-industrial/",
+            "fabricação": "fabricacao-mecanica/",
+            "informática": "informatica-para-internet/",
+            "eletrotécnica": "eletrotecnica/",
+            "geoprocessamento": "geoprocessamento/",
+            "refrigeração": "refrigeracao-e-climatizacao/",
+            "enfermagem": "enfermagem/",
+            "engenharia mecânica": "engenharia-mecanica/",
+            "tads": "tads/",
+            "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
+            "formação pedagógica": "curso-de-formacao-pedagogica/",
+            "formação pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
+        }
+
+        course = tracker.get_slot("courses_name")
+        modality = tracker.get_slot("courses_modality")
+        link = tracker.get_slot("courses_link")
+
+        link += courses[course]
+        print(f"O curso de {course} é da modalidade do {modality}")
+        print(f"o link de acesso para o curso é {link}")
+
+        return [SlotSet("courses_modality", None), SlotSet("courses_name", None), SlotSet("courses_link", None)]
 
 
 class ImformToDoRegister(Action):
@@ -145,22 +235,6 @@ class InformToRedoRegister(Action):
         dispatcher.utter_message(
             text="Caso esteja com dificuldades consulte o link abaixo 👇")
         dispatcher.utter_message(text=link_tutorial)
-
-        return []
-
-
-class GetInternshipInfo(Action):
-    def name(self) -> Text:
-        return "action_get_internship_info"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        link_estagio = "https://ifrs.edu.br/riogrande/extensao/estagios/"
-
-        dispatcher.utter_message(
-            text=f"Confira aqui maiores informações sobre estágios no IFRS! {link_estagio}")
 
         return []
 
