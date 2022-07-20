@@ -59,18 +59,22 @@ stories:
   steps:
     - checkpoint: check_ask_help
     - intent: request_courses
-    - action: courses_form
-    - active_loop: courses_form
+    - action: utter_ask_courses_modality
+    - intent: modality
+      entities:
+      - courses_modality: integrado
     - slot_was_set:
-      - requested_slot: courses_modality
-    - slot_was_set:
-      - courses_modality: Técnicos integrados
-    - slot_was_set:
-      - requested_slot: null
-    - active_loop: null
+      - courses_modality: integrado
     - action: action_get_courses
+    - slot_was_set:
+      - courses_link: https://ifrs.edu.br/riogrande/cursos/cursos-tecnicos-integrados/
     - intent: courses
+      entities:
+      - courses_name: fabricação
+    - slot_was_set:
+      - courses_name: fabricação
     - action: action_get_info_course
+    - checkpoint: check_more_help
 
 - story: solicitar documentos para matricula
   steps:

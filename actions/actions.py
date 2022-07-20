@@ -100,70 +100,81 @@ class GetCourses(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        A action é chamada para validar a opção da modalidade do curso escolhida pelo usário, assim que validada ela dispacha paara o usuário botões de selecão do curso de acordo com a modalidade escolhida.
+        Ao final da action, vai ser retornado também o preenchimento do slot (courses_modality_link) para ser utilizada na action seguinte (action_get_info_course) das Stories.
+        """
 
-        uri_base = "https://ifrs.edu.br/riogrande/cursos/"
-        modality = tracker.get_slot("courses_modality").lower()
-        print(modality)
-
+        # buttons declaration
         buttons_integrado = [
-            {"payload": '/courses{"courses_name":"automação"}',
-                "title": "Automação Industrial"},
-            {"payload": '/courses{"courses_name":"fabricação"}',
-                "title": "Fabricação Mecânica"},
-            {"payload": '/courses{"courses_name":"informática"}',
-                "title": "Informática para Internet"},
-            {"payload": '/courses{"courses_name":"geoprocessamento"}',
-                "title": "Geoprocessamento"},
-            {"payload": '/courses{"courses_name":"eletrotécnica"}',
-                "title": "Eletrotécnica"},
-            {"payload": '/courses{"courses_name":"refrigeração"}',
-                "title": "Refrigeração"}
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Informática para Internet",
+                "payload": '/courses{"courses_name": "informática"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'}
         ]
         buttons_subsequente = [
-            {"payload": '/courses{"courses_name":"automação"}',
-                "title": "Automação Industrial"},
-            {"payload": '/courses{"courses_name":"fabricação"}',
-                "title": "Fabricação Mecânica"},
-            {"payload": '/courses{"courses_name":"geoprocessamento"}',
-                "title": "Geoprocessamento"},
-            {"payload": '/courses{"courses_name":"eletrotécnica"}',
-                "title": "Eletrotécnica"},
-            {"payload": '/courses{"courses_name":"refrigeração"}',
-                "title": "Refrigeração"},
-            {"payload": '/courses{"courses_name":"enfermagem"}', "title": "Enfermagem"}
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'},
+            {"title": "Enfermagem", "payload": '/courses{"courses_name": "enfermagem"}'}
         ]
         buttons_superior = [
-            {"payload": '/courses{"courses_name":"engenharia mecânica"}',
-                "title": "Engenharia Mecânica"},
-            {"payload": '/courses{"courses_name":"tads"}',
-                "title": "Análise e Desenvolvimendo de Software"},
-            {"payload": '/courses{"courses_name":"tce"}',
-                "title": "Construção de Edifícios"},
-            {"payload": '/courses{"courses_name":"formação pedagógica"}',
-                "title": "Curso de Formação Pedagógica"},
-            {"payload": '/courses{"courses_name":"formação pedagógica não licenciados"}',
-                "title": "Curso de Formação Pedagógica para não Licenciados"},
+            {"title": "Engenharia Mecânica",
+                "payload": '/courses{"courses_name": "engenharia mecânica"}'},
+            {"title": "Análise e Desenvolvimendo de Software",
+                "payload": '/courses{"courses_name": "tads"}'},
+            {"title": "Construção de Edifícios",
+                "payload": '/courses{"courses_name": "tce"}'},
+            {"title": "F. Pedagógica",
+                "payload": '/courses{"courses_name": "formação pedagógica"}'},
+            {"title": "F. Pedagógica não Licenciados",
+                "payload": '/courses{"courses_name": "pedagógica não licenciados"}'}
         ]
 
-        uri_modality = ''
-        if 'integrado' in modality:
-            uri_modality = 'cursos-tecnicos-integrados/'
-            dispatcher.utter_message(
-                title="Qual curso?", buttons=buttons_integrado)
+        # variables declaration
+        uri_base = "https://ifrs.edu.br/riogrande/cursos/"
+        modality = tracker.get_slot("courses_modality").lower()
 
-        elif 'subsequente' in modality:
-            uri_modality = 'cursos-tecnicos-subsequentes/'
-            dispatcher.utter_message(
-                title="Qual curso?", buttons=buttons_subsequente)
+        modalities = {
+            "integrado": {
+                "link":"cursos-tecnicos-integrados/",
+                "button": buttons_integrado,
+                },
+            "subsequente":{ 
+                "link": "cursos-tecnicos-subsequentes/",
+                "button": buttons_subsequente,
+            },
+            "superior": {
+                "link":"cursos-superiores/",
+                "button": buttons_superior,
+            },
+        }
+        uri_modality = modalities[modality]["link"]
 
-        elif 'superior' in modality:
-            uri_modality = 'cursos-superiores/'
-            dispatcher.utter_message(
-                title="Qual curso?", buttons=buttons_superior)
+        # Dispatcher the button selector according with the chosen modality
+        button = dispatcher.utter_message(
+            text="Para qual curso gostaria de mais informações?", 
+            button=modalities[modality]["button"], 
+            button_type="vertical")
 
         complete_uri = uri_base+uri_modality
 
-        return [SlotSet("courses_link", complete_uri)]
+        return [SlotSet("courses_modality_link", complete_uri)]
 
 
 class GetInfoCours(Action):
@@ -174,6 +185,11 @@ class GetInfoCours(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        A action valida o curso selecionado pelo usuário e busca o link de acordo com o botão clicado pelo usuário.
+        Além de validar o curso, a action recebe o valor do slot (courses_modality_link) para interpolar com o endpoint de acordo com o curso selecionado.
+        Por fim, despacha para o usuário a informação com o link correto.
+        """
 
         courses = {
             "automação": "automacao-industrial/",
@@ -187,18 +203,20 @@ class GetInfoCours(Action):
             "tads": "tads/",
             "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
             "formação pedagógica": "curso-de-formacao-pedagogica/",
-            "formação pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
+            "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
         }
 
-        course = tracker.get_slot("courses_name")
-        modality = tracker.get_slot("courses_modality")
-        link = tracker.get_slot("courses_link")
+        course_name = tracker.get_slot("courses_name")
+        course_modality = tracker.get_slot("courses_modality")
+        link = tracker.get_slot("courses_modality_link")
 
-        link += courses[course]
-        print(f"O curso de {course} é da modalidade do {modality}")
-        print(f"o link de acesso para o curso é {link}")
+        link += courses[course_name]
 
-        return [SlotSet("courses_modality", None), SlotSet("courses_name", None), SlotSet("courses_link", None)]
+        msg=f"Segue o link de acesso para o curso {link}"
+
+        dispatcher.utter_message(text=msg)
+
+        return []
 
 
 class ImformToDoRegister(Action):
@@ -248,7 +266,7 @@ class WhatBotDo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(
-            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Informações sobre estágio\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
+            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
 
         return []
 

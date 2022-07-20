@@ -39,7 +39,7 @@ entities:
   - documents
   - courses_modality
   - courses_name
-  - courses_link
+  - courses_modality_link
 
 slots:
   # teste validar nome
@@ -85,22 +85,21 @@ slots:
   #forms action get course
   courses_name:
     type: text
+    influence_conversation: true
     mappings:
       - type: from_entity
         entity: courses_name
   courses_modality:
+    influence_conversation: true
     type: text
     mappings:
       - type: from_entity
         entity: courses_modality
-        conditions:
-          - active_loop: courses_form
-            requested_slot: courses_modality
-  courses_link:
+  courses_modality_link:
     type: text
     mappings:
       - type: from_entity
-        entity: courses_link
+        entity: courses_modality_link
 
   documents:
     type: text
@@ -129,9 +128,9 @@ forms:
   calendar_form:
     required_slots:
       - calendar
-  courses_form:
-    required_slots:
-      - courses_modality
+  # courses_form:
+  #   required_slots:
+  #     - courses_modality
   documents_form:
     required_slots:
       - documents

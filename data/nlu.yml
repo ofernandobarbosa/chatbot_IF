@@ -61,7 +61,7 @@ nlu:
     - [fernando](PER)
     - [thais](PER)
     - [Fernando](PER)
-    - [Fernando](PER)
+    - [fernando](PER)
 - intent: request_doc_register
   examples: |
     - atestado
@@ -99,14 +99,6 @@ nlu:
     - como solicitar rematrícula
     - link da rematricula
     - site para rematrícula
-# - intent: request_historic
-#   examples: |
-#     - gostaria do meu historico escolar
-#     - histórico escolar
-#     - historico
-#     - onde posso pegar meu historico escolar
-#     - onde fica o histórico escolar
-#     - fornecer historico escolar
 - intent: inform_professor_name
   examples: |
     - [ricardo](PER)
@@ -184,6 +176,7 @@ nlu:
     - tipos de cursos
     - quais cursos
     - EAD
+    - cursos
 - intent: request_internship
   examples: |
     - estagio
@@ -210,38 +203,15 @@ nlu:
     - [Superior](courses_modality)
 - intent: courses
   examples: |
-    - [automação](course_name)
-    - [automacao](course_name)
-    - [automação industrial](course_name)
-    - [fabricacao](course_name)
-    - [fabricação mecânica](course_name)
-    - [fabricação](course_name)
-    - [informática](course_name)
-    - [informatica para internet](course_name)
-    - [internet](course_name)
-    - [info](course_name)
-    - [geoprocessamento](course_name)
-    - [geo](course_name)
-    - [eletrotecnica](course_name)
-    - [eletrotécnica](course_name)
-    - [eletro](course_name)
-    - [refrigeração](course_name)
-    - [refrigeracao](course_name)
-    - [refri](course_name)
-    - [enfermagem](course_name)
-    - [técnico enfermagem](course_name)
-    - [tec enfermagem](course_name)
-    - [eng mecânica](course_name)
-    - [engenharia mec](course_name)
-    - [engenharia mecânica](course_name)
-    - [tads](course_name)
-    - [analise e desenvolvimento de software](course_name)
-    - [análise e desenvolvimento de software](course_name)
-    - [tce](course_name)
-    - [construção de edifícios](course_name)
-    - [construcão de edificios](course_name)
-    - [formacao pedagogica](course_name)
-    - [formação pedagógica](course_name)
-    - [formacao pedagogica nao licenciados](course_name)
-    - [formação pedagógica não licenciados](course_name)
-    - [formacao pedagógica nao licenciados](course_name)
+    - [automação](courses_name)
+    - [fabricação](courses_name)
+    - [informática](courses_name)
+    - [geoprocessamento](courses_name)
+    - [eletrotécnica](courses_name)
+    - [refrigeração](courses_name)
+    - [enfermagem](courses_name)
+    - [engenharia mecânica](courses_name)
+    - [tads](courses_name)
+    - [tce](courses_name)
+    - [formação pedagógica](courses_name)
+    - [pedagógica não licenciados](courses_name)
