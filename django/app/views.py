@@ -4,7 +4,6 @@ from .models import Categoria
 
 
 def index(request):
-    
     calendarios = Calendario.objects.filter(visivel=True)
     categorias = Categoria.objects.all()
 
