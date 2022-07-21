@@ -18,7 +18,6 @@ intents:
       ignore_entities:
         - PER
   - request_courses
-  - request_internship
   - request_redo_register
   - inform_name:
       ignore_entities:
@@ -27,6 +26,8 @@ intents:
       ignore_entities:
         - LOC
   - ask_what_bot_do
+  - modality
+  - courses
 
 entities:
   - PER
@@ -36,7 +37,9 @@ entities:
   - calendar
   - courses
   - documents
-  - internship
+  - courses_modality
+  - courses_name
+  - courses_modality_link
 
 slots:
   # teste validar nome
@@ -64,7 +67,6 @@ slots:
         conditions:
           - active_loop: professor_name_form
             requested_slot: professor_name
-
   classes:
     type: text
     mappings:
@@ -79,13 +81,26 @@ slots:
         entity: calendar
         conditions:
           - active_loop: calendar_form
-  courses:
+
+  #forms action get course
+  courses_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: courses_name
+  courses_modality:
+    influence_conversation: true
     type: text
     mappings:
       - type: from_entity
-        entity: courses
-        conditions:
-          - active_loop: courses_form
+        entity: courses_modality
+  courses_modality_link:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: courses_modality_link
+
   documents:
     type: text
     mappings:
@@ -93,20 +108,6 @@ slots:
         entity: documents
         conditions:
           - active_loop: documents_form
-  internship:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: internship
-        conditions:
-          - active_loop: internship_form
-  # register:
-  #   type: text
-  #   mappings:
-  #   - type: from_entity
-  #     entity: register
-  #     conditions:
-  #     - active_loop: name_form
 
 forms:
   name_form:
@@ -127,41 +128,29 @@ forms:
   calendar_form:
     required_slots:
       - calendar
-  courses_form:
-    required_slots:
-      - courses
+  # courses_form:
+  #   required_slots:
+  #     - courses_modality
   documents_form:
     required_slots:
       - documents
-  internship_form:
-    required_slots:
-      - internship
-  # register_form:
-  #   required_slots:
-  #   - register
 
 responses:
   utter_greet:
-    - text: |
-        Eai, seja bem-vindo :)
-    - text: |
-        Olá, seja bem-vindo :)
+    - text: Eai, seja bem-vindo :)
+    - text: Olá, seja bem-vindo :)
   utter_examples:
-    - text: |
-        Me pergunte
-        'o que tu pode fazer?' 
-        para ver algumas opções
+    - text: Me pergunte o que faço para ver algumas opções
   utter_ask_name:
     - text: Qual é seu nome?
     - text: Me informa seu nome?
   utter_ask_professor_name:
-    - text: Você poderia informar o nome do professor?
     - text: Qual o nome do professor?
     - text: Me informa o nome do professor?
   utter_ask_help:
     - text: Em que posso ajudar {name}?
   utter_goodbye:
-    - text: Até logo {name}! :)
+    - text: Até logo, {name}! :)
   utter_iamabot:
     - text: I am a bot, powered by Rasa.
   utter_ask_classes:
@@ -172,10 +161,10 @@ responses:
     - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui!
   utter_ask_documents:
     - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
-  utter_ask_internship:
-    - text: Confira aqui maiores informações sobre estágios no IFRS!
   utter_req_to_ask:
     - text: Pode dizer ou então me pergunte o que posso fazer!
+
+  # utter buttons
   utter_ask_more_help:
     - buttons:
         - payload: /affirm
@@ -184,6 +173,16 @@ responses:
           title: Não
       button_type: inline
       text: Gostaria de mais alguma ajuda?
+  utter_ask_courses_modality:
+    - text: Para qual modalidade gostaria de informações?
+      buttons:
+        - title: Técnicos integrados
+          payload: '/modality{{"courses_modality":"integrado"}}'
+        - title: Técnicos subsequente
+          payload: '/modality{{"courses_modality":"subsequente"}}'
+        - title: Superiores
+          payload: '/modality{{"courses_modality":"superior"}}'
+      button_type: vertical
 
 actions:
   - utter_ask_help
@@ -193,7 +192,6 @@ actions:
   - utter_ask_calendar
   - utter_ask_courses
   - utter_ask_documents
-  - utter_ask_internship
 
   # custom actions
   - action_get_professor_contact
@@ -201,12 +199,12 @@ actions:
   - action_get_classes
   - action_get_calendar
   - action_get_courses
-  - action_get_internship_info
+  - action_get_info_course
   - action_inform_do_register
   - action_inform_redo_register
   - action_what_bot_do
   - action_goodbye_and_clear_slots
-  
+
   # custom validation
   - validate_name_form
   - validate_professor_name_form

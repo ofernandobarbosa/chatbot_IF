@@ -55,11 +55,25 @@ stories:
     - action: action_get_calendar
     - checkpoint: check_more_help
 
-- story: solicitar cursos
+- story: solicitar informações sobre os cursos
   steps:
     - checkpoint: check_ask_help
     - intent: request_courses
+    - action: utter_ask_courses_modality
+    - intent: modality
+      entities:
+      - courses_modality: integrado
+    - slot_was_set:
+      - courses_modality: integrado
     - action: action_get_courses
+    - slot_was_set:
+      - courses_link: https://ifrs.edu.br/riogrande/cursos/cursos-tecnicos-integrados/
+    - intent: courses
+      entities:
+      - courses_name: fabricação
+    - slot_was_set:
+      - courses_name: fabricação
+    - action: action_get_info_course
     - checkpoint: check_more_help
 
 - story: solicitar documentos para matricula
@@ -74,13 +88,6 @@ stories:
     - checkpoint: check_ask_help
     - intent: request_redo_register
     - action: action_inform_redo_register
-    - checkpoint: check_more_help
-
-- story: solicitar iformações sobre estagios
-  steps:
-    - checkpoint: check_ask_help
-    - intent: request_internship
-    - action: action_get_internship_info
     - checkpoint: check_more_help
   
 - story: precisa de mais alguma ajuda? sim

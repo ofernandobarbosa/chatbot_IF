@@ -72,7 +72,7 @@ class ClearSlots(Action):
         domain: Dict[Text, Any]
     ) -> List[Dict[Text, Any]]:
 
-        dispatcher.utter_message(template="utter_goodbye")
+        dispatcher.utter_message(response="utter_goodbye")
         return[AllSlotsReset()]
 
 
@@ -88,9 +88,7 @@ class GetCalendar(Action):
         link_calendar = "https://ifrs.edu.br/riogrande/wp-content/uploads/sites/16/2022/05/Calendario-Academico-Campus-Rio-Grande-2022-alterado-em-abril-2022.pdf"
 
         dispatcher.utter_message(
-            text=f"Confira aqui o calendário acadêmico 👇")
-        dispatcher.utter_message(
-            attachement=link_calendar)
+            text=f"Confira aqui o calendário acadêmico 👇", attachment=link_calendar)
 
         return []
 
@@ -102,11 +100,121 @@ class GetCourses(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        A action é chamada para validar a opção da modalidade do curso escolhida pelo usário, assim que validada ela dispacha paara o usuário botões de selecão do curso de acordo com a modalidade escolhida.
+        Ao final da action, vai ser retornado também o preenchimento do slot (courses_modality_link) para ser utilizada na action seguinte (action_get_info_course) das Stories.
+        """
 
-        link_cursos = "https://ifrs.edu.br/riogrande/cursos/"
+        # buttons declaration
+        buttons_integrado = [
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Informática para Internet",
+                "payload": '/courses{"courses_name": "informática"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'}
+        ]
+        buttons_subsequente = [
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'},
+            {"title": "Enfermagem", "payload": '/courses{"courses_name": "enfermagem"}'}
+        ]
+        buttons_superior = [
+            {"title": "Engenharia Mecânica",
+                "payload": '/courses{"courses_name": "engenharia mecânica"}'},
+            {"title": "Análise e Desenvolvimendo de Software",
+                "payload": '/courses{"courses_name": "tads"}'},
+            {"title": "Construção de Edifícios",
+                "payload": '/courses{"courses_name": "tce"}'},
+            {"title": "F. Pedagógica",
+                "payload": '/courses{"courses_name": "formação pedagógica"}'},
+            {"title": "F. Pedagógica não Licenciados",
+                "payload": '/courses{"courses_name": "pedagógica não licenciados"}'}
+        ]
 
-        dispatcher.utter_message(
-            text=f"Confira aqui os cursos disponíveis no IFRS {link_cursos}")
+        # variables declaration
+        uri_base = "https://ifrs.edu.br/riogrande/cursos/"
+        modality = tracker.get_slot("courses_modality").lower()
+
+        modalities = {
+            "integrado": {
+                "link":"cursos-tecnicos-integrados/",
+                "button": buttons_integrado,
+                },
+            "subsequente":{ 
+                "link": "cursos-tecnicos-subsequentes/",
+                "button": buttons_subsequente,
+            },
+            "superior": {
+                "link":"cursos-superiores/",
+                "button": buttons_superior,
+            },
+        }
+        uri_modality = modalities[modality]["link"]
+
+        # Dispatcher the button selector according with the chosen modality
+        button = dispatcher.utter_message(
+            text="Para qual curso gostaria de mais informações?", 
+            button=modalities[modality]["button"], 
+            button_type="vertical")
+
+        complete_uri = uri_base+uri_modality
+
+        return [SlotSet("courses_modality_link", complete_uri)]
+
+
+class GetInfoCours(Action):
+
+    def name(self) -> Text:
+        return "action_get_info_course"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        A action valida o curso selecionado pelo usuário e busca o link de acordo com o botão clicado pelo usuário.
+        Além de validar o curso, a action recebe o valor do slot (courses_modality_link) para interpolar com o endpoint de acordo com o curso selecionado.
+        Por fim, despacha para o usuário a informação com o link correto.
+        """
+
+        courses = {
+            "automação": "automacao-industrial/",
+            "fabricação": "fabricacao-mecanica/",
+            "informática": "informatica-para-internet/",
+            "eletrotécnica": "eletrotecnica/",
+            "geoprocessamento": "geoprocessamento/",
+            "refrigeração": "refrigeracao-e-climatizacao/",
+            "enfermagem": "enfermagem/",
+            "engenharia mecânica": "engenharia-mecanica/",
+            "tads": "tads/",
+            "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
+            "formação pedagógica": "curso-de-formacao-pedagogica/",
+            "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
+        }
+
+        course_name = tracker.get_slot("courses_name")
+        course_modality = tracker.get_slot("courses_modality")
+        link = tracker.get_slot("courses_modality_link")
+
+        link += courses[course_name]
+
+        msg=f"Segue o link de acesso para o curso {link}"
+
+        dispatcher.utter_message(text=msg)
 
         return []
 
@@ -149,22 +257,6 @@ class InformToRedoRegister(Action):
         return []
 
 
-class GetInternshipInfo(Action):
-    def name(self) -> Text:
-        return "action_get_internship_info"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        link_estagio = "https://ifrs.edu.br/riogrande/extensao/estagios/"
-
-        dispatcher.utter_message(
-            text=f"Confira aqui maiores informações sobre estágios no IFRS! {link_estagio}")
-
-        return []
-
-
 class WhatBotDo(Action):
     def name(self) -> Text:
         return "action_what_bot_do"
@@ -174,7 +266,7 @@ class WhatBotDo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(
-            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Informações sobre estágio\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
+            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
 
         return []
 

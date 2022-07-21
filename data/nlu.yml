@@ -61,7 +61,7 @@ nlu:
     - [fernando](PER)
     - [thais](PER)
     - [Fernando](PER)
-    - [Fernando](PER)
+    - [fernando](PER)
 - intent: request_doc_register
   examples: |
     - atestado
@@ -99,14 +99,6 @@ nlu:
     - como solicitar rematrícula
     - link da rematricula
     - site para rematrícula
-# - intent: request_historic
-#   examples: |
-#     - gostaria do meu historico escolar
-#     - histórico escolar
-#     - historico
-#     - onde posso pegar meu historico escolar
-#     - onde fica o histórico escolar
-#     - fornecer historico escolar
 - intent: inform_professor_name
   examples: |
     - [ricardo](PER)
@@ -184,6 +176,7 @@ nlu:
     - tipos de cursos
     - quais cursos
     - EAD
+    - cursos
 - intent: request_internship
   examples: |
     - estagio
@@ -200,3 +193,25 @@ nlu:
     - me diz o que tu faz
     - tu faz o que?
     - faz o que?
+- intent: modality
+  examples: |
+    - [integrado](courses_modality)
+    - [Integrado](courses_modality)
+    - [subsequente](courses_modality)
+    - [Subsequente](courses_modality)
+    - [superior](courses_modality)
+    - [Superior](courses_modality)
+- intent: courses
+  examples: |
+    - [automação](courses_name)
+    - [fabricação](courses_name)
+    - [informática](courses_name)
+    - [geoprocessamento](courses_name)
+    - [eletrotécnica](courses_name)
+    - [refrigeração](courses_name)
+    - [enfermagem](courses_name)
+    - [engenharia mecânica](courses_name)
+    - [tads](courses_name)
+    - [tce](courses_name)
+    - [formação pedagógica](courses_name)
+    - [pedagógica não licenciados](courses_name)
