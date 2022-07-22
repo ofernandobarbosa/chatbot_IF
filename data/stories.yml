@@ -67,7 +67,7 @@ stories:
       - courses_modality: integrado
     - action: action_get_courses
     - slot_was_set:
-      - courses_link: https://ifrs.edu.br/riogrande/cursos/cursos-tecnicos-integrados/
+      - courses_modality_link: https://ifrs.edu.br/riogrande/cursos/cursos-tecnicos-integrados/
     - intent: courses
       entities:
       - courses_name: fabricação
@@ -90,6 +90,22 @@ stories:
     - action: action_inform_redo_register
     - checkpoint: check_more_help
   
+- story: solicitar requerimentos
+  steps:
+    - checkpoint: check_ask_help
+    - intent: request_requirements
+    - action: requirement_form
+    - active_loop: requirement_form
+    - slot_was_set:
+        - requested_slot: requirements
+    - slot_was_set:
+        - requirements: Reingresso
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_get_requirements
+    - checkpoint: check_more_help
+    
 - story: precisa de mais alguma ajuda? sim
   steps:
     - checkpoint: check_more_help
