@@ -1,35 +1,31 @@
 {% load static %}
 {% include 'partials/header.html' %}
-
-<h1> CATEGORIA </h1>
-
-<div><h3>{{ categoria.nome_categoria }}</h3>
-    {% if calendarios %}
-    {% for calendario in calendarios %}
-    {% if calendario.categoria_evento == categoria.id %}
-    {% if calendario.visivel == True %}
-    <div>
-        <div>
-            <a href="{% url 'calendario' calendario.id %}">
-            <h6>{{calendario.nome_evento}}</h6>
-            </a>
-        </div>
-    </div>
-    {% else %}
-    <div>
-        <div>
-            <img src="{% static calendario.imagem.url %}" alt="">
+<body>
+    <table>
+        {% include 'partials/login-admin.html' %}
+        <tr>
+            <td></td>
+            <td><center><h1>{{ categoria.nome_categoria }}</h1></center><br><br></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><section>
+                <div>
+                    {% if calendarios %}
+                    {% for calendario in calendarios %}
+                    {% if calendario.categoria_evento == categoria.id %}
+                </div>
+                <div>
                 <a href="{% url 'calendario' calendario.id %}">
-                <h6>{{calendario.nome_evento}} (NÃO VISÍVEL) </h6>
+                <h6>{{calendario.nome_evento}}</h6>
                 </a>
-        </div>
-    </div>
-    {% endif %}
-    {% else %}
-    {% endif %}
-    {% endfor %}
-    {% else %}
-    {% endif %}
-</div>
-
+                </div>
+                </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </section></td>        
+        </tr>
+    </table>
 {% include 'partials/footer.html' %}
