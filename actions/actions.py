@@ -52,12 +52,84 @@ class GetClasses(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link_classes = "https://ifrs.edu.br/riogrande/ensino/retorno-do-calendario/horarios/"
+        # buttons declaration
+        buttons_integrado = [
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Informática para Internet",
+                "payload": '/courses{"courses_name": "informática"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'}
+        ]
+        buttons_subsequente = [
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'},
+            {"title": "Enfermagem", "payload": '/courses{"courses_name": "enfermagem"}'}
+        ]
+        buttons_superior = [
+            {"title": "Engenharia Mecânica",
+                "payload": '/courses{"courses_name": "engenharia mecânica"}'},
+            {"title": "Análise e Desenvolvimendo de Software",
+                "payload": '/courses{"courses_name": "tads"}'},
+            {"title": "Construção de Edifícios",
+                "payload": '/courses{"courses_name": "tce"}'},
+            {"title": "F. Pedagógica",
+                "payload": '/courses{"courses_name": "formação pedagógica"}'},
+            {"title": "F. Pedagógica não Licenciados",
+                "payload": '/courses{"courses_name": "pedagógica não licenciados"}'}
+        ]
 
+        # variables declaration
+        uri_base = ""
+        modality = tracker.get_slot("courses_modality").lower()
+
+        modalities = {
+            "integrado": {
+                "link":"cursos-tecnicos-integrados/",
+                "button": buttons_integrado,
+                },
+            "subsequente":{ 
+                "link": "cursos-tecnicos-subsequentes/",
+                "button": buttons_subsequente,
+            },
+            "superior": {
+                "link":"cursos-superiores/",
+                "button": buttons_superior,
+            },
+        }
+        uri_modality = modalities[modality]["link"]
+
+        # Dispatcher the button selector according with the chosen modality
         dispatcher.utter_message(
-            text=f"Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!")
+            text="Para qual curso gostaria de obter os horarios?", 
+            buttons=modalities[modality]["button"], 
+            button_type="vertical")
+
+        complete_uri = uri_base+uri_modality
+        dispatcher.utter_message(text=f"Para visualizar seu horário de aula você precisa acessar o link {complete_uri}")
 
         return []
+
+        #link_courses = "https://ifrs.edu.br/riogrande/ensino/retorno-do-calendario/horarios/"
+
+        #dispatcher.utter_message(
+            #text=f"Os horários de suas aulas e disciplinas você pode conferir aqui {link_courses}!")
+
+        #return []
 
 
 class ClearSlots(Action):

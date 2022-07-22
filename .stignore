@@ -1,5 +1,6 @@
 # default .stignore for a go-based project
 okteto.yml
+okteto.exe
 .git
 *.exe
 *.exe~

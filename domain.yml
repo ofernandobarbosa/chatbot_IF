@@ -184,6 +184,17 @@ responses:
           payload: '/modality{{"courses_modality":"superior"}}'
       button_type: vertical
 
+  utter_ask_classes_modality:
+    - text: Para qual modalidade gostaria de informações?
+      buttons:
+        - title: Técnicos integrados
+          payload: '/modality{{"courses_modality":"integrado"}}'
+        - title: Técnicos subsequente
+          payload: '/modality{{"courses_modality":"subsequente"}}'
+        - title: Superiores
+          payload: '/modality{{"courses_modality":"superior"}}'
+      button_type: vertical
+
 actions:
   - utter_ask_help
   - utter_goodbye
