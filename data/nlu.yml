@@ -59,9 +59,20 @@ nlu:
     - [Fernando](PER) é meu nome
     - me chamam de [João](PER)
     - [fernando](PER)
-    - [thais](PER)
-    - [Fernando](PER)
-    - [fernando](PER)
+    - [Carlos](PER)
+    - [Juan](PER)
+    - [juliana](PER)
+    - [Vini](PER)
+    - [tatiele](PER)
+    - [Jussara](PER)
+    - [Miguel](PER)
+    - [Matheus](PER)
+    - [Sophia](PER)
+    - [Helena](PER)
+    - [Lara](PER)
+    - [Bernardo](PER)
+    - [Matheus Henrique](PER)
+
 - intent: request_doc_register
   examples: |
     - atestado
@@ -170,12 +181,10 @@ nlu:
     - cursos disponíveis
     - IFRS no rio grande do sul
     - IFRS no estado
-    - cursos integrantes do IFRS
-    - cursos de pós-graduação IFRS Rio Grande
-    - quais os cursos livres ofertados
+    - cursos integrados
+    - quais os cursos ofertados
     - tipos de cursos
     - quais cursos
-    - EAD
     - cursos
 - intent: ask_what_bot_do
   examples: |

@@ -4,10 +4,20 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import SlotSet, AllSlotsReset
+import json
 
+with open("calendarios.json", encoding = 'utf-8') as f:
+    data = json.loads(f.read())
+
+for obj in data:
+    try:
+        print(obj['modalidade'])
+        print()
+    except:
+        pass
 
 class GetProfessorContact(Action):
-
+    # categoria informações de servidores
     def name(self) -> Text:
         return "action_get_professor_contact"
 
@@ -344,6 +354,8 @@ class Requirements(Action):
 
         dispatcher.utter_message(text=text)
         dispatcher.utter_message(text=f'`Segue` o [link]({link}) para o formulário! [](tg://user?id=<user_id>)')
+
+
 
         return [SlotSet("requirements", None)]
 

@@ -21,6 +21,7 @@ services:
       - --debug
       - -p 5056
 
+# rasa run --enable-api --cors "*" --credentials credentials.yml --debug
   actions:
     build:
       context: .
