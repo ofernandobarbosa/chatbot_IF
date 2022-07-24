@@ -1,0 +1,35 @@
+{% load static %}
+{% include 'partials/header.html' %}
+<body>
+    {% include 'partials/login-admin.html' %}
+    <div align="center">
+    <table>        
+        <tr><td>&nbsp</td><td></td></tr>
+        <tr>
+            <td></td>
+            <td>
+                <div class="contact-area section-padding-0-80">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="section-heading">
+                                    <h3>Cadastre um novo evento, {{ user.username }} :)</h3>
+                                    <p>Comece escolhendo uma categoria:</p>
+                            <div class="produto-post-search mb-80" >
+                                <ul>
+                                {% for categoria in categorias %}
+                                        <a href="{% url 'add_evento' categoria.id %}">
+                                        <button style="background: #00420c; border-radius: 6px; padding: 15px; cursor: pointer; color: #fff; border: none; font-size: 16px;">{{categoria.nome_categoria}}</button></a>&nbsp&nbsp&nbsp&nbsp&nbsp
+                                {% endfor %}
+                                <div>
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </div>
+{% include 'partials/footer.html' %}
