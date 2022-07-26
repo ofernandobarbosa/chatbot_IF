@@ -114,6 +114,18 @@ nlu:
     - [Patrícia dos Santos](PER)
     - [rodrigo](PER)
     - [Gustavo Guanabara](PER)
+- intent: inform_professor_last_name
+  examples: |
+    - [Silva Oliveira](PER)
+    - [Barbosa](PER)
+    - sim, é [Pereira](PER)
+    - claro, é [Silveira Martins](PER)
+    - [aguiar](PER)
+    - [ferreira](PER)
+    - [nunes](PER)
+    - é [Rodrigues](PER)
+    - [marques](PER)
+    - [peres](PER)
 - intent: request_email
   examples: |
     - email dos professores
@@ -215,3 +227,4 @@ nlu:
     - [tce](courses_name)
     - [formação pedagógica](courses_name)
     - [pedagógica não licenciados](courses_name)
+

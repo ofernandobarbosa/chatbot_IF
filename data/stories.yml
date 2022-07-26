@@ -33,8 +33,10 @@ stories:
     - active_loop: professor_name_form
     - slot_was_set:
         - requested_slot: professor_name
+        - requested_slot: professor_last_name
     - slot_was_set:
-        - professor_name: Gustavo Guanabara
+        - professor_name: Gustavo
+        - professor_last_name: Guanabara
     - slot_was_set:
         - requested_slot: null
     - active_loop: null
@@ -52,6 +54,12 @@ stories:
     - slot_was_set:
       - courses_modality: subsequente
     - action: action_get_classes
+    - intent: courses
+      entities:
+      - courses_name: fabricação
+    - slot_was_set:
+      - courses_name: fabricação
+    - action: action_get_info_classe
     - checkpoint: check_more_help
 
 - story: solicitar calendário acadêmico
@@ -61,26 +69,26 @@ stories:
     - action: action_get_calendar
     - checkpoint: check_more_help
 
-- story: solicitar informações sobre os cursos
-  steps:
-    - checkpoint: check_ask_help
-    - intent: request_courses
-    - action: utter_ask_courses_modality
-    - intent: modality
-      entities:
-      - courses_modality: integrado
-    - slot_was_set:
-      - courses_modality: integrado
-    - action: action_get_courses
-    - slot_was_set:
-      - courses_modality_link: https://ifrs.edu.br/riogrande/cursos/cursos-tecnicos-integrados/
-    - intent: courses
-      entities:
-      - courses_name: fabricação
-    - slot_was_set:
-      - courses_name: fabricação
-    - action: action_get_info_course
-    - checkpoint: check_more_help
+# - story: solicitar informações sobre os cursos
+#   steps:
+#     - checkpoint: check_ask_help
+#     - intent: request_courses
+#     - action: utter_ask_courses_modality
+#     - intent: modality
+#       entities:
+#       - courses_modality: integrado
+#     - slot_was_set:
+#       - courses_modality: integrado
+#     - action: action_get_courses
+#     - slot_was_set:
+#       - courses_modality_link: https://ifrs.edu.br/riogrande/cursos/cursos-tecnicos-integrados/
+#     - intent: courses
+#       entities:
+#       - courses_name: fabricação
+#     - slot_was_set:
+#       - courses_name: fabricação
+#     - action: action_get_info_course
+#     - checkpoint: check_more_help
 
 - story: solicitar documentos para matricula
   steps:

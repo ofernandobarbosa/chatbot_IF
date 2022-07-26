@@ -4,6 +4,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import SlotSet, AllSlotsReset
+import json
 
 
 class GetProfessorContact(Action):
@@ -16,9 +17,31 @@ class GetProfessorContact(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         nome_professor = tracker.get_slot("professor_name")
+        sobrenome_professor = tracker.get_slot("professor_last_name")
+        with open("calendarios.json", encoding="utf8") as file:
+            data = json.loads(file.read())
 
-        dispatcher.utter_message(
-            text=f"{nome_professor}@riogrande.ifrs.edu.br")
+        for order in data:
+            try:
+                print(nome_professor, sobrenome_professor)
+                if(order["nome_professor"] == nome_professor):
+                    if(order["sobrenome_professor"] == sobrenome_professor):
+                        link = order["email"]
+                        msg=f"Segue o email do professor {nome_professor} {sobrenome_professor} {link}"
+                        dispatcher.utter_message(text=msg)
+                        break
+                    if(order["sobrenome_professor"] != sobrenome_professor):
+                        link = order["email"]
+                        msg=f"Segue o email {link}"
+                        dispatcher.utter_message(text=msg)
+                        
+            except:
+                pass
+
+        
+
+        # dispatcher.utter_message(
+        #     text=f"{nome_professor}@riogrande.ifrs.edu.br")
 
         return[SlotSet("professor_name", None)]
 
@@ -94,7 +117,6 @@ class GetClasses(Action):
         ]
 
         # variables declaration
-        uri_base = ""
         modality = tracker.get_slot("courses_modality").lower()
 
         modalities = {
@@ -111,25 +133,61 @@ class GetClasses(Action):
                 "button": buttons_superior,
             },
         }
-        uri_modality = modalities[modality]["link"]
-
         # Dispatcher the button selector according with the chosen modality
-        dispatcher.utter_message(
+        course = dispatcher.utter_message(
             text="Para qual curso gostaria de obter os horarios?", 
             buttons=modalities[modality]["button"], 
             button_type="vertical")
 
-        complete_uri = uri_base+uri_modality
-        dispatcher.utter_message(text=f"Para visualizar seu horário de aula você precisa acessar o link {complete_uri}")
+
+        return [SlotSet("courses_name", course)]
+
+class GetInfoClasses(Action):
+
+    def name(self) -> Text:
+        return "action_get_info_classe"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        A action valida o curso selecionado pelo usuário e busca o link de acordo com o botão clicado pelo usuário.
+        Além de validar o curso, a action recebe o valor do slot (courses_modality_link) para interpolar com o endpoint de acordo com o curso selecionado.
+        Por fim, despacha para o usuário a informação com o link correto.
+        """
+        courses = {
+            "automação": "automacao-industrial/",
+            "fabricação": "fabricacao-mecanica/",
+            "informática": "informatica-para-internet/",
+            "eletrotécnica": "eletrotecnica/",
+            "geoprocessamento": "geoprocessamento/",
+            "refrigeração": "refrigeracao-e-climatizacao/",
+            "enfermagem": "enfermagem/",
+            "engenharia mecânica": "engenharia-mecanica/",
+            "tads": "tads/",
+            "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
+            "formação pedagógica": "curso-de-formacao-pedagogica/",
+            "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
+        }
+
+        course_name = tracker.get_slot("courses_name").title()
+        course_modality = tracker.get_slot("courses_modality").title()
+
+        with open("calendarios.json", encoding="utf8") as file:
+            data = json.loads(file.read())
+
+        for order in data:
+            try:
+                print(order["modalidade"], order["curso"])
+                if(order["modalidade"] == course_modality and order["curso"] == course_name):
+                    link = order["link"]
+                    msg=f"Segue o link de acesso dos horários do curso {course_name} {link}"
+                    dispatcher.utter_message(text=msg)
+                    break
+            except:
+                pass
 
         return []
-
-        #link_courses = "https://ifrs.edu.br/riogrande/ensino/retorno-do-calendario/horarios/"
-
-        #dispatcher.utter_message(
-            #text=f"Os horários de suas aulas e disciplinas você pode conferir aqui {link_courses}!")
-
-        #return []
 
 
 class ClearSlots(Action):
@@ -241,9 +299,9 @@ class GetCourses(Action):
         # Dispatcher the button selector according with the chosen modality
         button = dispatcher.utter_message(
             text="Para qual curso gostaria de mais informações?", 
-            button=modalities[modality]["button"], 
+            buttons=modalities[modality]["button"], 
             button_type="vertical")
-
+        print(button)
         complete_uri = uri_base+uri_modality
 
         return [SlotSet("courses_modality_link", complete_uri)]
@@ -279,6 +337,7 @@ class GetInfoCours(Action):
         }
 
         course_name = tracker.get_slot("courses_name")
+        print(course_name)
         course_modality = tracker.get_slot("courses_modality")
         link = tracker.get_slot("courses_modality_link")
 

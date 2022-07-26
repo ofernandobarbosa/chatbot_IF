@@ -25,6 +25,9 @@ intents:
   - inform_professor_name:
       ignore_entities:
         - LOC
+  - inform_professor_last_name:
+      ignore_entities:
+        - LOC
   - ask_what_bot_do
   - modality
   - courses
@@ -67,6 +70,19 @@ slots:
         conditions:
           - active_loop: professor_name_form
             requested_slot: professor_name
+  professor_last_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: PER
+        intent: inform_professor_last_name
+        and:
+          - not_intent: inform_name
+          - not_intent: inform_professor_name
+        conditions:
+          - active_loop: professor_name_form
+            requested_slot: professor_last_name
   classes:
     type: text
     mappings:
@@ -122,6 +138,7 @@ forms:
       - inform_name
     required_slots:
       - professor_name
+      - professor_last_name
   classes_form:
     required_slots:
       - classes
@@ -145,8 +162,10 @@ responses:
     - text: Qual é seu nome?
     - text: Me informa seu nome?
   utter_ask_professor_name:
-    - text: Qual o nome do professor?
+    - text: Qual o primeiro nome do professor?
     - text: Me informa o nome do professor?
+  utter_ask_professor_last_name:
+    - text: Qual o sobrenome do professor?
   utter_ask_help:
     - text: Em que posso ajudar {name}?
   utter_goodbye:
@@ -208,6 +227,7 @@ actions:
   - action_get_professor_contact
   - action_get_doc_register
   - action_get_classes
+  - action_get_info_classe
   - action_get_calendar
   - action_get_courses
   - action_get_info_course
