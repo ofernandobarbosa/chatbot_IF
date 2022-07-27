@@ -1,0 +1,41 @@
+{% load static %}
+{% include 'partials/header.html' %}
+<body>
+    {% include 'partials/login-admin.html' %}
+    <div align="center">
+        <table>        
+            <tr><td>&nbsp</td><td></td></tr>
+            <tr>
+                <td></td>
+                <td><center><h1>{{ categoria.nome_categoria }}</h1></center><br><br></td>
+            </tr>
+        </table>
+    </div>
+        <table>
+            <tr><td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td><td></td></tr>
+            <tr>
+            <td></td>
+            <td><section>
+                <div>
+                    {% if eventos %}
+                    {% for evento in eventos %}
+                    {% if evento.categoria.id == categoria.id %}                    
+                </div>
+                <div>
+                <a href="{% url 'evento' evento.id %}">
+                <h6>{{evento.nome_evento}}</h6>
+                <h6>{{evento.nome_do_professor}}</h6>
+                <h6>{{evento.nome_do_curso}}</h6>
+                <h6>{{evento.nome_do_requerimento}}</h6>
+                <h6>{{evento.nome_do_sistema}}</h6>
+                </a>
+                </div>
+                </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </section></td>        
+        </tr>
+    </table>
+{% include 'partials/footer.html' %}

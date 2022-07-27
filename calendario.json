@@ -159,52 +159,6 @@
         "data_atualizacao": "2022-07-18T19:23:50-03:00",
         "visivel": true
     },
-    // {
-    //     "id": 60,
-    //     "modalidade": "Subsequente",
-    //     "curso": "Automação",
-    //     "link_tutorial": "https://www.youtube.com/watch?v=STZYUidrVAg",
-    //     "link_direcionar": "https://sia.ifrs.edu.br/aplicacoes/frame/index.php",
-    //     "link_subsequente": "https://www.youtube.com/watch?v=ndrJ-TY71wY&feature=youtu.be",
-    //     "link_superior": "https://www.youtube.com/watch?v=STZYUidrVAg&feature=youtu.be",
-    //     "data_inicio":"2022-07-25", 
-    //     "data_fim": "2022-07-27",  
-    //     "descricao": "Não perca o prazo faça a sua rematricula! Acesse o sistema e qualquer dúvida consulte o link de instruções!",
-    //     "categoria_evento": 1,
-    //     "data_atualizacao": "2022-07-21T19:23:50-03:00",
-    //     "visivel": true
-    // },
-    // {
-    //     "id": 61,
-    //     "modalidade": "Superior",
-    //     "curso": "TADS",
-    //     "link_tutorial": "https://www.youtube.com/watch?v=STZYUidrVAg",
-    //     "link_direcionar": "https://sig.ifrs.edu.br/sigaa/verTelaLogin.do",
-    //     "link_subsequente": "https://www.youtube.com/watch?v=ndrJ-TY71wY&feature=youtu.be",
-    //     "link_superior": "https://www.youtube.com/watch?v=STZYUidrVAg&feature=youtu.be",
-    //     "data_inicio":"2022-07-25", 
-    //     "data_fim": "2022-07-27",  
-    //     "descricao": "Não perca o prazo faça a sua rematricula! Acesse o sistema e qualquer dúvida consulte o link de instruções!",
-    //     "categoria_evento": 1,
-    //     "data_atualizacao": "2022-07-21T19:23:50-03:00",
-    //     "visivel": true
-    // },
-    // {
-    //     "id": 62,
-    //     "modalidade": "Integrado",
-    //     "curso": "cursoo",
-    //     "link_tutorial": "https://www.youtube.com/watch?v=STZYUidrVAg",
-    //     "link_direcionar": "https://sia.ifrs.edu.br/aplicacoes/frame/index.php",
-    //     "link_subsequente": "https://www.youtube.com/watch?v=ndrJ-TY71wY&feature=youtu.be",
-    //     "link_superior": "https://www.youtube.com/watch?v=STZYUidrVAg&feature=youtu.be",
-    //     "data_inicio":"2022-07-25", 
-    //     "data_fim": "2022-07-27",  
-    //     "descricao": "Não perca o prazo faça a sua rematricula! Acesse o sistema e qualquer dúvida consulte o link de instruções!",
-    //     "categoria_evento": 1,
-    //     "data_atualizacao": "2022-07-21T19:23:50-03:00",
-    //     "visivel": true
-    },
-
     {
         "id": 29,
         "link": "https://ingresso.ifrs.edu.br/",

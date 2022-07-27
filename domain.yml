@@ -29,6 +29,8 @@ intents:
   - modality
   - courses
   - ingress_modality
+  - request_requirements
+  - req_students
 
 entities:
   - PER
@@ -40,9 +42,10 @@ entities:
   - documents
   - courses_modality
   - courses_name
-  - courses_link
   - ingress_modality
   - request_redo_register
+  - courses_modality_link
+  - requirements
 
 slots:
   # teste validar nome
@@ -88,19 +91,21 @@ slots:
   #forms action get course
   courses_name:
     type: text
+    influence_conversation: true
     mappings:
       - type: from_entity
         entity: courses_name
   courses_modality:
+    influence_conversation: true
     type: text
     mappings:
       - type: from_entity
         entity: courses_modality
-  courses_link:
+  courses_modality_link:
     type: text
     mappings:
       - type: from_entity
-        entity: courses_link
+        entity: courses_modality_link
 
   documents:
     type: text
@@ -109,6 +114,11 @@ slots:
         entity: documents
         conditions:
           - active_loop: documents_form
+  requirements:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: requirements
 
   ingress_modality:
     type: text
@@ -135,12 +145,12 @@ forms:
   calendar_form:
     required_slots:
       - calendar
-  courses_form:
-    required_slots:
-      - courses_modality
   documents_form:
     required_slots:
       - documents
+  requirement_form:
+    required_slots:
+      - requirements
 
 responses:
   utter_greet:
@@ -213,6 +223,27 @@ responses:
           payload: '/modality{{"courses_modality":"subsequente"}}'
         - title: Superiores
           payload: '/modality{{"courses_modality":"superior"}}'
+  utter_ask_requirements:
+    - text: Qual requerimento tu precisa? 📃
+      buttons:
+        - title: Aproveitamento de Estudos
+          payload: '/req_students{{"requirements":"aproveitamento de estudos"}}'
+        - title: Atividades Complementares 
+          payload: '/req_students{{"requirements":"atividades complementares"}}'
+        - title: Cancelamento de Matrícula
+          payload: '/req_students{{"requirements":"cancelamento de matrícula"}}'
+        - title: Certificação de Conhecimentos
+          payload: '/req_students{{"requirements":"certificação de conhecimento"}}'
+        - title: Justificativa de Falta / Segunda Chamada
+          payload: '/req_students{{"requirements":"justificativa de falta"}}'
+        - title: Quebra de Pré-Requisito 
+          payload: '/req_students{{"requirements":"quebra de pré-requisito"}}'
+        - title: Reingresso
+          payload: '/req_students{{"requirements":"reingresso"}}'
+        - title: Trancamento de Disciplina
+          payload: '/req_students{{"requirements":"trancamento de disciplina"}}'
+        - title: Trancamento de Matrícula
+          payload: '/req_students{{"requirements":"trancamento de matrícula"}}'
       button_type: vertical
 
 actions:
@@ -236,6 +267,7 @@ actions:
   - action_system_type
   - action_what_bot_do
   - action_goodbye_and_clear_slots
+  - action_get_requirements
 
   # custom validation
   - validate_name_form

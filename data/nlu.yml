@@ -1,266 +1,266 @@
 version: "3.1"
 nlu:
-  - intent: greet
-    examples: |
-      - hey
-      - olá
-      - oi
-      - eae
-      - bom dia
-      - boa tarde
-      - boa noite
-      - bdia
-      - oie
-      - coe
-      - oe
-      - cpx
-      - buenas
-  - intent: goodbye
-    examples: |
-      - xau
-      - tchau
-      - até mais
-      - até
-      - adios
-      - bye
-      - até logo
-      - Tchau
-  - intent: affirm
-    examples: |
-      - sim
-      - s
-      - claro
-      - exato
-      - pode ser
-      - certo
-      - sempre
-      - si
-  - intent: deny
-    examples: |
-      - não
-      - n
-      - nao
-      - nunca
-      - acho que não
-      - não quero
-      - nops
-  - intent: bot_challenge
-    examples: |
-      - você é um robo?
-      - você é um humano?
-      - estou falando com um robô?
-      - estou falando com um humano?
-  - intent: inform_name
-    examples: |
-      - meu nome é [fernando](PER)
-      - me chamo [thais](PER)
-      - sou a [Samanta](PER)
-      - eu sou a [Ivete](PER)
-      - [Fernando](PER) é meu nome
-      - me chamam de [João](PER)
-      - [fernando](PER)
-      - [thais](PER)
-      - [Fernando](PER)
-      - [Fernando](PER)
-  - intent: request_doc_register
-    examples: |
-      - atestado
-      - comprovante
-      - preciso do meu atestado de matricula
-      - preciso do meu comprovante de matrícula
-      - quero meu comprovante de matricula
-      - comprovante de matricula
-      - mostrar comprovante de matricula
-      - quero um atestado
-      - quero um comprovante
-  - intent: request_do_register
-    examples: |
-      - quais documentos preciso para fazer a matricula
-      - onde faço a matrícula
-      - como faço a matrícula
-      - onde fazer a matrícula
-      - como fazer a matricula
-      - matricula
-      - matricul
-      - matrícula
-      - matr
-      - matri
-      - mat
-      - período para fazer a matrícula
-      - horário para fazer matricula
-      - dias para fazer a matricula
-      - site para matricula
-      - documentos para matricula
-      - documentos que preciso para matricula
-      - Como ingressar no IFRS?
-      - Como estudar no IFRS
-      - Como entrar no IFRS
-      - Como fazer a prova para entrar no IFRS
-      - Como fazer a inscrição?
-  - intent: request_redo_register
-    examples: |
-      - dias para fazer a rematrícula
-      - solicitar rematricula
-      - rematrícula
-      - rematricula
-      - Rematrícula
-      - rematricola
-      - como fazer a rematricula
-      - onde faço a rematricula
-      - como solicitar rematrícula
-      - link da rematricula
-      - site para rematrícula
-      - rematricula do curso
-  # - intent: request_historic
-  #   examples: |
-  #     - gostaria do meu historico escolar
-  #     - histórico escolar
-  #     - historico
-  #     - onde posso pegar meu historico escolar
-  #     - onde fica o histórico escolar
-  #     - fornecer historico escolar
-  - intent: inform_professor_name
-    examples: |
-      - [ricardo](PER)
-      - [Ricardo](PER)
-      - sim, é [Serguei](PER)
-      - claro, é [Robson](PER)
-      - [Serguei](PER)
-      - [Raquel](PER)
-      - [raquel](PER)
-      - o nome do professor é [Gustavo Guanabara](PER)
-      - é [Luciano Pedrosa](PER)
-      - o nome dela é [Ana Maria](PER)
-      - [Patrícia dos Santos](PER)
-      - [rodrigo](PER)
-      - [Gustavo Guanabara](PER)
-  - intent: request_email
-    examples: |
-      - email dos professores
-      - contato prof
-      - e-mail
-      - email
-      - contato
-      - profs do IFRS
-      - contato dos professores
-      - email dos professores do curso
-      - email dos prof
-  - intent: request_classes
-    examples: |
-      - preciso da grade de horarios de aulas
-      - preciso saber das disciplians do semestre
-      - grade curricular do primeiro semestre de 2022
-      - grade de disciplinas
-      - grade de materias
-      - grade disciplinar
-      - disciplinas
-      - grade curricular
-      - aulas da grade do curso
-      - materias do segundo semestre
-      - disciplinas primeiro
-      - aulas de 2022
-      - informações sobre as aulas
-      - primeiro
-      - segundo
-  - intent: request_calendar
-    examples: |
-      - dia de inicio de aulas
-      - inicio das aulas
-      - começo das aulas
-      - aulas comecam no ano
-      - aulas começam
-      - quando aulas começam
-      - período letivo
-      - início das férias de inverno
-      - início das férias de verão
-      - férias
-      - fim das férias de verão
-      - fim das ferias de inverno
-      - fim das ferias
-      - calenário academico
-      - calenário acadêmico
-      - calendario academico
-      - calendario acadêmico
-  - intent: request_courses
-    examples: |
-      - cursos do IFRS
-      - cursos do IFRS de Rio Grande
-      - cursos oferecidos
-      - cursos ofertados
-      - cursos disponíveis
-      - IFRS no rio grande do sul
-      - IFRS no estado
-      - cursos integrantes do IFRS
-      - cursos de pós-graduação IFRS Rio Grande
-      - quais os cursos livres ofertados
-      - tipos de cursos
-      - quais cursos
-      - EAD
-  - intent: request_internship
-    examples: |
-      - estagio
-      - estágio
-      - hora de estagio
-      - fazer estagio
-      - como fazer estágio
-      - estagios
-      - estágios
-  - intent: ask_what_bot_do
-    examples: |
-      - o que você faz?
-      - o que tu pode fazer?
-      - me diz o que tu faz
-      - tu faz o que?
-      - faz o que?
-  - intent: modality
-    examples: |
-      - [integrado](courses_modality)
-      - [Integrado](courses_modality)
-      - [subsequente](courses_modality)
-      - [Subsequente](courses_modality)
-      - [superior](courses_modality)
-      - [Superior](courses_modality)
-  - intent: courses
-    examples: |
-      - [automação](course_name)
-      - [automacao](course_name)
-      - [automação industrial](course_name)
-      - [fabricacao](course_name)
-      - [fabricação mecânica](course_name)
-      - [fabricação](course_name)
-      - [informática](course_name)
-      - [informatica para internet](course_name)
-      - [internet](course_name)
-      - [info](course_name)
-      - [geoprocessamento](course_name)
-      - [geo](course_name)
-      - [eletrotecnica](course_name)
-      - [eletrotécnica](course_name)
-      - [eletro](course_name)
-      - [refrigeração](course_name)
-      - [refrigeracao](course_name)
-      - [refri](course_name)
-      - [enfermagem](course_name)
-      - [técnico enfermagem](course_name)
-      - [tec enfermagem](course_name)
-      - [eng mecânica](course_name)
-      - [engenharia mec](course_name)
-      - [engenharia mecânica](course_name)
-      - [tads](course_name)
-      - [analise e desenvolvimento de software](course_name)
-      - [análise e desenvolvimento de software](course_name)
-      - [tce](course_name)
-      - [construção de edifícios](course_name)
-      - [construcão de edificios](course_name)
-      - [formacao pedagogica](course_name)
-      - [formação pedagógica](course_name)
-      - [formacao pedagogica nao licenciados](course_name)
-      - [formação pedagógica não licenciados](course_name)
-      - [formacao pedagógica nao licenciados](course_name)
-  - intent: ingress_modality
-    examples: |
-      - [Enem](ingress_modality)
-      - [Processo seletivo EJA](ingress_modality)
-      - [Prova](ingress_modality)
-      - [PS indígena](ingress_modality)
-      - [Sorteio](ingress_modality)
+- intent: greet
+  examples: |
+    - hey
+    - olá
+    - oi
+    - eae
+    - bom dia
+    - boa tarde
+    - boa noite
+    - bdia
+    - oie
+    - coe
+    - oe
+    - cpx
+    - buenas
+- intent: goodbye
+  examples: |
+    - xau
+    - tchau
+    - até mais
+    - até
+    - adios
+    - bye
+    - até logo
+    - Tchau
+- intent: affirm
+  examples: |
+    - sim
+    - s
+    - claro
+    - exato
+    - pode ser
+    - certo
+    - sempre
+    - si
+- intent: deny
+  examples: |
+    - não
+    - n
+    - nao
+    - nunca
+    - acho que não
+    - não quero
+    - nops
+- intent: bot_challenge
+  examples: |
+    - você é um robo?
+    - você é um humano?
+    - estou falando com um robô?
+    - estou falando com um humano?
+- intent: inform_name
+  examples: |
+    - meu nome é [fernando](PER)
+    - me chamo [thais](PER)
+    - sou a [Samanta](PER)
+    - eu sou a [Ivete](PER)
+    - [Fernando](PER) é meu nome
+    - me chamam de [João](PER)
+    - [fernando](PER)
+    - [thais](PER)
+    - [Fernando](PER)
+    - [Fernando](PER)
+- intent: request_doc_register
+  examples: |
+    - atestado
+    - comprovante
+    - preciso do meu atestado de matricula
+    - preciso do meu comprovante de matrícula
+    - quero meu comprovante de matricula
+    - comprovante de matricula
+    - mostrar comprovante de matricula
+    - quero um atestado
+    - quero um comprovante
+- intent: request_do_register
+  examples: |
+    - quais documentos preciso para fazer a matricula
+    - onde faço a matrícula
+    - como faço a matrícula
+    - onde fazer a matrícula
+    - como fazer a matricula
+    - matricula
+    - matricul
+    - matrícula
+    - matr
+    - matri
+    - mat
+    - período para fazer a matrícula
+    - horário para fazer matricula
+    - dias para fazer a matricula
+    - site para matricula
+    - documentos para matricula
+    - documentos que preciso para matricula
+    - Como ingressar no IFRS?
+    - Como estudar no IFRS
+    - Como entrar no IFRS
+    - Como fazer a prova para entrar no IFRS
+    - Como fazer a inscrição?
+- intent: request_redo_register
+  examples: |
+    - dias para fazer a rematrícula
+    - solicitar rematricula
+    - rematrícula
+    - rematricula
+    - Rematrícula
+    - rematricola
+    - como fazer a rematricula
+    - onde faço a rematricula
+    - como solicitar rematrícula
+    - link da rematricula
+    - site para rematrícula
+    - rematricula do curso
+# - intent: request_historic
+#   examples: |
+#     - gostaria do meu historico escolar
+#     - histórico escolar
+#     - historico
+#     - onde posso pegar meu historico escolar
+#     - onde fica o histórico escolar
+#     - fornecer historico escolar
+- intent: inform_professor_name
+  examples: |
+    - [ricardo](PER)
+    - [Ricardo](PER)
+    - sim, é [Serguei](PER)
+    - claro, é [Robson](PER)
+    - [Serguei](PER)
+    - [Raquel](PER)
+    - [raquel](PER)
+    - o nome do professor é [Gustavo Guanabara](PER)
+    - é [Luciano Pedrosa](PER)
+    - o nome dela é [Ana Maria](PER)
+    - [Patrícia dos Santos](PER)
+    - [rodrigo](PER)
+    - [Gustavo Guanabara](PER)
+- intent: request_email
+  examples: |
+    - email dos professores
+    - contato prof
+    - e-mail
+    - email
+    - contato
+    - profs do IFRS
+    - contato dos professores
+    - email dos professores do curso
+    - email dos prof
+- intent: request_classes
+  examples: |
+    - preciso da grade de horarios de aulas
+    - preciso saber das disciplians do semestre
+    - grade curricular do primeiro semestre de 2022
+    - grade de disciplinas
+    - grade de materias
+    - grade disciplinar
+    - disciplinas
+    - grade curricular
+    - aulas da grade do curso
+    - materias do segundo semestre
+    - disciplinas primeiro
+    - aulas de 2022
+    - informações sobre as aulas
+    - primeiro
+    - segundo
+- intent: request_calendar
+  examples: |
+    - dia de inicio de aulas
+    - inicio das aulas
+    - começo das aulas
+    - aulas comecam no ano
+    - aulas começam
+    - quando aulas começam
+    - período letivo
+    - início das férias de inverno
+    - início das férias de verão
+    - férias
+    - fim das férias de verão
+    - fim das ferias de inverno
+    - fim das ferias
+    - calenário academico
+    - calenário acadêmico
+    - calendario academico
+    - calendario acadêmico
+- intent: request_courses
+  examples: |
+    - cursos do IFRS
+    - cursos do IFRS de Rio Grande
+    - cursos oferecidos
+    - cursos ofertados
+    - cursos disponíveis
+    - IFRS no rio grande do sul
+    - IFRS no estado
+    - cursos integrantes do IFRS
+    - cursos de pós-graduação IFRS Rio Grande
+    - quais os cursos livres ofertados
+    - tipos de cursos
+    - quais cursos
+    - EAD
+- intent: request_internship
+  examples: |
+    - estagio
+    - estágio
+    - hora de estagio
+    - fazer estagio
+    - como fazer estágio
+    - estagios
+    - estágios
+- intent: ask_what_bot_do
+  examples: |
+    - o que você faz?
+    - o que tu pode fazer?
+    - me diz o que tu faz
+    - tu faz o que?
+    - faz o que?
+- intent: modality
+  examples: |
+    - [integrado](courses_modality)
+    - [Integrado](courses_modality)
+    - [subsequente](courses_modality)
+    - [Subsequente](courses_modality)
+    - [superior](courses_modality)
+    - [Superior](courses_modality)
+- intent: courses
+  examples: |
+    - [automação](course_name)
+    - [automacao](course_name)
+    - [automação industrial](course_name)
+    - [fabricacao](course_name)
+    - [fabricação mecânica](course_name)
+    - [fabricação](course_name)
+    - [informática](course_name)
+    - [informatica para internet](course_name)
+    - [internet](course_name)
+    - [info](course_name)
+    - [geoprocessamento](course_name)
+    - [geo](course_name)
+    - [eletrotecnica](course_name)
+    - [eletrotécnica](course_name)
+    - [eletro](course_name)
+    - [refrigeração](course_name)
+    - [refrigeracao](course_name)
+    - [refri](course_name)
+    - [enfermagem](course_name)
+    - [técnico enfermagem](course_name)
+    - [tec enfermagem](course_name)
+    - [eng mecânica](course_name)
+    - [engenharia mec](course_name)
+    - [engenharia mecânica](course_name)
+    - [tads](course_name)
+    - [analise e desenvolvimento de software](course_name)
+    - [análise e desenvolvimento de software](course_name)
+    - [tce](course_name)
+    - [construção de edifícios](course_name)
+    - [construcão de edificios](course_name)
+    - [formacao pedagogica](course_name)
+    - [formação pedagógica](course_name)
+    - [formacao pedagogica nao licenciados](course_name)
+    - [formação pedagógica não licenciados](course_name)
+    - [formacao pedagógica nao licenciados](course_name)
+- intent: ingress_modality
+  examples: |
+    - [Enem](ingress_modality)
+    - [Processo seletivo EJA](ingress_modality)
+    - [Prova](ingress_modality)
+    - [PS indígena](ingress_modality)
+    - [Sorteio](ingress_modality)

@@ -4,10 +4,24 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import SlotSet, AllSlotsReset
+import json
+
+def sort_updated_date(file):
+    with open(file, encoding='utf-8') as f:
+        data = json.loads(f.read())
+        data.sort(key=lambda x:x["data_atualizacao"], reverse=True)
+    return data
+
+# for obj in data:
+#     try:
+#         print(obj['modalidade'])
+#         print()
+#     except:
+#         pass
 
 
 class GetProfessorContact(Action):
-
+    # categoria informações de servidores
     def name(self) -> Text:
         return "action_get_professor_contact"
 
@@ -95,8 +109,10 @@ class GetCalendar(Action):
     # variável link para inserir o calendário 
         link_calendar = "https://ifrs.edu.br/riogrande/wp-content/uploads/sites/16/2022/05/Calendario-Academico-Campus-Rio-Grande-2022-alterado-em-abril-2022.pdf"
 
+        ano_corrente = 2022
         dispatcher.utter_message(
-            text=f"Confira aqui o calendário acadêmico 👇", attachment=link_calendar)
+            text=f"Confira aqui o calendário acadêmico 👇")
+        dispatcher.utter_message(attachment=link_calendar)
 
         return []
 
@@ -108,70 +124,81 @@ class GetCourses(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        A action é chamada para validar a opção da modalidade do curso escolhida pelo usário, assim que validada ela dispacha paara o usuário botões de selecão do curso de acordo com a modalidade escolhida.
+        Ao final da action, vai ser retornado também o preenchimento do slot (courses_modality_link) para ser utilizada na action seguinte (action_get_info_course) das Stories.
+        """
 
-        uri_base = "https://ifrs.edu.br/riogrande/cursos/"
-        modality = tracker.get_slot("courses_modality").lower()
-        print(modality)
-
+        # buttons declaration
         buttons_integrado = [
-            {"payload": '/courses{"courses_name":"automação"}',
-                "title": "Automação Industrial"},
-            {"payload": '/courses{"courses_name":"fabricação"}',
-                "title": "Fabricação Mecânica"},
-            {"payload": '/courses{"courses_name":"informática"}',
-                "title": "Informática para Internet"},
-            {"payload": '/courses{"courses_name":"geoprocessamento"}',
-                "title": "Geoprocessamento"},
-            {"payload": '/courses{"courses_name":"eletrotécnica"}',
-                "title": "Eletrotécnica"},
-            {"payload": '/courses{"courses_name":"refrigeração"}',
-                "title": "Refrigeração"}
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Informática para Internet",
+                "payload": '/courses{"courses_name": "informática"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'}
         ]
         buttons_subsequente = [
-            {"payload": '/courses{"courses_name":"automação"}',
-                "title": "Automação Industrial"},
-            {"payload": '/courses{"courses_name":"fabricação"}',
-                "title": "Fabricação Mecânica"},
-            {"payload": '/courses{"courses_name":"geoprocessamento"}',
-                "title": "Geoprocessamento"},
-            {"payload": '/courses{"courses_name":"eletrotécnica"}',
-                "title": "Eletrotécnica"},
-            {"payload": '/courses{"courses_name":"refrigeração"}',
-                "title": "Refrigeração"},
-            {"payload": '/courses{"courses_name":"enfermagem"}', "title": "Enfermagem"}
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'},
+            {"title": "Enfermagem", "payload": '/courses{"courses_name": "enfermagem"}'}
         ]
         buttons_superior = [
-            {"payload": '/courses{"courses_name":"engenharia mecânica"}',
-                "title": "Engenharia Mecânica"},
-            {"payload": '/courses{"courses_name":"tads"}',
-                "title": "Análise e Desenvolvimendo de Software"},
-            {"payload": '/courses{"courses_name":"tce"}',
-                "title": "Construção de Edifícios"},
-            {"payload": '/courses{"courses_name":"formação pedagógica"}',
-                "title": "Curso de Formação Pedagógica"},
-            {"payload": '/courses{"courses_name":"formação pedagógica não licenciados"}',
-                "title": "Curso de Formação Pedagógica para não Licenciados"},
+            {"title": "Engenharia Mecânica",
+                "payload": '/courses{"courses_name": "engenharia mecânica"}'},
+            {"title": "Análise e Desenvolvimendo de Software",
+                "payload": '/courses{"courses_name": "tads"}'},
+            {"title": "Construção de Edifícios",
+                "payload": '/courses{"courses_name": "tce"}'},
+            {"title": "F. Pedagógica",
+                "payload": '/courses{"courses_name": "formação pedagógica"}'},
+            {"title": "F. Pedagógica não Licenciados",
+                "payload": '/courses{"courses_name": "pedagógica não licenciados"}'}
         ]
 
-        uri_modality = ''
-        if 'integrado' in modality:
-            uri_modality = 'cursos-tecnicos-integrados/'
-            dispatcher.utter_message(
-                title="Qual curso?", buttons=buttons_integrado)
+        # variables declaration
+        uri_base = "https://ifrs.edu.br/riogrande/cursos/"
+        modality = tracker.get_slot("courses_modality").lower()
 
-        elif 'subsequente' in modality:
-            uri_modality = 'cursos-tecnicos-subsequentes/'
-            dispatcher.utter_message(
-                title="Qual curso?", buttons=buttons_subsequente)
+        modalities = {
+            "integrado": {
+                "link": "cursos-tecnicos-integrados/",
+                "button": buttons_integrado,
+            },
+            "subsequente": {
+                "link": "cursos-tecnicos-subsequentes/",
+                "button": buttons_subsequente,
+            },
+            "superior": {
+                "link": "cursos-superiores/",
+                "button": buttons_superior,
+            },
+        }
+        uri_modality = modalities[modality]["link"]
 
-        elif 'superior' in modality:
-            uri_modality = 'cursos-superiores/'
-            dispatcher.utter_message(
-                title="Qual curso?", buttons=buttons_superior)
+        # Dispatcher the button selector according with the chosen modality
+        dispatcher.utter_message(
+            text="Para qual curso gostaria de mais informações?",
+            buttons=modalities[modality]["button"],
+            button_type="vertical")
 
         complete_uri = uri_base+uri_modality
 
-        return [SlotSet("courses_link", complete_uri)]
+        return [SlotSet("courses_modality_link", complete_uri)]
 
 
 class GetInfoCours(Action):
@@ -182,6 +209,11 @@ class GetInfoCours(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        A action valida o curso selecionado pelo usuário e busca o link de acordo com o botão clicado pelo usuário.
+        Além de validar o curso, a action recebe o valor do slot (courses_modality_link) para interpolar com o endpoint de acordo com o curso selecionado.
+        Por fim, despacha para o usuário a informação com o link correto.
+        """
 
         courses = {
             "automação": "automacao-industrial/",
@@ -195,18 +227,20 @@ class GetInfoCours(Action):
             "tads": "tads/",
             "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
             "formação pedagógica": "curso-de-formacao-pedagogica/",
-            "formação pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
+            "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
         }
 
-        course = tracker.get_slot("courses_name")
-        modality = tracker.get_slot("courses_modality")
-        link = tracker.get_slot("courses_link")
+        course_name = tracker.get_slot("courses_name")
+        course_modality = tracker.get_slot("courses_modality")
+        link = tracker.get_slot("courses_modality_link")
 
-        link += courses[course]
-        print(f"O curso de {course} é da modalidade do {modality}")
-        print(f"o link de acesso para o curso é {link}")
+        link += courses[course_name]
 
-        return [SlotSet("courses_modality", None), SlotSet("courses_name", None), SlotSet("courses_link", None)]
+        msg = f"Segue o link de acesso para o curso {link}"
+
+        dispatcher.utter_message(text=msg)
+
+        return []
 
 class ImformToDoRegister(Action):
     def name(self) -> Text:
@@ -373,10 +407,69 @@ class WhatBotDo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(
-            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Informações sobre estágio\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
+            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Inscrições\n➡️ Como fazer a rematrícula\n➡️ Requerimentos/Formulários")
 
         return []
 
+
+class Requirements(Action):
+    def name(self) -> Text:
+        return "action_get_requirements"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # difine arquivo padrão para busca do dado ordenado por ultima atualização
+        data = sort_updated_date("../chatbot_IF/requerimentos.json")
+        # recebe slot pelo input do usuário
+        requirement = tracker.get_slot("requirements").lower()    
+        # busca por todas as recorrencias do requerimento no json
+        req = [x for x in data if x['nome_requerimento']==requirement and x['visivel']==True]
+        # recebe a ultima atualização do requerimento
+        try:
+            updated_req = req[0]
+            text = updated_req["descricao"]
+            link = updated_req["arquivo_link"]
+            data_inicio = updated_req["data_inicio"]
+            data_fim = updated_req["data_fim"]
+            requirement = requirement.title()
+
+            dispatcher.utter_message(text=text)
+            dispatcher.utter_message(text=f"Lembrando que o prazo para preenchimento vai de {data_inicio} até {data_fim}")
+            dispatcher.utter_message(
+                text=f'Segue o [link]({link}) para o formulário!')
+        except:
+            dispatcher.utter_message(text=f'O requerimento \n`"{requirement}"` \nestá indisponível no momento')
+
+
+        return [SlotSet("requirements", None)]
+
+
+class SystemsTutorial(Action):
+    def name(self) -> Text:
+        return "action_get_system_tutorials"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        # variaveis setadas a partir de slots
+        system = tracker.get_slot("system")
+
+        # retorno de infomações do json
+        with open("tutoriais.json", encoding='utf-8') as f:
+            data = json.loads(f.read())
+            data.sort(key=lambda x:x[""])
+
+        # description = 
+
+        #  descricao
+        #  link_acesso
+        #  link_recurso(video/pdf)
+        #  data_atualização
+        #  visivel
+        # pass
 
 def clean_name(name):
     return "".join([c for c in name if c.isalpha()])

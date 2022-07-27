@@ -1,0 +1,28 @@
+{% load static %}
+{% include 'partials/header.html' %}
+<body>
+    {% include 'partials/login-admin.html' %}
+    <div align="center">
+        <table>        
+            <tr><td>&nbsp</td><td></td></tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="contact-area section-padding-0-80">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="section-heading">
+                                        <h3>Olá {{ user.username }}</h3>
+                                        <h5>Seu Evento foi Cadastrado com Sucesso!</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        {% include 'partials/footer.html' %}
+    </div>
+</body>

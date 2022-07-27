@@ -5,6 +5,7 @@ digraph  {
 3 [class=active, fontsize=12, label=name_form];
 5 [class=active, fontsize=12, label=utter_examples];
 6 [class=active, fontsize=12, label=utter_ask_help];
+<<<<<<< HEAD
 7 [class=active, fontsize=12, label=utter_ask_redo_register];
 8 [class="dashed active", fontsize=12, label=action_inform_redo_register];
 9 [class="intent active", fillcolor=lightblue, label="/greet", shape=rect, style=filled];
@@ -23,4 +24,30 @@ digraph  {
 10 -> 3  [class=active, key=0];
 11 -> 7  [class=active, key=0];
 12 -> 8  [class=active, key=0];
+=======
+7 [class=active, fontsize=12, label=utter_ask_courses_modality];
+8 [class=active, fontsize=12, label=action_get_courses];
+9 [class=active, fontsize=12, label=action_get_info_course];
+10 [class="intent dashed active", label="  ?  ", shape=rect];
+11 [class="intent active", fillcolor=lightblue, label="/greet", shape=rect, style=filled];
+12 [class="intent active", fillcolor=lightblue, label="/inform_name", shape=rect, style=filled];
+13 [class="intent active", fillcolor=lightblue, label="/request_courses", shape=rect, style=filled];
+14 [class="intent active", fillcolor=lightblue, label="/modality", shape=rect, style=filled];
+15 [class="intent active", fillcolor=lightblue, label="/courses", shape=rect, style=filled];
+0 -> 1  [class=active, key=NONE, label=""];
+1 -> 11  [class=active, key=0];
+2 -> 3  [class=active, key=NONE, label=""];
+3 -> 5  [class=active, key=NONE, label=""];
+3 -> 12  [class=active, key=0];
+5 -> 6  [class=active, key=NONE, label=""];
+6 -> 13  [class=active, key=0];
+7 -> 14  [class=active, key=0];
+8 -> 15  [class=active, key=0];
+9 -> 10  [class=active, key=NONE, label=""];
+11 -> 2  [class=active, key=0];
+12 -> 3  [class=active, key=0];
+13 -> 7  [class=active, key=0];
+14 -> 8  [class=active, key=0];
+15 -> 9  [class=active, key=0];
+>>>>>>> 92cc96a0248039b2a07c0d13e55a526246c8a6a3
 }

@@ -1,0 +1,38 @@
+{% load static %}
+{% include 'partials/header.html' %}
+<body>
+    {% include 'partials/login-admin.html' %}
+    <div align="center">
+        <table>        
+            <tr><td>&nbsp</td><td></td></tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="contact-area section-padding-0-80">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="section-heading">
+                                        <h3>Olá {{ user.username }}</h3>
+                                        <h2>Minhas Atualizações</h2>
+                                    </div>
+                                </div>
+                                <div>                                    
+                                    {% if eventos %}
+                                    {% for evento in eventos %}
+                                    {% if evento.usuario == user.username %}
+                                    <a href="{% url 'evento' evento.id %}">
+                                    <h6>EVENTO - {{evento.nome_evento}}{{evento.nome_do_professor}}{{evento.nome_do_curso}}{{evento.nome_do_requerimento}}{{evento.nome_do_sistema}} | Atualizado em:  {{evento.data_atualizacao}} </h6></a>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        {% include 'partials/footer.html' %}
+    </div>
+</body>
