@@ -369,27 +369,27 @@ class SystemType(Action):
             "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
         }
 
-        courses_name = tracker.get_slot("courses_name").title()
-        courses_modality = tracker.get_slot("courses_modality").title()
+        courses_name = tracker.get_slot("courses_name")
+        courses_modality = tracker.get_slot("courses_modality")
         link_sia = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
         link_sigaa = "https://sig.ifrs.edu.br/sigaa/verTelaLogin.do"
         link_superior = "https://www.youtube.com/watch?v=STZYUidrVAg&feature=youtu.be"
         link_subsequente = "https://www.youtube.com/watch?v=ndrJ-TY71wY&feature=youtu.be"
 
-
-        with open("calendarios.json", encoding="utf-8") as file:
-            data = json.loads(file.read())
+        
+        data = sort_updated_date("calendarios.json")
 
         for order in data:
             try:
-                if(order["modalidade"] == courses_modality and order["curso"] == courses_name):
-                    if(order["courses_name"] == "tads"):  
-                        link_sigaa = order["link_sigaa"]
-                        msg=f"Para realizar a rematricula no {courses_name} acesse o Sigaa {link_sigaa}! Fique atento ao prazo que vai do dia 25/07 até 27/05/22!"
+                if(order["modalidade_curso"] == courses_modality and order["nome_curso"] == courses_name):
+
+                    if(order["nome_curso"] == "tads"):  
+                        link_sigaa = order["link_sistema"]
+                        msg=f"Para realizar a rematricula no {courses_name.upper()} acesse o Sigaa {link_sigaa}! Fique atento ao prazo que vai do dia 25/07 até 27/05/22!"
                         dispatcher.utter_message(text=msg)
                         break
                     else: 
-                        link_sia = order["link_sia"]
+                        link_sia = order["link_sistema"]
                         msg=f"Para realizar a rematrícula no {courses_name} acesse o Sia {link_sia}! Fique atento ao prazo que vai do dia 25/07 até 27/05/22! Em caso de dúvidas de como acessar o sistema veja o tutorial {link_superior} e {link_subsequente} "
                         dispatcher.utter_message(text=msg)
                         break

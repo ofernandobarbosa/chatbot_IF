@@ -158,7 +158,56 @@
         "categoria_evento": 7,
         "data_atualizacao": "2022-07-18T19:23:50-03:00",
         "visivel": true
+    },
+    {
+        "id": 19,
+        "data_inicio": "2022-07-25",
+        "data_fim": "2022-07-27",
+        "categoria_evento": 7,
+        "data_atualizacao": "2022-07-18T19:23:50-03:00",
+        "visivel": true,
+        "modalidade_curso": "superior",
+        "nome_curso": "tads",
+        "link_sistema": "https://sig.ifrs.edu.br/sigaa/verTelaLogin.do",
+        "link_tutorial": "https://www.youtube.com/watch?v=STZYUidrVAg&feature=youtu.be"
+    },
+    {
+        "id": 22,
+        "data_inicio": "2022-07-25",
+        "data_fim": "2022-07-27",
+        "categoria_evento": 7,
+        "data_atualizacao": "2022-07-18T19:23:50-03:00",
+        "visivel": true,
+        "modalidade_curso": "superior",
+        "nome_curso": "tce",
+        "link_sistema": "https://sia.ifrs.edu.br/aplicacoes/frame/index.php",
+        "link_tutorial": "https://www.youtube.com/watch?v=STZYUidrVAg&feature=youtu.be"
+    },
+    {
+        "id": 23,
+        "data_inicio": "2022-07-25",
+        "data_fim": "2022-07-27",
+        "categoria_evento": 7,
+        "data_atualizacao": "2022-07-18T19:23:50-03:00",
+        "visivel": true,
+        "link": "https://ingresso.ifrs.edu.br/",
+        "descrição_forma_ingresso": "ENEM: Com sua nota do Enem você pode ingressar no IFRS! Fique atento as datas e as notas de corte!"
+    },
+    {
+        "id": 29,
+        "link": "https://ingresso.ifrs.edu.br/",
+        "semestre": 2,
+        "modalidade": "Integrado",
+        "curso": "cursoo",
+        "link_tutorial": "https://www.youtube.com/watch?v=STZYUidrVAg",
+        "link_direcionar": "https://sia.ifrs.edu.br/aplicacoes/frame/index.php",
+        "link_subsequente": "https://www.youtube.com/watch?v=ndrJ-TY71wY&feature=youtu.be",
+        "link_superior": "https://www.youtube.com/watch?v=STZYUidrVAg&feature=youtu.be",
+        "data_inicio":"2022-07-25", 
+        "data_fim": "2022-07-27",  
+        "descricao": "Não perca o prazo faça a sua rematricula! Acesse o sistema e qualquer dúvida consulte o link de instruções!",
+        "categoria_evento": 1,
+        "data_atualizacao": "2022-07-21T19:23:50-03:00",
+        "visivel": true
     }
 ]
-
-
