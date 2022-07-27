@@ -28,6 +28,7 @@ intents:
   - ask_what_bot_do
   - modality
   - courses
+  - ingress_modality
 
 entities:
   - PER
@@ -40,6 +41,8 @@ entities:
   - courses_modality
   - courses_name
   - courses_link
+  - ingress_modality
+  - request_redo_register
 
 slots:
   # teste validar nome
@@ -93,9 +96,6 @@ slots:
     mappings:
       - type: from_entity
         entity: courses_modality
-        conditions:
-          - active_loop: courses_form
-            requested_slot: courses_modality
   courses_link:
     type: text
     mappings:
@@ -109,6 +109,12 @@ slots:
         entity: documents
         conditions:
           - active_loop: documents_form
+
+  ingress_modality:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: ingress_modality
 
 forms:
   name_form:
@@ -184,6 +190,30 @@ responses:
         - title: Superiores
           payload: '/modality{{"courses_modality":"superior"}}'
       button_type: vertical
+  utter_ask_ingress_modality:
+    - text: Qual a forma de ingresso?
+      buttons:
+        - title: Enem
+          payload: '/ingress_modality{{"ingress_modality":"Enem"}}'
+        - title: Processo seletivo EJA
+          payload: '/ingress_modality{{"ingress_modality":"Processo seletivo EJA"}}'
+        - title: Prova
+          payload: '/ingress_modality{{"ingress_modality":"Prova"}}'
+        - title: PS indígena
+          payload: '/ingress_modality{{"ingress_modality":"PS indígena"}}'
+        - title: Sorteio
+          payload: '/ingress_modality{{"ingress_modality":"Sorteio"}}'
+      button_type: vertical
+  utter_ask_redo_register:
+    - text: Qual a modalidade do curso que você quer fazer a rematrícula? 
+      buttons:
+        - title: Técnicos integrados
+          payload: '/modality{{"courses_modality":"integrado"}}'
+        - title: Técnicos subsequente
+          payload: '/modality{{"courses_modality":"subsequente"}}'
+        - title: Superiores
+          payload: '/modality{{"courses_modality":"superior"}}'
+      button_type: vertical
 
 actions:
   - utter_ask_help
@@ -203,6 +233,7 @@ actions:
   - action_get_info_course
   - action_inform_do_register
   - action_inform_redo_register
+  - action_system_type
   - action_what_bot_do
   - action_goodbye_and_clear_slots
 

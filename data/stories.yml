@@ -79,12 +79,32 @@ stories:
     - action: action_inform_do_register
     - checkpoint: check_more_help
 
-- story: solicitar documentos para rematricula
+- story: solicitar rematricula
   steps:
     - checkpoint: check_ask_help
     - intent: request_redo_register
+    - action: utter_ask_redo_register
+    - intent: modality
+      entities:
+      - courses_modality: superior
+    - slot_was_set:
+      - courses_modality: superior
     - action: action_inform_redo_register
+    - intent: courses
+      entities:
+      - courses_name: tads
+    - slot_was_set:
+      - courses_name: tads
+    - action: action_system_type
     - checkpoint: check_more_help
+    # - slot_was_set:
+    #   - requested_slot: courses_name
+    # - slot_was_set:
+    #   - courses_name: tads
+    # - action: action_inform_do_register
+    # - action: action_system_type
+    # - checkpoint: check_more_help
+
   
 - story: precisa de mais alguma ajuda? sim
   steps:
@@ -100,3 +120,15 @@ stories:
     - action: utter_ask_more_help
     - intent: deny
     - action: action_goodbye_and_clear_slots
+
+- story: solicitar informações sobre forma de ingresso no IFRS
+  steps:
+    - checkpoint: check_ask_help
+    - intent: request_do_register
+    - action: utter_ask_ingress_modality
+    - slot_was_set:
+      - requested_slot: ingress_modality
+    - slot_was_set:
+      - ingress_modality: Enem
+    - action: action_inform_do_register
+    - checkpoint: check_more_help

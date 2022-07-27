@@ -72,9 +72,12 @@ class ClearSlots(Action):
         domain: Dict[Text, Any]
     ) -> List[Dict[Text, Any]]:
 
+        """ 
+        Action com finalidade de limpar o slot para a solicitação ser atendida. Dessa forma é possível reiniciar a conversa e fazer novas solicitações
+        """
+
         dispatcher.utter_message(response="utter_goodbye")
         return[AllSlotsReset()]
-
 
 class GetCalendar(Action):
 
@@ -85,6 +88,11 @@ class GetCalendar(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        """ 
+        A action GetCalendar retorna ao usuário do Bot o calendário acadêmico, via link, do ano em vigência.
+        Link único, uma vez que é um calendário para todos os cursos disponíveis no IFRS. A action recebe o valor do slot calendar
+        """
+    # variável link para inserir o calendário 
         link_calendar = "https://ifrs.edu.br/riogrande/wp-content/uploads/sites/16/2022/05/Calendario-Academico-Campus-Rio-Grande-2022-alterado-em-abril-2022.pdf"
 
         dispatcher.utter_message(
@@ -200,7 +208,6 @@ class GetInfoCours(Action):
 
         return [SlotSet("courses_modality", None), SlotSet("courses_name", None), SlotSet("courses_link", None)]
 
-
 class ImformToDoRegister(Action):
     def name(self) -> Text:
         return "action_inform_do_register"
@@ -209,35 +216,153 @@ class ImformToDoRegister(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link = "https://ingresso.ifrs.edu.br/"
+        """
+        Action para direcionar a forma de ingresso no IFRS. Recebe o valor do slot ingress_modality. Retorna ao usuário o link correto
+        """
+       
+       # varáveis de banco de dados
+       
+        link_ingress = "https://ingresso.ifrs.edu.br/" #fica na aplicação
+        ingress_modality= tracker.get_slot("ingress_modality")
+       
+        msg=f"Aqui você confere as formas de ingresso no IFRS {link_ingress} e {ingress_modality}"
 
-        dispatcher.utter_message(
-            text=f"Através do link abaixo tu pode te matricular em um dos nossos cursos:")
-        dispatcher.utter_message(
-            url=link)
-
+        dispatcher.utter_message(text=msg)
+        
         return []
-
 
 class InformToRedoRegister(Action):
     def name(self) -> Text:
-        return "action_inform_redo_register"
+        return "action_inform_redo_register" 
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        link_tutorial = "https://www.youtube.com/watch?v=STZYUidrVAg"
-        link = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
 
+        """
+        Action que mostra informações sobre a rematrícula nos cursos ofertados pelo IFRS
+        """
+    # buttons declaration
+        buttons_integrado = [
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Informática para Internet",
+                "payload": '/courses{"courses_name": "informática"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'}
+        ]
+        buttons_subsequente = [
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'},
+            {"title": "Enfermagem", "payload": '/courses{"courses_name": "enfermagem"}'}
+        ]
+        buttons_superior = [
+            {"title": "Engenharia Mecânica",
+                "payload": '/courses{"courses_name": "engenharia mecânica"}'},
+            {"title": "Análise e Desenvolvimendo de Software",
+                "payload": '/courses{"courses_name": "tads"}'},
+            {"title": "Construção de Edifícios",
+                "payload": '/courses{"courses_name": "tce"}'},
+            {"title": "F. Pedagógica",
+                "payload": '/courses{"courses_name": "formação pedagógica"}'},
+            {"title": "F. Pedagógica não Licenciados",
+                "payload": '/courses{"courses_name": "pedagógica não licenciados"}'}
+        ]
+        #variables declaration
+        modality = tracker.get_slot("courses_modality").lower()
+
+        modalities = {
+            "integrado": {
+                "link":"cursos-tecnicos-integrados/",
+                "button": buttons_integrado,
+                },
+            "subsequente":{ 
+                "link": "cursos-tecnicos-subsequentes/",
+                "button": buttons_subsequente,
+            },
+            "superior": {
+                "link":"cursos-superiores/",
+                "button": buttons_superior,
+            },
+        }
+        # Dispatcher the button selector according with the chosen modality
         dispatcher.utter_message(
-            text=f"As rematrículas dos cursos das modalidades **Superior** e **Subsequente** ocorrerão dos dias **25/07** à **27/07** através do link abaixo: ")
-        dispatcher.utter_message(text=link)
-        dispatcher.utter_message(
-            text="Caso esteja com dificuldades consulte o link abaixo 👇")
-        dispatcher.utter_message(text=link_tutorial)
+            text="Para qual curso gostaria de obter informações sobre a rematricula?", 
+            buttons=modalities[modality]["button"], 
+            button_type="vertical")
+             
+
 
         return []
 
+class SystemType(Action):
+    def name(self) -> Text:
+        return "action_system_type"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        """
+        Action que direciona para o link do sistema de rematricula de acordo com o nome do curso/modalidade
+        """
+        courses = {
+            "automação": "automacao-industrial/",
+            "fabricação": "fabricacao-mecanica/",
+            "informática": "informatica-para-internet/",
+            "eletrotécnica": "eletrotecnica/",
+            "geoprocessamento": "geoprocessamento/",
+            "refrigeração": "refrigeracao-e-climatizacao/",
+            "enfermagem": "enfermagem/",
+            "engenharia mecânica": "engenharia-mecanica/",
+            "tads": "tads/",
+            "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
+            "formação pedagógica": "curso-de-formacao-pedagogica/",
+            "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
+        }
+
+        courses_name = tracker.get_slot("courses_name").title()
+        courses_modality = tracker.get_slot("courses_modality").title()
+        link_sia = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
+        link_sigaa = "https://sig.ifrs.edu.br/sigaa/verTelaLogin.do"
+        link_superior = "https://www.youtube.com/watch?v=STZYUidrVAg&feature=youtu.be"
+        link_subsequente = "https://www.youtube.com/watch?v=ndrJ-TY71wY&feature=youtu.be"
+
+
+        with open("calendarios.json", encoding="utf-8") as file:
+            data = json.loads(file.read())
+
+        for order in data:
+            try:
+                if(order["modalidade"] == courses_modality and order["curso"] == courses_name):
+                    if(order["courses_name"] == "tads"):  
+                        link_sigaa = order["link_sigaa"]
+                        msg=f"Para realizar a rematricula no {courses_name} acesse o Sigaa {link_sigaa}! Fique atento ao prazo que vai do dia 25/07 até 27/05/22!"
+                        dispatcher.utter_message(text=msg)
+                        break
+                    else: 
+                        link_sia = order["link_sia"]
+                        msg=f"Para realizar a rematrícula no {courses_name} acesse o Sia {link_sia}! Fique atento ao prazo que vai do dia 25/07 até 27/05/22! Em caso de dúvidas de como acessar o sistema veja o tutorial {link_superior} e {link_subsequente} "
+                        dispatcher.utter_message(text=msg)
+                        break
+            
+            except:
+                pass 
+        return []
 
 class WhatBotDo(Action):
     def name(self) -> Text:
@@ -268,7 +393,9 @@ class NameFormValidate(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-
+        """
+        A action NameFormValidate serve para a validação do name form. Para informar que ocorreu um possível erro na informação da mensagem ou nome, retornando em caso de erro nome como None. Também serve para o preenchimento do respectivo slot
+        """
         name = clean_name(slot_value).title()
         if len(name) == 0:
             dispatcher.utter_message(
