@@ -43,7 +43,7 @@ class GetProfessorContact(Action):
         # dispatcher.utter_message(
         #     text=f"{nome_professor}@riogrande.ifrs.edu.br")
 
-        return[SlotSet("professor_name", None)]
+        return[SlotSet("professor_name", None), SlotSet("professor_last_name", None)]
 
 
 class GetDocRegister(Action):
@@ -397,7 +397,8 @@ class WhatBotDo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(
-            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Documentos para matricula\n➡️ Como fazer a rematrícula")
+            text=f"Tu pode me solicitar:👇\n➡️ Calendário acadêmico\n➡️ Comprovante de matrícula\n➡️ Contato dos professores\n➡️ Cursos disponíveis\n➡️ Grade de horários\n➡️ Informações relevantes dos cursos\n➡️ Informações sobre inscrição/matrícula\n➡️ Informações sobre rematrícula\n➡️ Requerimentos/formulários\n➡️ Tutoriais de acessos a sistemas acadêmicos")
+            
 
         return []
 
