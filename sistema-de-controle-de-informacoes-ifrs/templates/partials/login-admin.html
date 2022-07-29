@@ -1,0 +1,35 @@
+{% load static %}
+<div align="center">
+<table><tr><td>
+    {% if user.is_authenticated %}
+        <header class="header-area">
+            <div class="top-header-area">
+                <div class="delicious-main-menu">
+                    <div class="classy-nav-container breakpoint-off">
+                        <div class="container">
+                            <nav class="classy-navbar justify-content-between" id="deliciousNav"><div class="classy-menu">
+                                <div class="classynav">
+                                    <ul>
+                                        <li><a href="{% url 'index' %}"> Página Principal</a></li>
+                                        <li><a href="/admin/login/?next=/admin/"> Administrador</a></li>
+                                        <li><a href="{% url 'dashboard' %}"> Meu Dashboard </a></li>
+                                        <li><a href="{% url 'cria_evento' %}"> Cadastre Evento </a></li>
+                                        <li><a href="{% url 'logout' %}"> Sair </a></li>
+                                    </ul></div></div></nav></div></div></div></div></header></td>
+    {% else %}
+    <header class="header-area">
+        <div class="top-header-area">
+            <div class="delicious-main-menu">
+                <div class="classy-nav-container breakpoint-off">
+                    <div class="container">
+                        <nav class="classy-navbar justify-content-between" id="deliciousNav"><div class="classy-menu">
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{% url 'index' %}"> Página Principal</a></li>
+                                    <li><a href="/admin/login/?next=/admin/"> Administrador</a></li>
+                                    <li><a href="{% url 'cadastro' %}"> Cadastrar </a></li>
+                                    <li><a href="{% url 'login' %}"> Login </a></li>
+                                </ul></div></div></nav></div></div></div></div></header></td>
+    {% endif %}
+
+</tr></table></div>

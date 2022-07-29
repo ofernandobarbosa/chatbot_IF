@@ -1,0 +1,27 @@
+{% load static %}
+{% if categorias %}
+{% for categoria in categorias %}
+    <a href="{% url 'categoria' categoria.id %}">
+    <button style="background: #00420c; border-radius: 6px; padding: 15px; cursor: pointer; color: #fff; border: none; font-size: 16px;">{{categoria.nome_categoria}}</button></a>
+    <br><br>
+    {% if eventos %}
+    {% for evento in eventos %}
+        {% if evento.categoria.id == categoria.id %}
+        <div>
+            <div>
+                <a href="{% url 'evento' evento.id %}">
+                <h6>{{evento.nome_evento}}</h6>
+                <h6>{{evento.nome_do_professor}}</h6>
+                <h6>{{evento.nome_do_curso}}</h6>
+                <h6>{{evento.nome_do_requerimento}}</h6>
+                <h6>{{evento.nome_do_sistema}}</h6>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    <br><br>
+    </div>
+    {% endif %}
+{% endfor %}
+{% endif %}

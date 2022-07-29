@@ -1,0 +1,48 @@
+
+    <br><br><h1> FORMULARIO </h1><br><br>
+
+    <form action="{% url 'formulario' %}" method="POST">    
+    {% csrf_token %}
+    <div class="col-12 col-lg-12">
+        <label for="categoria"><b>Categoria</b></label>
+        <input type="text" class="form-control" name="categoria" value="{{categoria.nome_categoria}}" readonly>
+        <label for="usuario"><b>Usuário</b></label>
+        <input type="text" class="form-control" name="usuario" value="{{user.username}}" readonly>
+        {% if categoria.nome_categoria == "Comprovante de matrícula"%}
+        {% include 'partials/comprovante_de_matricula.html' %}
+        {% endif %}
+        {% if categoria.nome_categoria == "Contato dos professores"%}
+        {% include 'partials/contato_dos_professores.html' %}
+        {% endif %}
+        {% if categoria.nome_categoria == "Grade de horários"%}
+        {% include 'partials/grade_de_horarios.html' %}
+        {% endif %}
+        {% if categoria.nome_categoria == "Calendário acadêmico"%}
+        {% include 'partials/calendario_academico.html' %}
+        {% endif %}
+        {% if categoria.nome_categoria == "Informações relevantes dos cursos"%}
+        {% include 'partials/informacoes_relevantes_dos_cursos.html' %}
+        {% endif %}
+        {% if categoria.nome_categoria == "Informações sobre inscrição/matrícula"%}
+        {% include 'partials/informacoes_sobre_inscricao_ou_matricula.html' %}
+        {% endif %}
+        {% if categoria.nome_categoria == "Informações sobre rematrícula"%}
+        {% include 'partials/informacoes_sobre_rematricula.html' %}
+        {% endif %}
+        {% if categoria.nome_categoria == "Requerimentos/formulários"%}
+        {% include 'partials/requerimentos_ou_formularios.html' %}
+        {% endif %}
+        {% if categoria.nome_categoria == "Tutoriais de acessos a sistemas acadêmicos"%}
+        {% include 'partials/tutoriais_de_acessos_a_sistemas_academicos.html' %}
+        {% endif %}
+        <input type="checkbox" id="visivel" name="visivel" value="True" checked >
+        <label for="visivel">Visível</label>
+    </div>
+    <div class="col-12 text-center">
+        <button class="btn btn-success" type="submit">Cadastre este evento</button>
+    </div>
+    </form>
+    <br>
+    <div id="current_date"></p>
+    <script> document.getElementById("current_date").innerHTML = Date();</script>
+    </div>

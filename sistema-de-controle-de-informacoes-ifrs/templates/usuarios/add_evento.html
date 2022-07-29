@@ -1,0 +1,28 @@
+{% load static %}
+{% include 'partials/header.html' %}
+<body>
+    {% include 'partials/login-admin.html' %}
+    <div align="center">
+    <table>        
+        <tr><td>&nbsp</td><td></td></tr>
+        <tr>
+            <td></td>
+            <td>
+                <div class="contact-area section-padding-0-80">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="section-heading">
+                                    <h3>Sua categoria foi selecionada, {{ user.username }} :)</h3><br>
+                                    <button style="background: #00420c; border-radius: 6px; padding: 15px; cursor: pointer; color: #fff; border: none; font-size: 16px;">{{categoria.nome_categoria}}</button>
+                                    {% include 'partials/formulario.html' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </div>
+{% include 'partials/footer.html' %}

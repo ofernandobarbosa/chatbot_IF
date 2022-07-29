@@ -6,9 +6,22 @@ from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import SlotSet, AllSlotsReset
 import json
 
+def sort_updated_date(file):
+    with open(file, encoding='utf-8') as f:
+        data = json.loads(f.read())
+        data.sort(key=lambda x:x["data_atualizacao"], reverse=True)
+    return data
+
+# for obj in data:
+#     try:
+#         print(obj['modalidade'])
+#         print()
+#     except:
+#         pass
+
 
 class GetProfessorContact(Action):
-
+    # categoria informações de servidores
     def name(self) -> Text:
         return "action_get_professor_contact"
 
@@ -38,10 +51,6 @@ class GetProfessorContact(Action):
             except:
                 pass
 
-        
-
-        # dispatcher.utter_message(
-        #     text=f"{nome_professor}@riogrande.ifrs.edu.br")
 
         return[SlotSet("professor_name", None), SlotSet("professor_last_name", None)]
 
@@ -217,8 +226,10 @@ class GetCalendar(Action):
 
         link_calendar = "https://ifrs.edu.br/riogrande/wp-content/uploads/sites/16/2022/05/Calendario-Academico-Campus-Rio-Grande-2022-alterado-em-abril-2022.pdf"
 
+        ano_corrente = 2022
         dispatcher.utter_message(
-            text=f"Confira aqui o calendário acadêmico 👇", attachment=link_calendar)
+            text=f"Confira aqui o calendário acadêmico 👇")
+        dispatcher.utter_message(attachment=link_calendar)
 
         return []
 
@@ -282,15 +293,15 @@ class GetCourses(Action):
 
         modalities = {
             "integrado": {
-                "link":"cursos-tecnicos-integrados/",
+                "link": "cursos-tecnicos-integrados/",
                 "button": buttons_integrado,
-                },
-            "subsequente":{ 
+            },
+            "subsequente": {
                 "link": "cursos-tecnicos-subsequentes/",
                 "button": buttons_subsequente,
             },
             "superior": {
-                "link":"cursos-superiores/",
+                "link": "cursos-superiores/",
                 "button": buttons_superior,
             },
         }
@@ -301,7 +312,7 @@ class GetCourses(Action):
             text="Para qual curso gostaria de mais informações?", 
             buttons=modalities[modality]["button"], 
             button_type="vertical")
-        print(button)
+        
         complete_uri = uri_base+uri_modality
 
         return [SlotSet("courses_modality_link", complete_uri)]
@@ -343,7 +354,7 @@ class GetInfoCours(Action):
 
         link += courses[course_name]
 
-        msg=f"Segue o link de acesso para o curso {link}"
+        msg = f"Segue o link de acesso para o curso {link}"
 
         dispatcher.utter_message(text=msg)
 
@@ -398,10 +409,68 @@ class WhatBotDo(Action):
 
         dispatcher.utter_message(
             text=f"Tu pode me solicitar:👇\n➡️ Calendário acadêmico\n➡️ Comprovante de matrícula\n➡️ Contato dos professores\n➡️ Cursos disponíveis\n➡️ Grade de horários\n➡️ Informações relevantes dos cursos\n➡️ Informações sobre inscrição/matrícula\n➡️ Informações sobre rematrícula\n➡️ Requerimentos/formulários\n➡️ Tutoriais de acessos a sistemas acadêmicos")
-            
 
         return []
 
+
+class Requirements(Action):
+    def name(self) -> Text:
+        return "action_get_requirements"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # difine arquivo padrão para busca do dado ordenado por ultima atualização
+        data = sort_updated_date("../chatbot_IF/requerimentos.json")
+        # recebe slot pelo input do usuário
+        requirement = tracker.get_slot("requirements").lower()    
+        # busca por todas as recorrencias do requerimento no json
+        req = [x for x in data if x['nome_requerimento']==requirement and x['visivel']==True]
+        # recebe a ultima atualização do requerimento
+        try:
+            updated_req = req[0]
+            text = updated_req["descricao"]
+            link = updated_req["arquivo_link"]
+            data_inicio = updated_req["data_inicio"]
+            data_fim = updated_req["data_fim"]
+            requirement = requirement.title()
+
+            dispatcher.utter_message(text=text)
+            dispatcher.utter_message(text=f"Lembrando que o prazo para preenchimento vai de {data_inicio} até {data_fim}")
+            dispatcher.utter_message(
+                text=f'Segue o [link]({link}) para o formulário!')
+        except:
+            dispatcher.utter_message(text=f'O requerimento \n`"{requirement}"` \nestá indisponível no momento')
+
+
+        return [SlotSet("requirements", None)]
+
+
+class SystemsTutorial(Action):
+    def name(self) -> Text:
+        return "action_get_system_tutorials"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+
+        # variaveis setadas a partir de slots
+        system = tracker.get_slot("system")
+
+        # retorno de infomações do json
+        with open("tutoriais.json", encoding='utf-8') as f:
+            data = json.loads(f.read())
+            data.sort(key=lambda x:x[""])
+
+        # description = 
+
+        #  descricao
+        #  link_acesso
+        #  link_recurso(video/pdf)
+        #  data_atualização
+        #  visivel
+        # pass
 
 def clean_name(name):
     return "".join([c for c in name if c.isalpha()])

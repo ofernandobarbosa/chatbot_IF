@@ -59,9 +59,20 @@ nlu:
     - [Fernando](PER) é meu nome
     - me chamam de [João](PER)
     - [fernando](PER)
-    - [thais](PER)
-    - [Fernando](PER)
-    - [fernando](PER)
+    - [Carlos](PER)
+    - [Juan](PER)
+    - [juliana](PER)
+    - [Vini](PER)
+    - [tatiele](PER)
+    - [Jussara](PER)
+    - [Miguel](PER)
+    - [Matheus](PER)
+    - [Sophia](PER)
+    - [Helena](PER)
+    - [Lara](PER)
+    - [Bernardo](PER)
+    - [Matheus Henrique](PER)
+
 - intent: request_doc_register
   examples: |
     - atestado
@@ -182,22 +193,11 @@ nlu:
     - cursos disponíveis
     - IFRS no rio grande do sul
     - IFRS no estado
-    - cursos integrantes do IFRS
-    - cursos de pós-graduação IFRS Rio Grande
-    - quais os cursos livres ofertados
+    - cursos integrados
+    - quais os cursos ofertados
     - tipos de cursos
     - quais cursos
-    - EAD
     - cursos
-- intent: request_internship
-  examples: |
-    - estagio
-    - estágio
-    - hora de estagio
-    - fazer estagio
-    - como fazer estágio
-    - estagios
-    - estágios
 - intent: ask_what_bot_do
   examples: |
     - o que você faz?
@@ -228,3 +228,25 @@ nlu:
     - [formação pedagógica](courses_name)
     - [pedagógica não licenciados](courses_name)
 
+- intent: request_requirements
+  examples: |
+    - quero os requerimentos
+    - me diz quais formulários tem
+    - quero os formularios
+    - requerimentos
+    - formulários
+    - cancelar matricula
+    - justificar falta
+    - trancar disciplinas
+- intent: req_students
+  examples: |
+    - [Aproveitamento de Estudos](requirements)
+    - [Atividades Complementares](requirements)
+    - [Cancelamento de Matrícula](requirements)
+    - [Certificação de Conhecimentos](requirements)
+    - [Justificativa de Falta](requirements)
+    - [Solicitação de Segunda Chamada](requirements)
+    - [Quebra de Pré-Requisito](requirements)
+    - [Reingresso](requirements)
+    - [Trancamento de Disciplina](requirements)
+    - [Trancamento de Matrícula](requirements)

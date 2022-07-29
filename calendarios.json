@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "id": 34,
         "modalidade": "Superior",
         "curso": "Tads",
@@ -40,6 +41,8 @@
         "visivel": true
     },
     {
+=======
+>>>>>>> 92cc96a0248039b2a07c0d13e55a526246c8a6a3
         "id": 7,
         "nome_evento": "Inscrições para o Projeto de Ensino English Club estão abertas até dia 28/06",
         "informacoes_evento": "As inscrições para a segunda edição do Projeto de Ensino English Club estão abertas até dia 28/06 por meio de formulário eletrônico disponível em: https://forms.gle/j6c3JEMKF8gEAPoX7\r\n\r\nO English Club é um espaço onde os alunos praticam o idioma estrangeiro ao se reunirem presencial e virtualmente, aprimorando sua proficiência na língua alvo e sua visão de mundo sobre os mais variados temas. Além da fala e da compreensão oral, são desenvolvidas as demais habilidades linguísticas como leitura e escrita, por meio de atividades multimodais elaboradas e aplicadas pela equipe do projeto. O English Club também oferece monitorias para os estudantes do 1º ano do Ensino Médio Integrado na disciplina de língua inglesa curricular. Maiores informações, entrar em contato pelo e-mail englishclubIFRS2021@gmail.com ou diretamente com as coordenadoras do Projeto Professoras Sabrina Rosa e Lucía Alda.",
@@ -198,6 +201,7 @@
         "categoria_evento": 7,
         "data_atualizacao": "2022-07-18T19:23:50-03:00",
         "visivel": true
+<<<<<<< HEAD
     },
     {
         "id": 34,
@@ -210,3 +214,9 @@
 
     }
 ]
+=======
+    }
+]
+
+
+>>>>>>> 92cc96a0248039b2a07c0d13e55a526246c8a6a3

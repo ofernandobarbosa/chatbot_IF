@@ -1,0 +1,168 @@
+{% load static %}
+{% include 'partials/header.html' %}
+
+<body>
+    {% include 'partials/login-admin.html' %}
+    <div align="center">
+        <table>        
+            <tr><td>&nbsp</td><td></td></tr>
+            <tr>
+                <td></td>
+                <td><center><h1>EVENTO</h1></center><br><br></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><section>
+                <div>
+                    {% if evento.categoria%}
+                    <h6>CATEGORIA</h6>
+                    <h3>{{evento.categoria}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.usuario%}
+                    <h6>USUÁRIO QUE ATUALIZOU</h6>
+                    <h3>{{evento.usuario}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.nome_evento%}
+                    <h6>NOME DO EVENTO</h6>
+                    <h3>{{evento.nome_evento}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.descricao%}
+                    <h6>DESCRIÇÃO</h6>
+                    <h3>{{evento.descricao}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.nome_do_professor%}
+                    <h6>NOME DO PROFESSOR</h6>
+                    <h3>{{evento.nome_do_professor}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.nome_da_disciplina%}
+                    <h6>NOME DA DISCIPLINA</h6>
+                    <h3>{{evento.nome_da_disciplina}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.email%}
+                    <h6>EMAIL</h6>
+                    <h3>{{evento.email}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.email_do_coordenador%}
+                    <h6>EMAIL DO COORDENADOR</h6>
+                    <h3>{{evento.email_do_coordenador}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.email_do_curso%}
+                    <h6>EMAIL DO CURSO</h6>
+                    <h3>{{evento.email_do_curso}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.modalidade_do_curso%}
+                    <h6>MODALIDADE DO CURSO</h6>
+                    <h3>{{evento.modalidade_do_curso}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.nome_do_curso%}
+                    <h6>NOME DO CURSO</h6>
+                    <h3>{{evento.nome_do_curso}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.ano%}
+                    <h6>ANO</h6>
+                    <h3>{{evento.ano}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.semestre%}
+                    <h6>SEMESTRE</h6>
+                    <h3>{{evento.semestre}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.nome_do_sistema%}
+                    <h6>NOME DO SISTEMA</h6>
+                    <h3>{{evento.nome_do_sistema}}</h3><br><br>
+                    {% endif %}                    
+                    {% if evento.link_1%}
+                    <h6>LINK 1</h6>
+                    <h3>{{evento.link_1}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.link_2%}
+                    <h6>LINK 2</h6>
+                    <h3>{{evento.link_2}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.link_3%}
+                    <h6>LINK 3</h6>
+                    <h3>{{evento.link_3}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.foto_1%}
+                    <h6>FOTO 1</h6>
+                    <div class="container"><img src="{{ evento.foto_1.url }}"/></div>
+                    <br>
+                    {% endif %}
+                    {% if evento.foto_2%}
+                    <h6>FOTO 2</h6>
+                    <div class="container"><img src="{{ evento.foto_2.url }}"/></div>
+                    <br>
+                    {% endif %}
+                    {% if evento.foto_3%}
+                    <h6>FOTO 3</h6>
+                    <div class="container"><img src="{{ evento.foto_3.url }}"/></div>
+                    <br>
+                    {% endif %}
+                    {% if evento.arquivo_1%}
+                    <h6>ARQUIVO 1</h6>
+                    <h3>{{evento.arquivo_1}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.arquivo_2%}
+                    <h6>ARQUIVO 2</h6>
+                    <h3>{{evento.arquivo_2}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.arquivo_3%}
+                    <h6>ARQUIVO 3</h6>
+                    <h3>{{evento.arquivo_3}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.forma_de_ingresso%}
+                    <h6>FORMA DE INGRESSO</h6>
+                    <h3>{{evento.forma_de_ingresso}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.requisitos%}
+                    <h6>REQUISITOS</h6>
+                    <h3>{{evento.requisitos}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.turno%}
+                    <h6>TURNO</h6>
+                    <h3>{{evento.turno}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.numero_de_vagas%}
+                    <h6>NÚMERO DE VAGAS</h6>
+                    <h3>{{evento.numero_de_vagas}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.coordenador_do_curso%}
+                    <h6>COORDENADOR DO CURSO</h6>
+                    <h3>{{evento.coordenador_do_curso}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.nome_do_requerimento%}
+                    <h6>NOME DO REQUERIMENTO</h6>
+                    <h3>{{evento.nome_do_requerimento}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.data_de_inicio%}
+                    <h6>DATA DE INÍCIO</h6>
+                    <h3>{{evento.data_de_inicio}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.data_de_fim%}
+                    <h6>DATA DE FIM</h6>
+                    <h3>{{evento.data_de_fim}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.data_atualizacao%}
+                    <h6>DATA DA ÚLTIMA ATUALIZAÇÃO</h6>
+                    <h3>{{evento.data_atualizacao}}</h3><br><br>
+                    {% endif %}
+                </div>
+            </section>
+            </td>
+        </tr>
+    </table>
+    <style type="text/css" id="container">
+        .container img {
+            max-width: 100%;
+            max-height:60%;
+            width: auto;
+            height: auto;
+        }
+        .container {
+            clear: both;
+            margin-top: 20px;
+        }
+        img {
+            vertical-align: top
+        }
+    </style>
+{% include 'partials/footer.html' %}

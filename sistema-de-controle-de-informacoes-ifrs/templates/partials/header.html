@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <!-- Metadados -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="{% static 'favicons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png"
+        href="{% static 'favicons/favicon-32x32.png' %}" sizes="32x32">
+    <link rel="icon" type="image/png"
+        href="{% static 'favicons/favicon-194x194.png' %}" sizes="194x194">
+    <link rel="icon" type="image/png"
+        href="{% static 'favicons/android-chrome-192x192.png' %}"
+        sizes="192x192">
+    <link rel="icon" type="image/png"
+        href="{% static 'favicons/favicon-16x16.png' %}" sizes="16x16">
+    <link rel="manifest" href="{% static 'favicons/manifest.json' %}">
+    <link rel="mask-icon" href="{% static 'favicons/safari-pinned-tab.svg' %}"
+        color="#195128">
+    <link rel="shortcut icon" href="{% static 'favicons/favicon.ico' %}">
+    <meta name="msapplication-TileImage"
+        content="{% static 'favicons/mstile-144x144.png' %}">
+    <meta name="msapplication-config"
+        content="{% static 'favicons/browserconfig.xml' %}">
+    <meta name="msapplication-navbutton-color" content="#195128">
+    <meta name="msapplication-TileColor" content="#00a300">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#195128">
+    <link rel="preload" href="{% static 'ifrs.gif' %}" as="image" />
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'portal.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'site.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'animate.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'classy-nav.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'custom-icon.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'magnific-popup.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'nice-select.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'owl.carousel.min.css' %}"/>
+    <script src="{% static 'jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins.js'%}"></script>
+    <script src="{% static 'active.js' %}"></script>
+    <link rel="preload"
+        href="{% static 'OpenSans-Regular.woff2' %}" as="font"
+        type="font/woff2" crossorigin="anonymous" />
+    <title>Instituto Federal do Rio Grande do Sul - IFRS</title>
+    <style type="text/css" id="wp-custom-css">
+        header {
+            background-color: #ffffff !important;
+            background-image: none !important;
+        }
+    </style>
+</head>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="container">
+            <div class="row header__content">
+                <div class="col-12 col-lg-8 header__title">
+                    <div class="title">
+                        <h1 class="sr-only">Instituto Federal do Rio Grande do Sul</h1>
+                        <a href="{% url 'index' %}" class="custom-logo-link" rel="home" aria-current="page"><img width="760"
+                                height="110" src="{% static 'ifrs.gif' %}" class="custom-logo"
+                                alt="Instituto Federal do Rio Grande do Sul - Sistema de Controle de Informações ChatBot" /></a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="header__aside">
+                        <form role="search" class="form-inline searchform" action="{% url 'buscar' %}">
+                            <div class="input-group">
+                                <input type="search" value="" name="buscar" id="search-field"
+                                    class="form-control form-control-sm border-secondary searchform__field"
+                                    placeholder="Buscar Eventos" required>
+                                <label class="searchform__label" for="search-field">Buscar Eventos</label>
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-dark btn-sm searchform__submit"
+                                        title="buscar" value="buscar"></button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header__barra-servicos">
+            <div align="center">
+                <nav class="menu-servicos-container">
+                    <ul id="menu-servicos" class="menu-servicos">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        {% for categoria in categorias %}
+                        <li id="menu-item-20"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20">
+                            <a href="{% url 'categoria' categoria.id %}">{{categoria.nome_categoria}}</a></li>
+                        {% endfor %}
+                        <li id="menu-item-7"
+                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-7"><a
+                                target="_blank" rel="noopener" href="https://ifrs.edu.br/">Site IFRS</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
