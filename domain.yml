@@ -24,6 +24,9 @@ intents:
   - inform_professor_name:
       ignore_entities:
         - LOC
+  - inform_professor_last_name:
+      ignore_entities:
+        - LOC
   - ask_what_bot_do
   - modality
   - courses
@@ -73,6 +76,19 @@ slots:
         conditions:
           - active_loop: professor_name_form
             requested_slot: professor_name
+  professor_last_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: PER
+        intent: inform_professor_last_name
+        and:
+          - not_intent: inform_name
+          - not_intent: inform_professor_name
+        conditions:
+          - active_loop: professor_name_form
+            requested_slot: professor_last_name
   classes:
     type: text
     mappings:
@@ -138,6 +154,7 @@ forms:
       - inform_name
     required_slots:
       - professor_name
+      - professor_last_name
   classes_form:
     required_slots:
       - classes
@@ -164,8 +181,10 @@ responses:
     - text: Qual é seu nome?
     - text: Me informa seu nome?
   utter_ask_professor_name:
-    - text: Qual o nome do professor?
+    - text: Qual o primeiro nome do professor?
     - text: Me informa o nome do professor?
+  utter_ask_professor_last_name:
+    - text: Qual o sobrenome do professor?
   utter_ask_help:
     - text: Em que posso ajudar {name}?
   utter_goodbye:
@@ -182,6 +201,8 @@ responses:
     - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
   utter_req_to_ask:
     - text: Pode dizer ou então me pergunte o que posso fazer!
+  utter_please_rephrase:
+    - text: Me desculpe, mas não posso ajudar sobre isso?
 
   # utter buttons
   utter_ask_more_help:
@@ -235,6 +256,17 @@ responses:
           payload: '/system{{"system":"SIGAA"}}'
       button_type: inline
 
+  utter_ask_classes_modality:
+    - text: Para qual modalidade gostaria de informações?
+      buttons:
+        - title: Técnicos integrados
+          payload: '/modality{{"courses_modality":"integrado"}}'
+        - title: Técnicos subsequente
+          payload: '/modality{{"courses_modality":"subsequente"}}'
+        - title: Superiores
+          payload: '/modality{{"courses_modality":"superior"}}'
+      button_type: vertical
+
 actions:
   - utter_ask_help
   - utter_goodbye
@@ -248,6 +280,7 @@ actions:
   - action_get_professor_contact
   - action_get_doc_register
   - action_get_classes
+  - action_get_info_classe
   - action_get_calendar
   - action_get_courses
   - action_get_info_course

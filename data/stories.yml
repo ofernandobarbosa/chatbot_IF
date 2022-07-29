@@ -33,8 +33,10 @@ stories:
     - active_loop: professor_name_form
     - slot_was_set:
         - requested_slot: professor_name
+        - requested_slot: professor_last_name
     - slot_was_set:
-        - professor_name: Gustavo Guanabara
+        - professor_name: Gustavo
+        - professor_last_name: Guanabara
     - slot_was_set:
         - requested_slot: null
     - active_loop: null
@@ -45,7 +47,19 @@ stories:
   steps:
     - checkpoint: check_ask_help
     - intent: request_classes
+    - action: utter_ask_classes_modality
+    - intent: modality
+      entities:
+      - courses_modality: subsequente
+    - slot_was_set:
+      - courses_modality: subsequente
     - action: action_get_classes
+    - intent: courses
+      entities:
+      - courses_name: fabricação
+    - slot_was_set:
+      - courses_name: fabricação
+    - action: action_get_info_classe
     - checkpoint: check_more_help
 
 - story: solicitar calendário acadêmico
