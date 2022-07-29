@@ -154,6 +154,9 @@ def formulario(request):
             usuario = request.POST['usuario']
             nome_evento = request.POST['nome_evento']
             link_1 = request.POST['link_1']
+            nome_do_sistema = request.POST['nome_do_sistema']
+            if not nome_do_sistema.strip():
+                return redirect('nao_foi_cadastrado')
             try:
                 link_2 = request.POST['link_2']
             except:
@@ -174,7 +177,7 @@ def formulario(request):
                 print('O campo link 1 não pode ficar em branco')
                 return redirect('nao_foi_cadastrado')
             try:
-                evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, nome_evento=nome_evento, link_1=link_1, link_2=link_2, link_3=link_3, visivel=visivel)
+                evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, nome_evento=nome_evento,nome_do_sistema=nome_do_sistema, link_1=link_1, link_2=link_2, link_3=link_3, visivel=visivel)
                 evento.save()
                 print("Comprovante de Matrícula Cadastrado com Sucesso")
                 return render(request, 'usuarios/cadastrado_com_sucesso.html')
