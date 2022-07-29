@@ -5,19 +5,7 @@ from rasa_sdk.types import DomainDict
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import SlotSet, AllSlotsReset
 import json
-
-def sort_updated_date(file):
-    with open(file, encoding='utf-8') as f:
-        data = json.loads(f.read())
-        data.sort(key=lambda x:x["data_atualizacao"], reverse=True)
-    return data
-
-# for obj in data:
-#     try:
-#         print(obj['modalidade'])
-#         print()
-#     except:
-#         pass
+from actions.utils import *
 
 
 class GetProfessorContact(Action):
@@ -54,7 +42,31 @@ class GetDocRegister(Action):
         dispatcher.utter_message(
             text=f"Caso precise de alguma ajuda, assista o tutorial no link {link_tutorial}")
 
-        return []
+        # request json
+        data = req_json("comprovante_de_matricula/")
+
+        try:
+            # retorno da ultima atualização
+            req = last_info('nome_do_sistema', system, data)
+
+            # variaves db
+            system_db = req["nome_do_sistema"].upper()
+            description = req["descricao"]
+            link_1 = req["link_1"]
+            link_2 = req["link_2"]
+            archive_1 = req["arquivo_1"]
+            archive_2 = req["arquivo_2"]
+
+            # dispachando informações
+            dispatcher.utter_message(text=description)
+            dispatcher.utter_message(
+                text=f'Segue o [link]({link_1}) para acessar o {system}!')
+
+        except:
+            dispatcher.utter_message(
+                text=f"Estamos com dificuldades de encontrar teu tutorial para o {system}")
+
+        return [SlotSet("system", None)]
 
 
 class GetClasses(Action):
@@ -294,28 +306,24 @@ class Requirements(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        # difine arquivo padrão para busca do dado ordenado por ultima atualização
-        data = sort_updated_date("../chatbot_IF/requerimentos.json")
         # recebe slot pelo input do usuário
-        requirement = tracker.get_slot("requirements").lower()    
-        # busca por todas as recorrencias do requerimento no json
-        req = [x for x in data if x['nome_requerimento']==requirement and x['visivel']==True]
-        # recebe a ultima atualização do requerimento
+        requirement = tracker.get_slot("requirements").title()
+        # difine arquivo padrão para busca do dado ordenado por ultima atualização
+        data = req_json("requerimentos_ou_formularios/")
         try:
-            updated_req = req[0]
-            text = updated_req["descricao"]
-            link = updated_req["arquivo_link"]
-            data_inicio = updated_req["data_inicio"]
-            data_fim = updated_req["data_fim"]
-            requirement = requirement.title()
+            # busca por todas as recorrencias do requerimento no json e recebe a ultima atualização do requerimento
+            req = last_info('nome_do_requerimento', requirement, data)
+            text = req["descricao"]
+            link = req["link_1"]
+            data_inicio = req["data_de_inicio"]
+            data_fim = req["data_de_fim"]
 
             dispatcher.utter_message(text=text)
-            dispatcher.utter_message(text=f"Lembrando que o prazo para preenchimento vai de {data_inicio} até {data_fim}")
             dispatcher.utter_message(
-                text=f'Segue o [link]({link}) para o formulário!')
+                text=f"Lembrando que o prazo para preenchimento vai de {data_inicio} até {data_fim}")
         except:
-            dispatcher.utter_message(text=f'O requerimento \n`"{requirement}"` \nestá indisponível no momento')
-
+            dispatcher.utter_message(
+                text=f'O requerimento \n`"{requirement}"` \nestá indisponível no momento')
 
         return [SlotSet("requirements", None)]
 
@@ -327,27 +335,34 @@ class SystemsTutorial(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-
-        # variaveis setadas a partir de slots
+        # variaveis definidas a partir de slots
         system = tracker.get_slot("system")
 
-        # retorno de infomações do json
-        with open("tutoriais.json", encoding='utf-8') as f:
-            data = json.loads(f.read())
-            data.sort(key=lambda x:x[""])
+        # request json
+        data = req_json("tutoriais_de_acessos_a_sistemas_academicos/")
 
-        # description = 
+        try:
+            # retorno da ultima atualização
+            req = last_info('nome_do_sistema', system, data)
 
-        #  descricao
-        #  link_acesso
-        #  link_recurso(video/pdf)
-        #  data_atualização
-        #  visivel
-        # pass
+            # variaves db
+            system_db = req["nome_do_sistema"].upper()
+            description = req["descricao"]
+            link_1 = req["link_1"]
+            link_2 = req["link_2"]
+            archive_1 = req["arquivo_1"]
+            archive_2 = req["arquivo_2"]
 
-def clean_name(name):
-    return "".join([c for c in name if c.isalpha()])
+            # dispachando informações
+            dispatcher.utter_message(text=description)
+            dispatcher.utter_message(
+                text=f'Segue o [link]({link_1}) para acessar o {system}!')
+
+        except:
+            dispatcher.utter_message(
+                text=f"Estamos com dificuldades de encontrar teu tutorial para o {system}")
+
+        return [SlotSet("system", None)]
 
 
 class NameFormValidate(FormValidationAction):

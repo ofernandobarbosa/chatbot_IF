@@ -105,6 +105,22 @@ stories:
     - active_loop: null
     - action: action_get_requirements
     - checkpoint: check_more_help
+
+- story: solicitar tutorial sistemas
+  steps:
+    - checkpoint: check_ask_help
+    - intent: request_system_tutorials
+    - action: system_form
+    - active_loop: system_form
+    - slot_was_set:
+        - requested_slot: system
+    - slot_was_set:
+        - system: AVA
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_get_system_tutorials
+    - checkpoint: check_more_help
     
 - story: precisa de mais alguma ajuda? sim
   steps:

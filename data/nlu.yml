@@ -225,6 +225,7 @@ nlu:
     - cancelar matricula
     - justificar falta
     - trancar disciplinas
+    - Requerimentos/Formulários
 - intent: req_students
   examples: |
     - [Aproveitamento de Estudos](requirements)
@@ -232,8 +233,22 @@ nlu:
     - [Cancelamento de Matrícula](requirements)
     - [Certificação de Conhecimentos](requirements)
     - [Justificativa de Falta](requirements)
-    - [Solicitação de Segunda Chamada](requirements)
+    - [Segunda Chamada](requirements)
     - [Quebra de Pré-Requisito](requirements)
     - [Reingresso](requirements)
     - [Trancamento de Disciplina](requirements)
     - [Trancamento de Matrícula](requirements)
+- intent: system
+  examples: |
+    - [AVA](system)
+    - [SIA](system)
+    - [SIGAA](system)
+- intent: request_system_tutorials
+  examples: |
+    - quais são os sitemas disponíveis?
+    - como acessar o [SIA](system)
+    - como acessar o [AVA](system)
+    - como acessar o [SIGAA](system)
+    - tutorial sistemas
+    - como acessar sistemas academicos
+    - tutorial de acesso a sistemas acadêmicos

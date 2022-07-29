@@ -11,7 +11,6 @@ intents:
   - greet
   - request_doc_register
   - request_do_register
-  # - request_historic
   - request_email
   - request_classes
   - request_calendar:
@@ -30,6 +29,8 @@ intents:
   - courses
   - request_requirements
   - req_students
+  - system
+  - request_system_tutorials
 
 entities:
   - PER
@@ -43,6 +44,8 @@ entities:
   - courses_name
   - courses_modality_link
   - requirements
+  - system
+
 
 slots:
   # teste validar nome
@@ -116,6 +119,11 @@ slots:
     mappings:
       - type: from_entity
         entity: requirements
+  system:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: system
 
 forms:
   name_form:
@@ -142,6 +150,9 @@ forms:
   requirement_form:
     required_slots:
       - requirements
+  system_form:
+    required_slots:
+      - system
 
 responses:
   utter_greet:
@@ -203,7 +214,7 @@ responses:
         - title: Certificação de Conhecimentos
           payload: '/req_students{{"requirements":"certificação de conhecimento"}}'
         - title: Justificativa de Falta / Segunda Chamada
-          payload: '/req_students{{"requirements":"justificativa de falta"}}'
+          payload: '/req_students{{"requirements":"segunda chamada"}}'
         - title: Quebra de Pré-Requisito 
           payload: '/req_students{{"requirements":"quebra de pré-requisito"}}'
         - title: Reingresso
@@ -213,6 +224,16 @@ responses:
         - title: Trancamento de Matrícula
           payload: '/req_students{{"requirements":"trancamento de matrícula"}}'
       button_type: vertical
+  utter_ask_system:
+    - text: Qual sistema tu precisa de ajuda? 🆘
+      buttons:
+        - title: AVA
+          payload: '/system{{"system":"AVA"}}'
+        - title: SIA
+          payload: '/system{{"system":"SIA"}}'
+        - title: SIGAA
+          payload: '/system{{"system":"SIGAA"}}'
+      button_type: inline
 
 actions:
   - utter_ask_help
@@ -235,6 +256,7 @@ actions:
   - action_what_bot_do
   - action_goodbye_and_clear_slots
   - action_get_requirements
+  - action_get_system_tutorials
 
   # custom validation
   - validate_name_form
