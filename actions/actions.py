@@ -5,19 +5,7 @@ from rasa_sdk.types import DomainDict
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import SlotSet, AllSlotsReset
 import json
-
-def sort_updated_date(file):
-    with open(file, encoding='utf-8') as f:
-        data = json.loads(f.read())
-        data.sort(key=lambda x:x["data_atualizacao"], reverse=True)
-    return data
-
-# for obj in data:
-#     try:
-#         print(obj['modalidade'])
-#         print()
-#     except:
-#         pass
+from actions.utils import *
 
 
 class GetProfessorContact(Action):
@@ -30,11 +18,29 @@ class GetProfessorContact(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         nome_professor = tracker.get_slot("professor_name")
+        sobrenome_professor = tracker.get_slot("professor_last_name")
+        with open("calendarios.json", encoding="utf8") as file:
+            data = json.loads(file.read())
 
-        dispatcher.utter_message(
-            text=f"{nome_professor}@riogrande.ifrs.edu.br")
+        for order in data:
+            try:
+                print(nome_professor, sobrenome_professor)
+                if(order["nome_professor"] == nome_professor):
+                    if(order["sobrenome_professor"] == sobrenome_professor):
+                        link = order["email"]
+                        msg=f"Segue o email do professor {nome_professor} {sobrenome_professor} {link}"
+                        dispatcher.utter_message(text=msg)
+                        break
+                    if(order["sobrenome_professor"] != sobrenome_professor):
+                        link = order["email"]
+                        msg=f"Segue o email {link}"
+                        dispatcher.utter_message(text=msg)
+                        
+            except:
+                pass
 
-        return[SlotSet("professor_name", None)]
+
+        return[SlotSet("professor_name", None), SlotSet("professor_last_name", None)]
 
 
 class GetDocRegister(Action):
@@ -54,7 +60,31 @@ class GetDocRegister(Action):
         dispatcher.utter_message(
             text=f"Caso precise de alguma ajuda, assista o tutorial no link {link_tutorial}")
 
-        return []
+        # request json
+        data = req_json("comprovante_de_matricula/")
+
+        try:
+            # retorno da ultima atualização
+            req = last_info('nome_do_sistema', system, data)
+
+            # variaves db
+            system_db = req["nome_do_sistema"].upper()
+            description = req["descricao"]
+            link_1 = req["link_1"]
+            link_2 = req["link_2"]
+            archive_1 = req["arquivo_1"]
+            archive_2 = req["arquivo_2"]
+
+            # dispachando informações
+            dispatcher.utter_message(text=description)
+            dispatcher.utter_message(
+                text=f'Segue o [link]({link_1}) para acessar o {system}!')
+
+        except:
+            dispatcher.utter_message(
+                text=f"Estamos com dificuldades de encontrar teu tutorial para o {system}")
+
+        return [SlotSet("system", None)]
 
 
 class GetClasses(Action):
@@ -66,10 +96,117 @@ class GetClasses(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link_classes = "https://ifrs.edu.br/riogrande/ensino/retorno-do-calendario/horarios/"
+        # buttons declaration
+        buttons_integrado = [
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Informática para Internet",
+                "payload": '/courses{"courses_name": "informática"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'}
+        ]
+        buttons_subsequente = [
+            {"title": "Automação Industrial",
+                "payload": '/courses{"courses_name": "automação"}'},
+            {"title": "Fabricação Mecânica",
+                "payload": '/courses{"courses_name": "fabricação"}'},
+            {"title": "Geoprocessamento",
+                "payload": '/courses{"courses_name": "geoprocessamento"}'},
+            {"title": "Eletrotécnica",
+                "payload": '/courses{"courses_name": "eletrotécnica"}'},
+            {"title": "Refrigeração",
+                "payload": '/courses{"courses_name": "refrigeração"}'},
+            {"title": "Enfermagem", "payload": '/courses{"courses_name": "enfermagem"}'}
+        ]
+        buttons_superior = [
+            {"title": "Engenharia Mecânica",
+                "payload": '/courses{"courses_name": "engenharia mecânica"}'},
+            {"title": "Análise e Desenvolvimendo de Software",
+                "payload": '/courses{"courses_name": "tads"}'},
+            {"title": "Construção de Edifícios",
+                "payload": '/courses{"courses_name": "tce"}'},
+            {"title": "F. Pedagógica",
+                "payload": '/courses{"courses_name": "formação pedagógica"}'},
+            {"title": "F. Pedagógica não Licenciados",
+                "payload": '/courses{"courses_name": "pedagógica não licenciados"}'}
+        ]
 
-        dispatcher.utter_message(
-            text=f"Os horários de suas aulas e disciplinas você pode conferir aqui {link_classes}!")
+        # variables declaration
+        modality = tracker.get_slot("courses_modality").lower()
+
+        modalities = {
+            "integrado": {
+                "link":"cursos-tecnicos-integrados/",
+                "button": buttons_integrado,
+                },
+            "subsequente":{ 
+                "link": "cursos-tecnicos-subsequentes/",
+                "button": buttons_subsequente,
+            },
+            "superior": {
+                "link":"cursos-superiores/",
+                "button": buttons_superior,
+            },
+        }
+        # Dispatcher the button selector according with the chosen modality
+        course = dispatcher.utter_message(
+            text="Para qual curso gostaria de obter os horarios?", 
+            buttons=modalities[modality]["button"], 
+            button_type="vertical")
+
+
+        return [SlotSet("courses_name", course)]
+
+class GetInfoClasses(Action):
+
+    def name(self) -> Text:
+        return "action_get_info_classe"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        A action valida o curso selecionado pelo usuário e busca o link de acordo com o botão clicado pelo usuário.
+        Além de validar o curso, a action recebe o valor do slot (courses_modality_link) para interpolar com o endpoint de acordo com o curso selecionado.
+        Por fim, despacha para o usuário a informação com o link correto.
+        """
+        courses = {
+            "automação": "automacao-industrial/",
+            "fabricação": "fabricacao-mecanica/",
+            "informática": "informatica-para-internet/",
+            "eletrotécnica": "eletrotecnica/",
+            "geoprocessamento": "geoprocessamento/",
+            "refrigeração": "refrigeracao-e-climatizacao/",
+            "enfermagem": "enfermagem/",
+            "engenharia mecânica": "engenharia-mecanica/",
+            "tads": "tads/",
+            "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
+            "formação pedagógica": "curso-de-formacao-pedagogica/",
+            "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
+        }
+
+        course_name = tracker.get_slot("courses_name").title()
+        course_modality = tracker.get_slot("courses_modality").title()
+
+        with open("calendarios.json", encoding="utf8") as file:
+            data = json.loads(file.read())
+
+        for order in data:
+            try:
+                print(order["modalidade"], order["curso"])
+                if(order["modalidade"] == course_modality and order["curso"] == course_name):
+                    link = order["link"]
+                    msg=f"Segue o link de acesso dos horários do curso {course_name} {link}"
+                    dispatcher.utter_message(text=msg)
+                    break
+            except:
+                pass
 
         return []
 
@@ -191,11 +328,11 @@ class GetCourses(Action):
         uri_modality = modalities[modality]["link"]
 
         # Dispatcher the button selector according with the chosen modality
-        dispatcher.utter_message(
-            text="Para qual curso gostaria de mais informações?",
-            buttons=modalities[modality]["button"],
+        button = dispatcher.utter_message(
+            text="Para qual curso gostaria de mais informações?", 
+            buttons=modalities[modality]["button"], 
             button_type="vertical")
-
+        
         complete_uri = uri_base+uri_modality
 
         return [SlotSet("courses_modality_link", complete_uri)]
@@ -231,6 +368,7 @@ class GetInfoCours(Action):
         }
 
         course_name = tracker.get_slot("courses_name")
+        print(course_name)
         course_modality = tracker.get_slot("courses_modality")
         link = tracker.get_slot("courses_modality_link")
 
@@ -407,7 +545,7 @@ class WhatBotDo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(
-            text=f"Tu pode me solicitar:👇\n➡️ Contato dos professores\n➡️ Calendário acadêmico\n➡️ Cursos disponíveis\n➡️ Comprovante de matrícula\n➡️ Informações sobre as aulas\n➡️ Inscrições\n➡️ Como fazer a rematrícula\n➡️ Requerimentos/Formulários")
+            text=f"Tu pode me solicitar:👇\n➡️ Calendário acadêmico\n➡️ Comprovante de matrícula\n➡️ Contato dos professores\n➡️ Cursos disponíveis\n➡️ Grade de horários\n➡️ Informações relevantes dos cursos\n➡️ Informações sobre inscrição/matrícula\n➡️ Informações sobre rematrícula\n➡️ Requerimentos/formulários\n➡️ Tutoriais de acessos a sistemas acadêmicos")
 
         return []
 
@@ -419,28 +557,24 @@ class Requirements(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        # difine arquivo padrão para busca do dado ordenado por ultima atualização
-        data = sort_updated_date("../chatbot_IF/requerimentos.json")
         # recebe slot pelo input do usuário
-        requirement = tracker.get_slot("requirements").lower()    
-        # busca por todas as recorrencias do requerimento no json
-        req = [x for x in data if x['nome_requerimento']==requirement and x['visivel']==True]
-        # recebe a ultima atualização do requerimento
+        requirement = tracker.get_slot("requirements").title()
+        # difine arquivo padrão para busca do dado ordenado por ultima atualização
+        data = req_json("requerimentos_ou_formularios/")
         try:
-            updated_req = req[0]
-            text = updated_req["descricao"]
-            link = updated_req["arquivo_link"]
-            data_inicio = updated_req["data_inicio"]
-            data_fim = updated_req["data_fim"]
-            requirement = requirement.title()
+            # busca por todas as recorrencias do requerimento no json e recebe a ultima atualização do requerimento
+            req = last_info('nome_do_requerimento', requirement, data)
+            text = req["descricao"]
+            link = req["link_1"]
+            data_inicio = req["data_de_inicio"]
+            data_fim = req["data_de_fim"]
 
             dispatcher.utter_message(text=text)
-            dispatcher.utter_message(text=f"Lembrando que o prazo para preenchimento vai de {data_inicio} até {data_fim}")
             dispatcher.utter_message(
-                text=f'Segue o [link]({link}) para o formulário!')
+                text=f"Lembrando que o prazo para preenchimento vai de {data_inicio} até {data_fim}")
         except:
-            dispatcher.utter_message(text=f'O requerimento \n`"{requirement}"` \nestá indisponível no momento')
-
+            dispatcher.utter_message(
+                text=f'O requerimento \n`"{requirement}"` \nestá indisponível no momento')
 
         return [SlotSet("requirements", None)]
 
@@ -452,27 +586,34 @@ class SystemsTutorial(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-
-        # variaveis setadas a partir de slots
+        # variaveis definidas a partir de slots
         system = tracker.get_slot("system")
 
-        # retorno de infomações do json
-        with open("tutoriais.json", encoding='utf-8') as f:
-            data = json.loads(f.read())
-            data.sort(key=lambda x:x[""])
+        # request json
+        data = req_json("tutoriais_de_acessos_a_sistemas_academicos/")
 
-        # description = 
+        try:
+            # retorno da ultima atualização
+            req = last_info('nome_do_sistema', system, data)
 
-        #  descricao
-        #  link_acesso
-        #  link_recurso(video/pdf)
-        #  data_atualização
-        #  visivel
-        # pass
+            # variaves db
+            system_db = req["nome_do_sistema"].upper()
+            description = req["descricao"]
+            link_1 = req["link_1"]
+            link_2 = req["link_2"]
+            archive_1 = req["arquivo_1"]
+            archive_2 = req["arquivo_2"]
 
-def clean_name(name):
-    return "".join([c for c in name if c.isalpha()])
+            # dispachando informações
+            dispatcher.utter_message(text=description)
+            dispatcher.utter_message(
+                text=f'Segue o [link]({link_1}) para acessar o {system}!')
+
+        except:
+            dispatcher.utter_message(
+                text=f"Estamos com dificuldades de encontrar teu tutorial para o {system}")
+
+        return [SlotSet("system", None)]
 
 
 class NameFormValidate(FormValidationAction):

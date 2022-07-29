@@ -134,6 +134,18 @@ nlu:
     - [Patrícia dos Santos](PER)
     - [rodrigo](PER)
     - [Gustavo Guanabara](PER)
+- intent: inform_professor_last_name
+  examples: |
+    - [Silva Oliveira](PER)
+    - [Barbosa](PER)
+    - sim, é [Pereira](PER)
+    - claro, é [Silveira Martins](PER)
+    - [aguiar](PER)
+    - [ferreira](PER)
+    - [nunes](PER)
+    - é [Rodrigues](PER)
+    - [marques](PER)
+    - [peres](PER)
 - intent: request_email
   examples: |
     - email dos professores
@@ -222,45 +234,53 @@ nlu:
     - [Superior](courses_modality)
 - intent: courses
   examples: |
-    - [automação](course_name)
-    - [automacao](course_name)
-    - [automação industrial](course_name)
-    - [fabricacao](course_name)
-    - [fabricação mecânica](course_name)
-    - [fabricação](course_name)
-    - [informática](course_name)
-    - [informatica para internet](course_name)
-    - [internet](course_name)
-    - [info](course_name)
-    - [geoprocessamento](course_name)
-    - [geo](course_name)
-    - [eletrotecnica](course_name)
-    - [eletrotécnica](course_name)
-    - [eletro](course_name)
-    - [refrigeração](course_name)
-    - [refrigeracao](course_name)
-    - [refri](course_name)
-    - [enfermagem](course_name)
-    - [técnico enfermagem](course_name)
-    - [tec enfermagem](course_name)
-    - [eng mecânica](course_name)
-    - [engenharia mec](course_name)
-    - [engenharia mecânica](course_name)
-    - [tads](course_name)
-    - [analise e desenvolvimento de software](course_name)
-    - [análise e desenvolvimento de software](course_name)
-    - [tce](course_name)
-    - [construção de edifícios](course_name)
-    - [construcão de edificios](course_name)
-    - [formacao pedagogica](course_name)
-    - [formação pedagógica](course_name)
-    - [formacao pedagogica nao licenciados](course_name)
-    - [formação pedagógica não licenciados](course_name)
-    - [formacao pedagógica nao licenciados](course_name)
-- intent: ingress_modality
+    - [automação](courses_name)
+    - [fabricação](courses_name)
+    - [informática](courses_name)
+    - [geoprocessamento](courses_name)
+    - [eletrotécnica](courses_name)
+    - [refrigeração](courses_name)
+    - [enfermagem](courses_name)
+    - [engenharia mecânica](courses_name)
+    - [tads](courses_name)
+    - [tce](courses_name)
+    - [formação pedagógica](courses_name)
+    - [pedagógica não licenciados](courses_name)
+
+- intent: request_requirements
   examples: |
-    - [Enem](ingress_modality)
-    - [Processo seletivo EJA](ingress_modality)
-    - [Prova](ingress_modality)
-    - [PS indígena](ingress_modality)
-    - [Sorteio](ingress_modality)
+    - quero os requerimentos
+    - me diz quais formulários tem
+    - quero os formularios
+    - requerimentos
+    - formulários
+    - cancelar matricula
+    - justificar falta
+    - trancar disciplinas
+    - Requerimentos/Formulários
+- intent: req_students
+  examples: |
+    - [Aproveitamento de Estudos](requirements)
+    - [Atividades Complementares](requirements)
+    - [Cancelamento de Matrícula](requirements)
+    - [Certificação de Conhecimentos](requirements)
+    - [Justificativa de Falta](requirements)
+    - [Segunda Chamada](requirements)
+    - [Quebra de Pré-Requisito](requirements)
+    - [Reingresso](requirements)
+    - [Trancamento de Disciplina](requirements)
+    - [Trancamento de Matrícula](requirements)
+- intent: system
+  examples: |
+    - [AVA](system)
+    - [SIA](system)
+    - [SIGAA](system)
+- intent: request_system_tutorials
+  examples: |
+    - quais são os sitemas disponíveis?
+    - como acessar o [SIA](system)
+    - como acessar o [AVA](system)
+    - como acessar o [SIGAA](system)
+    - tutorial sistemas
+    - como acessar sistemas academicos
+    - tutorial de acesso a sistemas acadêmicos

@@ -35,7 +35,7 @@ pipeline:
     constrain_similarities: True
   - name: EntitySynonymMapper
   - name: FallbackClassifier
-    threshold: 0.3
+    threshold: 0.7
     ambiguity_threshold: 0.1
 
 # Configuration for Rasa Core.
