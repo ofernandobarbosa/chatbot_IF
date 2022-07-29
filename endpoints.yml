@@ -11,13 +11,8 @@
 # https://rasa.com/docs/rasa/custom-actions
 
 # rodando localhost
-<<<<<<< HEAD
  action_endpoint:
     url: "http://localhost:5055/webhook"
-=======
-action_endpoint:
-  url: "http://localhost:5055/webhook"
->>>>>>> 92cc96a0248039b2a07c0d13e55a526246c8a6a3
 
 # rodando no okteto
 # action_endpoint:

@@ -22,6 +22,12 @@ stories:
   steps:
     - checkpoint: check_ask_help
     - intent: request_doc_register
+    - action: utter_ask_system_doc_register
+    - intent: system
+      entities:
+      - system: AVA
+    - slot_was_set:
+      - system: integrado
     - action: action_get_doc_register
     - checkpoint: check_more_help
 

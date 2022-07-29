@@ -247,7 +247,7 @@ responses:
           payload: '/ingress_modality{{"ingress_modality":"Sorteio"}}'
       button_type: vertical
   utter_ask_redo_register:
-    - text: Qual a modalidade do curso que você quer fazer a rematrícula? 
+    - text: Qual a modalidade do curso que você quer fazer a rematrícula?
       buttons:
         - title: Técnicos integrados
           payload: '/modality{{"courses_modality":"integrado"}}'
@@ -260,7 +260,7 @@ responses:
       buttons:
         - title: Aproveitamento de Estudos
           payload: '/req_students{{"requirements":"aproveitamento de estudos"}}'
-        - title: Atividades Complementares 
+        - title: Atividades Complementares
           payload: '/req_students{{"requirements":"atividades complementares"}}'
         - title: Cancelamento de Matrícula
           payload: '/req_students{{"requirements":"cancelamento de matrícula"}}'
@@ -268,7 +268,7 @@ responses:
           payload: '/req_students{{"requirements":"certificação de conhecimento"}}'
         - title: Justificativa de Falta / Segunda Chamada
           payload: '/req_students{{"requirements":"segunda chamada"}}'
-        - title: Quebra de Pré-Requisito 
+        - title: Quebra de Pré-Requisito
           payload: '/req_students{{"requirements":"quebra de pré-requisito"}}'
         - title: Reingresso
           payload: '/req_students{{"requirements":"reingresso"}}'
@@ -282,6 +282,14 @@ responses:
       buttons:
         - title: AVA
           payload: '/system{{"system":"AVA"}}'
+        - title: SIA
+          payload: '/system{{"system":"SIA"}}'
+        - title: SIGAA
+          payload: '/system{{"system":"SIGAA"}}'
+      button_type: inline
+  utter_ask_system_doc_register:
+    - text: Sua matrícula é em qual sistema?
+      buttons:
         - title: SIA
           payload: '/system{{"system":"SIA"}}'
         - title: SIGAA

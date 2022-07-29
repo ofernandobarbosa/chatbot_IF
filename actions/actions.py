@@ -52,13 +52,7 @@ class GetDocRegister(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link_matricula = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
-        link_tutorial = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
-
-        dispatcher.utter_message(
-            text=f"Para baixar o comprovante de matrícula você precisa acessar o link {link_matricula}")
-        dispatcher.utter_message(
-            text=f"Caso precise de alguma ajuda, assista o tutorial no link {link_tutorial}")
+        system = tracker.get_slot("system")
 
         # request json
         data = req_json("comprovante_de_matricula/")
@@ -70,19 +64,17 @@ class GetDocRegister(Action):
             # variaves db
             system_db = req["nome_do_sistema"].upper()
             description = req["descricao"]
-            link_1 = req["link_1"]
-            link_2 = req["link_2"]
-            archive_1 = req["arquivo_1"]
-            archive_2 = req["arquivo_2"]
+            system_link = req["link_1"]
+            description = req["descricao"]
 
             # dispachando informações
             dispatcher.utter_message(text=description)
             dispatcher.utter_message(
-                text=f'Segue o [link]({link_1}) para acessar o {system}!')
+                text=f'Segue o [link]({system_link}) para acessar o {system}!')
 
         except:
             dispatcher.utter_message(
-                text=f"Estamos com dificuldades de encontrar teu tutorial para o {system}")
+                text=f"Estamos com dificuldades de encontrar informações para o {system}")
 
         return [SlotSet("system", None)]
 

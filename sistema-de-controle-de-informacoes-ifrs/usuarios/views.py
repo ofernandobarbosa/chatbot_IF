@@ -152,32 +152,24 @@ def formulario(request):
         # COMPROVANTE DE MATRÍCULA - BANCO DE DADOS
         elif categoria == "Comprovante de matrícula":
             usuario = request.POST['usuario']
-            nome_evento = request.POST['nome_evento']
-            link_1 = request.POST['link_1']
             nome_do_sistema = request.POST['nome_do_sistema']
+            descricao = request.POST['descricao']
+            link_1 = request.POST['link_1']
             if not nome_do_sistema.strip():
                 return redirect('nao_foi_cadastrado')
-            try:
-                link_2 = request.POST['link_2']
-            except:
-                link_2 = ""
-            try:
-                link_3 = request.POST['link_3']
-            except:
-                link_3 = ""
             try:
                 visivel = request.POST['visivel']
                 visivel = True
             except:
                 visivel = False
-            if not nome_evento.strip():
-                print('O campo nome evento não pode ficar em branco')
+            if not nome_do_sistema.strip():
+                print('O campo nome do sistema não pode ficar em branco')
                 return redirect('nao_foi_cadastrado')
             if not link_1.strip():
-                print('O campo link 1 não pode ficar em branco')
+                print("O campo 'Link de acesso ao Sistema' não pode ficar em branco")
                 return redirect('nao_foi_cadastrado')
             try:
-                evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, nome_evento=nome_evento,nome_do_sistema=nome_do_sistema, link_1=link_1, link_2=link_2, link_3=link_3, visivel=visivel)
+                evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, descricao=descricao,nome_do_sistema=nome_do_sistema, link_1=link_1, visivel=visivel)
                 evento.save()
                 print("Comprovante de Matrícula Cadastrado com Sucesso")
                 return render(request, 'usuarios/cadastrado_com_sucesso.html')

@@ -13,7 +13,7 @@ class comprovante_de_matriculaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
         fields = ['categoria', 'usuario', 'data_atualizacao', 'visivel',
-                  'nome_do_sistema', 'nome_evento', 'link_1', 'link_2', 'link_3']
+                  'nome_do_sistema', 'descricao', 'link_1']
 
 
 class contato_dos_professoresSerializer(serializers.ModelSerializer):
