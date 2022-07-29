@@ -76,7 +76,7 @@ stories:
     - action: action_get_info_course
     - checkpoint: check_more_help
 
-- story: solicitar documentos para matricula
+- story: solicitar matricula
   steps:
     - checkpoint: check_ask_help
     - intent: request_do_register

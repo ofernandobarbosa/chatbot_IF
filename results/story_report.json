@@ -1,0 +1,165 @@
+{
+  "utter_ask_more_help": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 4734
+  },
+  "utter_ask_help": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1395
+  },
+  "requirement_form": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "name_form": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1395
+  },
+  "action_get_doc_register": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "utter_ask_courses_modality": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 974
+  },
+  "action_get_courses": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 974
+  },
+  "action_inform_do_register": {
+    "precision": 0.6697976878612717,
+    "recall": 0.9861702127659574,
+    "f1-score": 0.79776247848537,
+    "support": 940
+  },
+  "utter_greet": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1395
+  },
+  "action_goodbye_and_clear_slots": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1395
+  },
+  "professor_name_form": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "utter_req_to_ask": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 3339
+  },
+  "action_get_calendar": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "action_listen": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 13751
+  },
+  "utter_examples": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1395
+  },
+  "utter_ask_redo_register": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "action_get_info_course": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 974
+  },
+  "action_get_requirements": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "utter_ask_ingress_modality": {
+    "precision": 0.5,
+    "recall": 0.027659574468085105,
+    "f1-score": 0.05241935483870967,
+    "support": 470
+  },
+  "action_get_classes": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "action_get_professor_contact": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "action_system_type": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "action_inform_redo_register": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 470
+  },
+  "accuracy": 0.9875763262932515,
+  "macro avg": {
+    "precision": 0.9639042472983163,
+    "recall": 0.957123034227567,
+    "f1-score": 0.9500079057966991,
+    "support": 37831
+  },
+  "weighted avg": {
+    "precision": 0.985583511580175,
+    "recall": 0.9875763262932515,
+    "f1-score": 0.9832025012965674,
+    "support": 37831
+  },
+  "micro avg": {
+    "precision": 0.9875763262932515,
+    "recall": 0.9875763262932515,
+    "f1-score": 0.9875763262932515,
+    "support": 37831
+  },
+  "conversation_accuracy": {
+    "accuracy": 0.6996415770609319,
+    "correct": 976,
+    "with_warnings": 0,
+    "total": 1395
+  }
+}

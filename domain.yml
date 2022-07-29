@@ -245,6 +245,7 @@ responses:
         - title: Trancamento de Matrícula
           payload: '/req_students{{"requirements":"trancamento de matrícula"}}'
       button_type: vertical
+      
 
 actions:
   - utter_ask_help
