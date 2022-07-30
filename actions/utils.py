@@ -12,9 +12,10 @@ def req_json(endpoint):
     return response
 
 
-def last_info(attribute, search, data):
-    # busca por todas as recorrencias do requerimento no json de acordo com slot preenchido e visibulidade
-    req = [x for x in data if x[attribute] == search]
-    # seleciona a primeira ocorrencia na lista ordenada
-    req = req[0]
-    return req
+def last_info(attribute, search, data, dictionary):
+
+    if not dictionary:
+        # busca por todas as recorrencias do requerimento no json de acordo com slot preenchido e visibulidade
+        req = [x for x in data if x[attribute] == search]
+        # seleciona a primeira ocorrencia na lista ordenada
+        req = req[0]

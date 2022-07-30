@@ -51,7 +51,8 @@ class GetDocRegister(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
+            
+        # variavel recebida pelo slot com informaçoes do usuário
         system = tracker.get_slot("system")
 
         # request json
