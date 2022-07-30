@@ -9,6 +9,4 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('cria_evento', views.cria_evento, name='cria_evento'),
     path('formulario', views.formulario, name='formulario'),
-    path('cadastrado_com_sucesso', views.cadastrado_com_sucesso, name='cadastrado_com_sucesso'), 
-    path('nao_foi_cadastrado', views.nao_foi_cadastrado, name='nao_foi_cadastrado'),       
 ]

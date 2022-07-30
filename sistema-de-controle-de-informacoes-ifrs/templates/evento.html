@@ -22,6 +22,14 @@
                     <h6>USUÁRIO QUE ATUALIZOU</h6>
                     <h3>{{evento.usuario}}</h3><br><br>
                     {% endif %}
+                    {% if evento.visivel%}
+                    <h6>ESTÁ VISÍVEL</h6>
+                    <h3>{{evento.visivel}}</h3><br><br>
+                    {% endif %}
+                    {% if evento.modalidade_de_ingresso%}
+                    <h6>MODALIDADE DE INGRESSO</h6>
+                    <h3>{{evento.modalidade_de_ingresso}}</h3><br><br>
+                    {% endif %}
                     {% if evento.nome_evento%}
                     <h6>NOME DO EVENTO</h6>
                     <h3>{{evento.nome_evento}}</h3><br><br>
@@ -32,7 +40,7 @@
                     {% endif %}
                     {% if evento.nome_do_professor%}
                     <h6>NOME DO PROFESSOR</h6>
-                    <h3>{{evento.nome_do_professor}}</h3><br><br>
+                    <h3>{{evento.nome_do_professor}} {{evento.sobrenome_do_professor}}</h3><br><br>
                     {% endif %}
                     {% if evento.nome_da_disciplina%}
                     <h6>NOME DA DISCIPLINA</h6>
