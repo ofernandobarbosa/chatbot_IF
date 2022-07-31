@@ -1,7 +1,7 @@
 
     <br><br><h1> FORMULARIO </h1><br><br>
 
-    <form action="{% url 'formulario' %}" method="POST">    
+    <form action="{% url 'formulario' %}" method="POST" enctype="multipart/form-data">    
     {% csrf_token %}
     <div class="col-12 col-lg-12">
         <label for="categoria"><b>Categoria</b></label>

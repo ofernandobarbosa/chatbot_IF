@@ -20,3 +20,4 @@ rules:
     steps:
     - intent: nlu_fallback
     - action: utter_please_rephrase
+    - action: utter_ask_more_help

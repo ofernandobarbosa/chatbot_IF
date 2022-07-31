@@ -1,9 +1,9 @@
 from typing import Any, Text, Dict, List
-from rasa_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.types import DomainDict
-from rasa_sdk.forms import FormValidationAction
-from rasa_sdk.events import SlotSet, AllSlotsReset
+from rasa_sdk import Action, Tracker  # type: ignore
+from rasa_sdk.executor import CollectingDispatcher  # type: ignore
+from rasa_sdk.types import DomainDict  # type: ignore
+from rasa_sdk.forms import FormValidationAction  # type: ignore
+from rasa_sdk.events import SlotSet, AllSlotsReset  # type: ignore
 import json
 from actions.utils import *
 
@@ -19,26 +19,27 @@ class GetProfessorContact(Action):
 
         nome_professor = tracker.get_slot("professor_name")
         sobrenome_professor = tracker.get_slot("professor_last_name")
-        with open("calendarios.json", encoding="utf8") as file:
-            data = json.loads(file.read())
+        # with open("calendarios.json", encoding="utf8") as file:
+        #     data = json.loads(file.read())
+
+        data = req_json("contato_dos_professores/")
 
         for order in data:
             try:
                 print(nome_professor, sobrenome_professor)
-                if(order["nome_professor"] == nome_professor):
-                    if(order["sobrenome_professor"] == sobrenome_professor):
+                if(order["nome_do_professor"] == nome_professor):
+                    if(order["sobrenome_do_professor"] == sobrenome_professor):
                         link = order["email"]
-                        msg=f"Segue o email do professor {nome_professor} {sobrenome_professor} {link}"
+                        msg = f"Segue o email do professor {nome_professor} {sobrenome_professor} {link}"
                         dispatcher.utter_message(text=msg)
                         break
-                    if(order["sobrenome_professor"] != sobrenome_professor):
+                    if(order["sobrenome_do_professor"] != sobrenome_professor):
                         link = order["email"]
-                        msg=f"Segue o email {link}"
+                        msg = f"Segue o email {link}"
                         dispatcher.utter_message(text=msg)
-                        
+
             except:
                 pass
-
 
         return[SlotSet("professor_name", None), SlotSet("professor_last_name", None)]
 
@@ -52,37 +53,32 @@ class GetDocRegister(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        link_matricula = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
-        link_tutorial = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
-
-        dispatcher.utter_message(
-            text=f"Para baixar o comprovante de matrícula você precisa acessar o link {link_matricula}")
-        dispatcher.utter_message(
-            text=f"Caso precise de alguma ajuda, assista o tutorial no link {link_tutorial}")
+        # variavel recebida pelo slot com informaçoes do usuário
+        system = tracker.get_slot("system")
 
         # request json
         data = req_json("comprovante_de_matricula/")
 
         try:
             # retorno da ultima atualização
-            req = last_info('nome_do_sistema', system, data)
+            dictionary = {
+                'nome_do_sistema': system
+            }
+            req = last_info(data=data, dictionary=dictionary)
 
             # variaves db
-            system_db = req["nome_do_sistema"].upper()
             description = req["descricao"]
-            link_1 = req["link_1"]
-            link_2 = req["link_2"]
-            archive_1 = req["arquivo_1"]
-            archive_2 = req["arquivo_2"]
+            system_link = req["link_1"]
+            description = req["descricao"]
 
             # dispachando informações
             dispatcher.utter_message(text=description)
             dispatcher.utter_message(
-                text=f'Segue o [link]({link_1}) para acessar o {system}!')
+                text=f'Segue o [link]({system_link}) para acessar o {system}!')
 
         except:
             dispatcher.utter_message(
-                text=f"Estamos com dificuldades de encontrar teu tutorial para o {system}")
+                text=f"Estamos com dificuldades de encontrar informações para o {system}")
 
         return [SlotSet("system", None)]
 
@@ -142,26 +138,26 @@ class GetClasses(Action):
 
         modalities = {
             "integrado": {
-                "link":"cursos-tecnicos-integrados/",
+                "link": "cursos-tecnicos-integrados/",
                 "button": buttons_integrado,
-                },
-            "subsequente":{ 
+            },
+            "subsequente": {
                 "link": "cursos-tecnicos-subsequentes/",
                 "button": buttons_subsequente,
             },
             "superior": {
-                "link":"cursos-superiores/",
+                "link": "cursos-superiores/",
                 "button": buttons_superior,
             },
         }
         # Dispatcher the button selector according with the chosen modality
         course = dispatcher.utter_message(
-            text="Para qual curso gostaria de obter os horarios?", 
-            buttons=modalities[modality]["button"], 
+            text="Para qual curso gostaria de obter os horarios?",
+            buttons=modalities[modality]["button"],
             button_type="vertical")
 
-
         return [SlotSet("courses_name", course)]
+
 
 class GetInfoClasses(Action):
 
@@ -194,14 +190,14 @@ class GetInfoClasses(Action):
         course_name = tracker.get_slot("courses_name").title()
         course_modality = tracker.get_slot("courses_modality").title()
 
-        with open("calendarios.json", encoding="utf8") as file:
-            data = json.loads(file.read())
+        endpoint = 'grade_de_horarios'
+        data = req_json(endpoint)
 
         for order in data:
             try:
-                print(order["modalidade"], order["curso"])
-                if(order["modalidade"] == course_modality and order["curso"] == course_name):
-                    link = order["link"]
+                print(order["modalidade_do_curso"], order["nome_do_curso"])
+                if(order["modalidade_do_curso"] == course_modality and order["nome_do_curso"] == course_name):
+                    link = order["link_1"]
                     msg=f"Segue o link de acesso dos horários do curso {course_name} {link}"
                     dispatcher.utter_message(text=msg)
                     break
@@ -222,13 +218,13 @@ class ClearSlots(Action):
         tracker: Tracker,
         domain: Dict[Text, Any]
     ) -> List[Dict[Text, Any]]:
-
-        """ 
+        """
         Action com finalidade de limpar o slot para a solicitação ser atendida. Dessa forma é possível reiniciar a conversa e fazer novas solicitações
         """
 
         dispatcher.utter_message(response="utter_goodbye")
         return[AllSlotsReset()]
+
 
 class GetCalendar(Action):
 
@@ -238,8 +234,7 @@ class GetCalendar(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        """ 
+        """
         A action GetCalendar retorna ao usuário do Bot o calendário acadêmico, via link, do ano em vigência.
         Link único, uma vez que é um calendário para todos os cursos disponíveis no IFRS. A action recebe o valor do slot calendar
         """
@@ -319,34 +314,21 @@ class GetCourses(Action):
         ]
 
         # variables declaration
-        uri_base = "https://ifrs.edu.br/riogrande/cursos/"
         modality = tracker.get_slot("courses_modality").lower()
 
-        modalities = {
-            "integrado": {
-                "link": "cursos-tecnicos-integrados/",
-                "button": buttons_integrado,
-            },
-            "subsequente": {
-                "link": "cursos-tecnicos-subsequentes/",
-                "button": buttons_subsequente,
-            },
-            "superior": {
-                "link": "cursos-superiores/",
-                "button": buttons_superior,
-            },
+        modalities_buttons = {
+            "integrado": buttons_integrado,
+            "subsequente": buttons_subsequente,
+            "superior": buttons_superior,
         }
-        uri_modality = modalities[modality]["link"]
 
         # Dispatcher the button selector according with the chosen modality
         button = dispatcher.utter_message(
-            text="Para qual curso gostaria de mais informações?", 
-            buttons=modalities[modality]["button"], 
+            text="Para qual curso gostaria de mais informações?",
+            buttons=modalities_buttons[modality],
             button_type="vertical")
-        
-        complete_uri = uri_base+uri_modality
 
-        return [SlotSet("courses_modality_link", complete_uri)]
+        return []
 
 
 class GetInfoCours(Action):
@@ -362,34 +344,42 @@ class GetInfoCours(Action):
         Além de validar o curso, a action recebe o valor do slot (courses_modality_link) para interpolar com o endpoint de acordo com o curso selecionado.
         Por fim, despacha para o usuário a informação com o link correto.
         """
-
-        courses = {
-            "automação": "automacao-industrial/",
-            "fabricação": "fabricacao-mecanica/",
-            "informática": "informatica-para-internet/",
-            "eletrotécnica": "eletrotecnica/",
-            "geoprocessamento": "geoprocessamento/",
-            "refrigeração": "refrigeracao-e-climatizacao/",
-            "enfermagem": "enfermagem/",
-            "engenharia mecânica": "engenharia-mecanica/",
-            "tads": "tads/",
-            "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
-            "formação pedagógica": "curso-de-formacao-pedagogica/",
-            "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
+        # definindo variaveis definidas por slots do usuário
+        course_modality = tracker.get_slot("courses_modality").title()
+        course_name = tracker.get_slot("courses_name").title()
+        # recuperando dados da API
+        data = req_json("informacoes_relevantes_dos_cursos/")
+        # buscando a ultima atualização conforme slots de busca do usuário
+        dictionary = {
+            "modalidade_do_curso": course_modality,
+            "nome_do_curso": course_name
         }
+        req = last_info(data=data, dictionary=dictionary)
+        # definindo variaveis do json
+        description = req["descricao"]
+        ingress_modality = req["forma_de_ingresso"]
+        requirements = req["requisitos"]
+        shift = req["turno"]
+        vacancies = req["numero_de_vagas"]
+        coordinator_name = req["coordenador_do_curso"]
+        coordinator_email = req["email_do_coordenador"]
+        course_email = req["email_do_curso"]
 
-        course_name = tracker.get_slot("courses_name")
-        print(course_name)
-        course_modality = tracker.get_slot("courses_modality")
-        link = tracker.get_slot("courses_modality_link")
+        # dispachando mensagens para o usuário
+        dispatcher.utter_message(text=f'➡️ {description}')
+        dispatcher.utter_message(
+            text=f'➡️ *Modalidade de ingresso*: {ingress_modality}')
+        dispatcher.utter_message(text=f'➡️ *Requisitos*: {requirements}')
+        dispatcher.utter_message(text=f'➡️ *Turno*: {shift}')
+        dispatcher.utter_message(text=f'➡️ *Vagas*: {vacancies}')
+        dispatcher.utter_message(
+            text=f'➡️ *Coordenador do curso*: {coordinator_name}')
+        dispatcher.utter_message(
+            text=f'➡️ *Email do coordenador*: {coordinator_email}')
+        dispatcher.utter_message(text=f'➡️ *Email do curso*: {course_email}')
 
-        link += courses[course_name]
+        return [SlotSet("courses_modality", None), SlotSet("courses_name", None)]
 
-        msg = f"Segue o link de acesso para o curso {link}"
-
-        dispatcher.utter_message(text=msg)
-
-        return []
 
 class ImformToDoRegister(Action):
     def name(self) -> Text:
@@ -398,7 +388,6 @@ class ImformToDoRegister(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
         """
         Action para direcionar a forma de ingresso no IFRS. Recebe o valor do slot ingress_modality. Retorna ao usuário o link correto
         """
@@ -419,14 +408,14 @@ class ImformToDoRegister(Action):
         
         return []
 
+
 class InformToRedoRegister(Action):
     def name(self) -> Text:
-        return "action_inform_redo_register" 
+        return "action_inform_redo_register"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
         """
         Action que mostra informações sobre a rematrícula nos cursos ofertados pelo IFRS
         """
@@ -470,18 +459,20 @@ class InformToRedoRegister(Action):
             {"title": "F. Pedagógica não Licenciados",
                 "payload": '/courses{"courses_name": "pedagógica não licenciados"}'}
         ]
-        #variables declaration
+        # variables declaration
+        modality = tracker.get_slot("courses_modality").lower()
+
         modalities = {
             "integrado": {
-                "link":"cursos-tecnicos-integrados/",
+                "link": "cursos-tecnicos-integrados/",
                 "button": buttons_integrado,
-                },
-            "subsequente":{ 
+            },
+            "subsequente": {
                 "link": "cursos-tecnicos-subsequentes/",
                 "button": buttons_subsequente,
             },
             "superior": {
-                "link":"cursos-superiores/",
+                "link": "cursos-superiores/",
                 "button": buttons_superior,
             },
         }
@@ -511,13 +502,12 @@ class InformToRedoRegister(Action):
        
         # Dispatcher the button selector according with the chosen modality
         dispatcher.utter_message(
-            text="Para qual curso gostaria de obter informações sobre a rematricula?", 
-            buttons=modalities[modality]["button"], 
+            text="Para qual curso gostaria de obter informações sobre a rematricula?",
+            buttons=modalities[modality]["button"],
             button_type="vertical")
-             
-
 
         return []
+
 
 class SystemType(Action):
     def name(self) -> Text:
@@ -526,7 +516,6 @@ class SystemType(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
         """
         Action que direciona para o link do sistema de rematricula de acordo com o nome do curso/modalidade
         """
@@ -551,9 +540,6 @@ class SystemType(Action):
         # buscando informações na api
         data = req_json("informacoes_sobre_rematricula/")
 
-        # link_2 = sigaa "https://sig.ifrs.edu.br/sigaa/verTelaLogin.do"
-        # link_3 = sia "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
-
         for order in data:
             try:
                 if(order["modalidade_curso"] == courses_modality and order["nome_curso"] == courses_name):
@@ -568,10 +554,11 @@ class SystemType(Action):
                         msg=f"Para realizar a rematrícula no {courses_name} acesse o Sia {link_3}! Fique atento ao prazo que vai do dia {data_de_inicio} até {data_de_fim}!"
                         dispatcher.utter_message(text=msg)
                         break
-            
+
             except:
-                pass 
+                pass
         return []
+
 
 class WhatBotDo(Action):
     def name(self) -> Text:
@@ -582,7 +569,16 @@ class WhatBotDo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(
-            text=f"Tu pode me solicitar:👇\n➡️ Calendário acadêmico\n➡️ Comprovante de matrícula\n➡️ Contato dos professores\n➡️ Cursos disponíveis\n➡️ Grade de horários\n➡️ Informações relevantes dos cursos\n➡️ Informações sobre inscrição/matrícula\n➡️ Informações sobre rematrícula\n➡️ Requerimentos/formulários\n➡️ Tutoriais de acessos a sistemas acadêmicos")
+            text=f"Aqui estão alguns assuntos em que posso ajudar:👇\
+            \n➡️ Calendário acadêmico\
+            \n➡️ Comprovante de matrícula\
+            \n➡️ Contato dos professores\
+            \n➡️ Cursos disponíveis\
+            \n➡️ Grade de horários\
+            \n➡️ Informações sobre inscrição/matrícula\
+            \n➡️ Informações sobre rematrícula\
+            \n➡️ Requerimentos ou formulários\
+            \n➡️ Como acessar os sistemas acadêmicos")
 
         return []
 
@@ -600,7 +596,10 @@ class Requirements(Action):
         data = req_json("requerimentos_ou_formularios/")
         try:
             # busca por todas as recorrencias do requerimento no json e recebe a ultima atualização do requerimento
-            req = last_info('nome_do_requerimento', requirement, data)
+            dictionary = {
+                'nome_do_requerimento': requirement
+            }
+            req = last_info(data=data, dictionary=dictionary)
             text = req["descricao"]
             link = req["link_1"]
             data_inicio = req["data_de_inicio"]
@@ -631,7 +630,10 @@ class SystemsTutorial(Action):
 
         try:
             # retorno da ultima atualização
-            req = last_info('nome_do_sistema', system, data)
+            dictionary = {
+                'nome_do_sistema': system
+            }
+            req = last_info(data=data, dictionary=dictionary)
 
             # variaves db
             system_db = req["nome_do_sistema"].upper()
@@ -693,3 +695,18 @@ class ProfessorNameFormValidate(FormValidationAction):
                 text="Não entendi, pode ter sido um erro de digitação")
             return {"professor_name": None}
         return {"professor_name": name}
+
+    def validate_professor_last_name(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+
+        name = (slot_value).title()
+        if len(name) == 0:
+            dispatcher.utter_message(
+                text="Não entendi, pode ter sido um erro de digitação")
+            return {"professor_last_name": None}
+        return {"professor_last_name": name}

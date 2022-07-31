@@ -12,10 +12,47 @@ def req_json(endpoint):
     return response
 
 
-def last_info(attribute, search, data):
-    # busca por todas as recorrencias do requerimento no json de acordo com slot preenchido e visibulidade
-    req = [x for x in data if (
-        x[attribute] == search and x["visivel"] == True)]
-    # seleciona a primeira ocorrencia na lista ordenada
-    req = req[0]
-    return req
+def last_info(data=None, dictionary=None):
+
+    attributes = list(dictionary.keys())
+    values = list(dictionary.values())
+
+    req = []
+    if len(attributes) == 1:
+        req = [x for x in data
+               if x[attributes[0]] == values[0]
+               ]
+    elif len(attributes) == 2:
+        req = [x for x in data
+               if x[attributes[0]] == values[0]
+               and x[attributes[1]] == values[1]
+               ]
+    elif len(attributes) == 3:
+        req = [x for x in data
+               if x[attributes[0]] == values[0]
+               and x[attributes[1]] == values[1]
+               and x[attributes[2]] == values[2]
+               ]
+
+    elif len(attributes) == 4:
+        req = [x for x in data
+               if x[attributes[0]] == values[0]
+               and x[attributes[1]] == values[1]
+               and x[attributes[2]] == values[2]
+               and x[attributes[3]] == values[3]
+               ]
+    elif len(attributes) == 5:
+        req = [x for x in data
+               if x[attributes[0]] == values[0]
+               and x[attributes[1]] == values[1]
+               and x[attributes[2]] == values[2]
+               and x[attributes[3]] == values[3]
+               and x[attributes[4]] == values[4]
+               ]
+
+    return req[0]
+
+
+teste = "TADS"
+
+print(teste.title())

@@ -50,18 +50,6 @@ nlu:
     - você é um humano?
     - estou falando com um robô?
     - estou falando com um humano?
-- intent: inform_name
-  examples: |
-    - meu nome é [fernando](PER)
-    - me chamo [thais](PER)
-    - sou a [Samanta](PER)
-    - eu sou a [Ivete](PER)
-    - [Fernando](PER) é meu nome
-    - me chamam de [João](PER)
-    - [fernando](PER)
-    - [thais](PER)
-    - [Fernando](PER)
-    - [Fernando](PER)
 - intent: request_doc_register
   examples: |
     - atestado
@@ -80,15 +68,6 @@ nlu:
     - como faço a matrícula
     - onde fazer a matrícula
     - como fazer a matricula
-    - matricula
-    - matricul
-    - matrícula
-    - matr
-    - matri
-    - mat
-    - período para fazer a matrícula
-    - horário para fazer matricula
-    - dias para fazer a matricula
     - site para matricula
     - documentos para matricula
     - documentos que preciso para matricula
@@ -97,6 +76,8 @@ nlu:
     - Como entrar no IFRS
     - Como fazer a prova para entrar no IFRS
     - Como fazer a inscrição?
+    - informações sobre inscrição
+    - informações sobre matrícula
 - intent: request_redo_register
   examples: |
     - dias para fazer a rematrícula
@@ -111,14 +92,6 @@ nlu:
     - link da rematricula
     - site para rematrícula
     - rematricula do curso
-# - intent: request_historic
-#   examples: |
-#     - gostaria do meu historico escolar
-#     - histórico escolar
-#     - historico
-#     - onde posso pegar meu historico escolar
-#     - onde fica o histórico escolar
-#     - fornecer historico escolar
 - intent: inform_professor_name
   examples: |
     - [ricardo](PER)
@@ -134,6 +107,7 @@ nlu:
     - [Patrícia dos Santos](PER)
     - [rodrigo](PER)
     - [Gustavo Guanabara](PER)
+    - [Fernando](PER)
 - intent: inform_professor_last_name
   examples: |
     - [Silva Oliveira](PER)
@@ -146,6 +120,7 @@ nlu:
     - é [Rodrigues](PER)
     - [marques](PER)
     - [peres](PER)
+    - [Barbosa](PER)
 - intent: request_email
   examples: |
     - email dos professores
@@ -246,13 +221,13 @@ nlu:
     - [tce](courses_name)
     - [formação pedagógica](courses_name)
     - [pedagógica não licenciados](courses_name)
-
 - intent: request_requirements
   examples: |
     - quero os requerimentos
     - me diz quais formulários tem
     - quero os formularios
     - requerimentos
+    - requerimentos ou formulários
     - formulários
     - cancelar matricula
     - justificar falta
