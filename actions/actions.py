@@ -1,9 +1,9 @@
 from typing import Any, Text, Dict, List
-from rasa_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.types import DomainDict
-from rasa_sdk.forms import FormValidationAction
-from rasa_sdk.events import SlotSet, AllSlotsReset
+from rasa_sdk import Action, Tracker  # type: ignore
+from rasa_sdk.executor import CollectingDispatcher  # type: ignore
+from rasa_sdk.types import DomainDict  # type: ignore
+from rasa_sdk.forms import FormValidationAction  # type: ignore
+from rasa_sdk.events import SlotSet, AllSlotsReset  # type: ignore
 import json
 from actions.utils import *
 
@@ -59,7 +59,10 @@ class GetDocRegister(Action):
 
         try:
             # retorno da ultima atualização
-            req = last_info('nome_do_sistema', system, data)
+            dictionary = {
+                'nome_do_sistema': system
+            }
+            req = last_info(data=data, dictionary=dictionary)
 
             # variaves db
             description = req["descricao"]
@@ -334,11 +337,11 @@ class GetInfoCours(Action):
         # recuperando dados da API
         data = req_json("informacoes_relevantes_dos_cursos/")
         # buscando a ultima atualização conforme slots de busca do usuário
-        req = last_info(data=data,
-                        dictionary={
-                            "modalidade_do_curso": course_modality,
-                            "nome_do_curso": course_name
-                        })
+        dictionary = {
+            "modalidade_do_curso": course_modality,
+            "nome_do_curso": course_name
+        }
+        req = last_info(data=data, dictionary=dictionary)
         # definindo variaveis do json
         description = req["descricao"]
         ingress_modality = req["forma_de_ingresso"]
@@ -553,8 +556,10 @@ class Requirements(Action):
         # difine arquivo padrão para busca do dado ordenado por ultima atualização
         data = req_json("requerimentos_ou_formularios/")
         try:
-            dictionary = {'nome_do_requerimento': requirement}
             # busca por todas as recorrencias do requerimento no json e recebe a ultima atualização do requerimento
+            dictionary = {
+                'nome_do_requerimento': requirement
+            }
             req = last_info(data=data, dictionary=dictionary)
             text = req["descricao"]
             link = req["link_1"]
@@ -586,7 +591,10 @@ class SystemsTutorial(Action):
 
         try:
             # retorno da ultima atualização
-            req = last_info('nome_do_sistema', system, data)
+            dictionary = {
+                'nome_do_sistema': system
+            }
+            req = last_info(data=data, dictionary=dictionary)
 
             # variaves db
             system_db = req["nome_do_sistema"].upper()
