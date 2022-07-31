@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'markdown',
-    'psycopg2',   
+    'psycopg2',
 ]
 
 MIDDLEWARE = [
