@@ -183,15 +183,6 @@ nlu:
     - tipos de cursos
     - quais cursos
     - EAD
-- intent: request_internship
-  examples: |
-    - estagio
-    - estágio
-    - hora de estagio
-    - fazer estagio
-    - como fazer estágio
-    - estagios
-    - estágios
 - intent: ask_what_bot_do
   examples: |
     - o que você faz?

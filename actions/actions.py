@@ -605,9 +605,10 @@ class Requirements(Action):
             data_inicio = req["data_de_inicio"]
             data_fim = req["data_de_fim"]
 
+            dispatcher.utter_message(text=f'*{requirement}* 👇')
             dispatcher.utter_message(text=text)
             dispatcher.utter_message(
-                text=f"Lembrando que o prazo para preenchimento vai de {data_inicio} até {data_fim}")
+                text=f"Lembrando que o prazo para preenchimento vai de *{data_inicio}* até *{data_fim}*")
         except:
             dispatcher.utter_message(
                 text=f'O requerimento \n`"{requirement}"` \nestá indisponível no momento')
@@ -636,12 +637,9 @@ class SystemsTutorial(Action):
             req = last_info(data=data, dictionary=dictionary)
 
             # variaves db
-            system_db = req["nome_do_sistema"].upper()
             description = req["descricao"]
             link_1 = req["link_1"]
             link_2 = req["link_2"]
-            archive_1 = req["arquivo_1"]
-            archive_2 = req["arquivo_2"]
 
             # dispachando informações
             dispatcher.utter_message(text=description)
