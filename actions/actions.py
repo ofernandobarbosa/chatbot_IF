@@ -396,8 +396,11 @@ class ImformToDoRegister(Action):
        
         # buscando informações na api
         data = req_json("informacoes_sobre_inscricao_ou_matricula/")
-        # buscar no json o atributo e o valor setado pelo usuário=
-        req = last_info("nome_evento", ingress_modality, data)
+        # buscar no json o atributo e o valor setado pelo usuário
+        dictionary = {
+            "nome_evento": ingress_modality
+        }
+        req = last_info(data= data, dictionary=dictionary)
        
         # varáveis de banco de dados
         descricao = req["descricao"]
@@ -409,9 +412,9 @@ class ImformToDoRegister(Action):
         return []
 
 
-class InformToRedoRegister(Action):
+class InformCoursesRedoRegister(Action):
     def name(self) -> Text:
-        return "action_inform_redo_register"
+        return "action_courses_redo_register"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -462,22 +465,32 @@ class InformToRedoRegister(Action):
         # variables declaration
         modality = tracker.get_slot("courses_modality").lower()
 
-        modalities = {
-            "integrado": {
-                "link": "cursos-tecnicos-integrados/",
-                "button": buttons_integrado,
-            },
-            "subsequente": {
-                "link": "cursos-tecnicos-subsequentes/",
-                "button": buttons_subsequente,
-            },
-            "superior": {
-                "link": "cursos-superiores/",
-                "button": buttons_superior,
-            },
+        modalities_buttons = {
+            "integrado": buttons_integrado,
+            "subsequente": buttons_subsequente,
+            "superior": buttons_superior,
         }
+       
+        # Dispatcher the button selector according with the chosen modality
+        dispatcher.utter_message(
+            text="Para qual curso gostaria de obter informações sobre a rematricula?",
+            buttons= modalities_buttons[modality],
+            button_type="vertical")
 
-        #variables declaration
+        return []
+
+
+class InformReDoRegister(Action):
+    def name(self) -> Text:
+        return "action_inform_redo_register"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+        Action que direciona para o link do sistema de rematricula de acordo com o nome do curso/modalidade
+        """
+        # definindo variáveis setadas pelo slot do usuário
         course_modality = tracker.get_slot("courses_modality").title()
         course_name = tracker.get_slot("courses_name").title()
         
@@ -489,73 +502,21 @@ class InformToRedoRegister(Action):
             "modalidade_do_curso": course_modality,
             "nome_do_curso": course_name
         }
-        req = last_info(data=data, dictionary=dictionary)
-       
-        # varáveis de banco de dados
-        modality = req["courses_modality"]
-        courses = req["course_name"]
-        data_de_inicio = req["data_de_inicio"]
-        data_de_fim = req["data_de_fim"]
-        link = req["link_1"]
-       
-        # Dispatcher the button selector according with the chosen modality
-        dispatcher.utter_message(
-            text="Para qual curso gostaria de obter informações sobre a rematricula?",
-            buttons=modalities[modality]["button"],
-            button_type="vertical")
+        try:
+            req = last_info(data=data, dictionary=dictionary)
+        
+            # varáveis de banco de dados
+            data_de_inicio = req["data_de_inicio"]
+            data_de_fim = req["data_de_fim"]
+            link = req["link_1"]
+            # descricao = req["descricao"]
 
-        return []
+            dispatcher.utter_message(text=f'Para realizar a rematrícula no {course_name} acesse o [link]({link})!')
+            dispatcher.utter_message(text=f'Fique atento ao período de rematrícula que vai do dia {data_de_inicio} até {data_de_fim}!')
+        except:
+            dispatcher.utter_message(text=f'Desculpa tivemos alguns problemas para encontrar sua requisição'!)
 
-
-class SystemType(Action):
-    def name(self) -> Text:
-        return "action_system_type"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        """
-        Action que direciona para o link do sistema de rematricula de acordo com o nome do curso/modalidade
-        """
-        courses = {
-            "automação": "automacao-industrial/",
-            "fabricação": "fabricacao-mecanica/",
-            "informática": "informatica-para-internet/",
-            "eletrotécnica": "eletrotecnica/",
-            "geoprocessamento": "geoprocessamento/",
-            "refrigeração": "refrigeracao-e-climatizacao/",
-            "enfermagem": "enfermagem/",
-            "engenharia mecânica": "engenharia-mecanica/",
-            "tads": "tads/",
-            "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
-            "formação pedagógica": "curso-de-formacao-pedagogica/",
-            "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
-        }
-        # definindo variáveis setadas pelo slot do usuário
-        courses_modality = tracker.get_slot("courses_modality") #ou coloco pelo nome do evento, precisa inserir no banco
-        course_name = tracker.get_slot("courses_name")
-
-        # buscando informações na api
-        data = req_json("informacoes_sobre_rematricula/")
-
-        for order in data:
-            try:
-                if(order["modalidade_curso"] == courses_modality and order["nome_curso"] == courses_name):
-
-                    if(order["nome_curso"] == "tads"):  
-                        link_2 = order["link_2"]
-                        msg=f"Para realizar a rematricula no {courses_name.upper()} acesse o Sigaa {link_2}! Fique atento ao prazo que vai do dia {data_de_inicio} até {data_de_fim}!"
-                        dispatcher.utter_message(text=msg)
-                        break
-                    else: 
-                        link_3 = order["link_3"]
-                        msg=f"Para realizar a rematrícula no {courses_name} acesse o Sia {link_3}! Fique atento ao prazo que vai do dia {data_de_inicio} até {data_de_fim}!"
-                        dispatcher.utter_message(text=msg)
-                        break
-
-            except:
-                pass
-        return []
+        return [SlotSet("course_modality", None), SlotSet("course_name", None)]
 
 
 class WhatBotDo(Action):
