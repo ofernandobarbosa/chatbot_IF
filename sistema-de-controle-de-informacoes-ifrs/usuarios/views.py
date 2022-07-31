@@ -140,8 +140,13 @@ def formulario(request):
                 print('O campo nome da disciplina não pode ficar em branco')
                 return redirect('nao_foi_cadastrado')
             nome_do_professor = nome_do_professor.title()
+            nome_completo = nome_do_professor.split()
+            nome_do_professor = nome_completo[0]
+            nome_completo.pop(0)
+            sobrenome_do_professor = " ".join(nome_completo)            
             try:
-                evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, nome_do_professor=nome_do_professor, email=email, nome_da_disciplina=nome_da_disciplina, visivel=visivel)
+                evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, nome_do_professor=nome_do_professor, sobrenome_do_professor=sobrenome_do_professor, email=email, nome_da_disciplina=nome_da_disciplina, visivel=visivel)
+
                 evento.save()
                 print("Contato do Professor Cadastrado com Sucesso")
                 return render(request, 'usuarios/cadastrado_com_sucesso.html')

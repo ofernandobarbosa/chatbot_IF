@@ -20,7 +20,7 @@ class contato_dos_professoresSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
         fields = ['categoria', 'usuario', 'data_atualizacao',
-                  'visivel', 'nome_do_professor', 'email', 'nome_da_disciplina']
+                  'visivel', 'nome_do_professor', 'sobrenome_do_professor', 'email', 'nome_da_disciplina']
 
 
 class grade_de_horariosSerializer(serializers.ModelSerializer):

@@ -9,6 +9,7 @@ class Evento(models.Model):
     nome_evento = models.CharField(max_length=100)
     descricao = models.TextField(blank=True)
     nome_do_professor = models.CharField(max_length=254, blank=True)
+    sobrenome_do_professor = models.CharField(max_length=254, blank=True)
     nome_da_disciplina = models.CharField(max_length=254, blank=True)
     email = models.EmailField(max_length=254, blank=True)
     email_do_coordenador = models.EmailField(max_length=254, blank=True)
