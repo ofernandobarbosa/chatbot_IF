@@ -211,7 +211,7 @@ responses:
   utter_req_to_ask:
     - text: Pode dizer ou então me pergunte o que posso fazer!
   utter_please_rephrase:
-    - text: Me desculpe, mas não posso ajudar sobre isso?
+    - text: Me desculpe, mas não posso ajudar sobre isso!
 
   # utter buttons
   utter_ask_more_help:

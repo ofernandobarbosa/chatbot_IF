@@ -80,15 +80,6 @@ nlu:
     - como faço a matrícula
     - onde fazer a matrícula
     - como fazer a matricula
-    - matricula
-    - matricul
-    - matrícula
-    - matr
-    - matri
-    - mat
-    - período para fazer a matrícula
-    - horário para fazer matricula
-    - dias para fazer a matricula
     - site para matricula
     - documentos para matricula
     - documentos que preciso para matricula
@@ -97,6 +88,8 @@ nlu:
     - Como entrar no IFRS
     - Como fazer a prova para entrar no IFRS
     - Como fazer a inscrição?
+    - informações sobre inscrição
+    - informações sobre matrícula
 - intent: request_redo_register
   examples: |
     - dias para fazer a rematrícula
@@ -111,14 +104,6 @@ nlu:
     - link da rematricula
     - site para rematrícula
     - rematricula do curso
-# - intent: request_historic
-#   examples: |
-#     - gostaria do meu historico escolar
-#     - histórico escolar
-#     - historico
-#     - onde posso pegar meu historico escolar
-#     - onde fica o histórico escolar
-#     - fornecer historico escolar
 - intent: inform_professor_name
   examples: |
     - [ricardo](PER)
@@ -253,6 +238,7 @@ nlu:
     - me diz quais formulários tem
     - quero os formularios
     - requerimentos
+    - requerimentos ou formulários
     - formulários
     - cancelar matricula
     - justificar falta
@@ -286,3 +272,4 @@ nlu:
     - tutorial de acesso a sistemas acadêmicos
     - tutoriais dos sistemas
     - tutoriais
+    - tutoriais de sistemas acadêmicos
