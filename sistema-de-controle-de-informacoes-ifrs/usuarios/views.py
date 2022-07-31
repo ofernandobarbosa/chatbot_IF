@@ -159,10 +159,17 @@ def formulario(request):
             nome_completo = nome_do_professor.split()
             nome_do_professor = nome_completo[0]
             nome_completo.pop(0)
+<<<<<<< HEAD
+            sobrenome_do_professor = " ".join(nome_completo)            
+            try:
+                evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, nome_do_professor=nome_do_professor, sobrenome_do_professor=sobrenome_do_professor, email=email, nome_da_disciplina=nome_da_disciplina, visivel=visivel)
+
+=======
             sobrenome_do_professor = " ".join(nome_completo)
             nome_da_disciplina = nome_da_disciplina.title()
             try:
                 evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, nome_do_professor=nome_do_professor, sobrenome_do_professor=sobrenome_do_professor, email=email, nome_da_disciplina=nome_da_disciplina, visivel=visivel)
+>>>>>>> f5866c3b1d6acda9d33a2ac3771bff3da68b5be1
                 evento.save()
                 messages.success(request, 'Contato do Professor Cadastrado com Sucesso')
                 print("Contato do Professor Cadastrado com Sucesso")

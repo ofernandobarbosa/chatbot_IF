@@ -19,8 +19,13 @@ class comprovante_de_matriculaSerializer(serializers.ModelSerializer):
 class contato_dos_professoresSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
+<<<<<<< HEAD
+        fields = ['categoria', 'usuario', 'data_atualizacao',
+                  'visivel', 'nome_do_professor', 'sobrenome_do_professor', 'email', 'nome_da_disciplina']
+=======
         fields = ['id', 'categoria', 'usuario', 'data_atualizacao', 'visivel',
                   'nome_do_professor', 'sobrenome_do_professor', 'email', 'nome_da_disciplina']
+>>>>>>> f5866c3b1d6acda9d33a2ac3771bff3da68b5be1
 
 
 class grade_de_horariosSerializer(serializers.ModelSerializer):

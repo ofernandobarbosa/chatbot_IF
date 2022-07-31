@@ -19,19 +19,21 @@ class GetProfessorContact(Action):
 
         nome_professor = tracker.get_slot("professor_name")
         sobrenome_professor = tracker.get_slot("professor_last_name")
-        with open("calendarios.json", encoding="utf8") as file:
-            data = json.loads(file.read())
+        # with open("calendarios.json", encoding="utf8") as file:
+        #     data = json.loads(file.read())
+
+        data = req_json("contato_dos_professores/")
 
         for order in data:
             try:
                 print(nome_professor, sobrenome_professor)
-                if(order["nome_professor"] == nome_professor):
-                    if(order["sobrenome_professor"] == sobrenome_professor):
+                if(order["nome_do_professor"] == nome_professor):
+                    if(order["sobrenome_do_professor"] == sobrenome_professor):
                         link = order["email"]
                         msg = f"Segue o email do professor {nome_professor} {sobrenome_professor} {link}"
                         dispatcher.utter_message(text=msg)
                         break
-                    if(order["sobrenome_professor"] != sobrenome_professor):
+                    if(order["sobrenome_do_professor"] != sobrenome_professor):
                         link = order["email"]
                         msg = f"Segue o email {link}"
                         dispatcher.utter_message(text=msg)
@@ -188,15 +190,15 @@ class GetInfoClasses(Action):
         course_name = tracker.get_slot("courses_name").title()
         course_modality = tracker.get_slot("courses_modality").title()
 
-        with open("calendarios.json", encoding="utf8") as file:
-            data = json.loads(file.read())
+        endpoint = 'grade_de_horarios'
+        data = req_json(endpoint)
 
         for order in data:
             try:
-                print(order["modalidade"], order["curso"])
-                if(order["modalidade"] == course_modality and order["curso"] == course_name):
-                    link = order["link"]
-                    msg = f"Segue o link de acesso dos horários do curso {course_name} {link}"
+                print(order["modalidade_do_curso"], order["nome_do_curso"])
+                if(order["modalidade_do_curso"] == course_modality and order["nome_do_curso"] == course_name):
+                    link = order["link_1"]
+                    msg=f"Segue o link de acesso dos horários do curso {course_name} {link}"
                     dispatcher.utter_message(text=msg)
                     break
             except:
@@ -656,3 +658,18 @@ class ProfessorNameFormValidate(FormValidationAction):
                 text="Não entendi, pode ter sido um erro de digitação")
             return {"professor_name": None}
         return {"professor_name": name}
+
+    def validate_professor_last_name(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+
+        name = (slot_value).title()
+        if len(name) == 0:
+            dispatcher.utter_message(
+                text="Não entendi, pode ter sido um erro de digitação")
+            return {"professor_last_name": None}
+        return {"professor_last_name": name}

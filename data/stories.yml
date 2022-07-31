@@ -5,15 +5,6 @@ stories:
   steps:
     - intent: greet
     - action: utter_greet
-    - action: name_form
-    - active_loop: name_form
-    - slot_was_set:
-        - requested_slot: name
-    - slot_was_set:
-        - name: Thais
-    - slot_was_set:
-        - requested_slot: null
-    - active_loop: null
     - action: utter_examples
     - action: utter_ask_help
     - checkpoint: check_ask_help
@@ -38,13 +29,15 @@ stories:
     - action: professor_name_form
     - active_loop: professor_name_form
     - slot_was_set:
-        - requested_slot: professor_name
-        - requested_slot: professor_last_name
+      - requested_slot: professor_name
+    # - slot_was_set:
+    #   - professor_name: Fernando
     - slot_was_set:
-        - professor_name: Gustavo
-        - professor_last_name: Guanabara
+      - requested_slot: professor_last_name
+    # - slot_was_set:
+    #   - professor_last_name: Barbosa
     - slot_was_set:
-        - requested_slot: null
+      - requested_slot: null
     - active_loop: null
     - action: action_get_professor_contact
     - checkpoint: check_more_help
@@ -169,14 +162,3 @@ stories:
     - intent: deny
     - action: action_goodbye_and_clear_slots
 
-- story: solicitar informações sobre forma de ingresso no IFRS
-  steps:
-    - checkpoint: check_ask_help
-    - intent: request_do_register
-    - action: utter_ask_ingress_modality
-    - slot_was_set:
-      - requested_slot: ingress_modality
-    - slot_was_set:
-      - ingress_modality: Enem
-    - action: action_inform_do_register
-    - checkpoint: check_more_help

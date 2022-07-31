@@ -50,18 +50,6 @@ nlu:
     - você é um humano?
     - estou falando com um robô?
     - estou falando com um humano?
-- intent: inform_name
-  examples: |
-    - meu nome é [fernando](PER)
-    - me chamo [thais](PER)
-    - sou a [Samanta](PER)
-    - eu sou a [Ivete](PER)
-    - [Fernando](PER) é meu nome
-    - me chamam de [João](PER)
-    - [fernando](PER)
-    - [thais](PER)
-    - [Fernando](PER)
-    - [Fernando](PER)
 - intent: request_doc_register
   examples: |
     - atestado
@@ -119,6 +107,7 @@ nlu:
     - [Patrícia dos Santos](PER)
     - [rodrigo](PER)
     - [Gustavo Guanabara](PER)
+    - [Fernando](PER)
 - intent: inform_professor_last_name
   examples: |
     - [Silva Oliveira](PER)
@@ -131,6 +120,7 @@ nlu:
     - é [Rodrigues](PER)
     - [marques](PER)
     - [peres](PER)
+    - [Barbosa](PER)
 - intent: request_email
   examples: |
     - email dos professores
@@ -231,7 +221,6 @@ nlu:
     - [tce](courses_name)
     - [formação pedagógica](courses_name)
     - [pedagógica não licenciados](courses_name)
-
 - intent: request_requirements
   examples: |
     - quero os requerimentos
@@ -270,6 +259,3 @@ nlu:
     - tutorial sistemas
     - como acessar sistemas academicos
     - tutorial de acesso a sistemas acadêmicos
-    - tutoriais dos sistemas
-    - tutoriais
-    - tutoriais de sistemas acadêmicos
