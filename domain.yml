@@ -226,6 +226,24 @@ responses:
     - title: Superiores
       payload: /modality{{"courses_modality":"superior"}}
     button_type: vertical
+  utter_ask_redo_register:
+  - text: Qual a modalidade do curso que você quer fazer a rematrícula?
+    buttons:
+      - title: Técnicos integrados
+        payload: '/modality{{"courses_modality":"integrado"}}'
+      - title: Técnicos subsequente
+        payload: '/modality{{"courses_modality":"subsequente"}}'
+      - title: Superiores
+        payload: '/modality{{"courses_modality":"superior"}}'
+  utter_ask_system_doc_register:
+    - text: Sua matrícula é em qual sistema?
+      buttons:
+        - title: SIA
+          payload: '/system{{"system":"SIA"}}'
+        - title: SIGAA
+          payload: '/system{{"system":"SIGAA"}}'
+      button_type: inline
+
 actions:
 - action_get_calendar
 - action_get_classes
@@ -240,6 +258,7 @@ actions:
 - action_inform_do_register
 - action_inform_redo_register
 - action_what_bot_do
+- action_system_type
 - utter_ask_calendar
 - utter_ask_classes
 - utter_ask_courses
