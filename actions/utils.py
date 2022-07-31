@@ -51,8 +51,3 @@ def last_info(data=None, dictionary=None):
                ]
 
     return req[0]
-
-
-teste = "TADS"
-
-print(teste.title())
