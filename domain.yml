@@ -226,7 +226,7 @@ responses:
     - title: Superiores
       payload: /modality{{"courses_modality":"superior"}}
     button_type: vertical
-  utter_ask_redo_register:
+  utter_ask_modality_redo_register:
   - text: Qual a modalidade do curso que você quer fazer a rematrícula?
     buttons:
       - title: Técnicos integrados
@@ -243,6 +243,20 @@ responses:
         - title: SIGAA
           payload: '/system{{"system":"SIGAA"}}'
       button_type: inline
+  utter_ask_ingress_modality:
+    - text: Qual a forma de ingresso?
+      buttons:
+        - title: Enem
+          payload: '/ingress_modality{{"ingress_modality":"Enem"}}'
+        - title: Processo seletivo EJA
+          payload: '/ingress_modality{{"ingress_modality":"Processo seletivo EJA"}}'
+        - title: Prova
+          payload: '/ingress_modality{{"ingress_modality":"Prova"}}'
+        - title: PS indígena
+          payload: '/ingress_modality{{"ingress_modality":"PS indígena"}}'
+        - title: Sorteio
+          payload: '/ingress_modality{{"ingress_modality":"Sorteio"}}'
+      button_type: vertical
 
 actions:
 - action_get_calendar
@@ -256,9 +270,9 @@ actions:
 - action_get_system_tutorials
 - action_goodbye_and_clear_slots
 - action_inform_do_register
-- action_inform_redo_register
+- action_courses_redo_register
 - action_what_bot_do
-- action_system_type
+- action_inform_redo_register
 - utter_ask_calendar
 - utter_ask_classes
 - utter_ask_courses

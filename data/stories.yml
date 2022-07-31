@@ -93,45 +93,32 @@ stories:
   steps:
     - checkpoint: check_ask_help
     - intent: request_redo_register
-    - action: utter_ask_redo_register
+    - action: utter_ask_modality_redo_register
     - intent: modality
       entities:
         - courses_modality: superior
     - slot_was_set:
         - courses_modality: superior
-    - action: action_inform_redo_register
+    - action: action_courses_redo_register
     - intent: courses
       entities:
         - courses_name: tads
     - slot_was_set:
         - courses_name: tads
-    - action: action_system_type
+    - action: action_inform_redo_register
     - checkpoint: check_more_help
-    # - slot_was_set:
-    #   - requested_slot: courses_name
-    # - slot_was_set:
-    #   - courses_name: tads
-    # - action: action_inform_do_register
-    # - action: action_system_type
-    # - checkpoint: check_more_help
 
-- story: solicitar rematricula
+- story: solicitar informações sobre forma de ingresso no IFRS
   steps:
     - checkpoint: check_ask_help
-    - intent: request_redo_register
-    - action: utter_ask_redo_register
-    - intent: modality
+    - intent: request_do_register
+    - action: utter_ask_ingress_modality
+    - intent: ingress_modality
       entities:
-      - courses_modality: superior
+        - ingress_modality: Enem
     - slot_was_set:
-      - courses_modality: superior
-    - action: action_inform_redo_register
-    - intent: courses
-      entities:
-      - courses_name: tads
-    - slot_was_set:
-      - courses_name: tads
-    - action: action_system_type
+        - ingress_modality: Enem
+    - action: action_inform_do_register
     - checkpoint: check_more_help
   
 - story: solicitar requerimentos
