@@ -10,7 +10,7 @@ def cadastro(request):
     dados = {
         'categorias': categorias
     }
-
+    
     if request.method == 'POST':
         nome = request.POST['nome']
         email = request.POST['email']
@@ -160,6 +160,7 @@ def formulario(request):
             nome_do_professor = nome_completo[0]
             nome_completo.pop(0)
             sobrenome_do_professor = " ".join(nome_completo)
+            nome_da_disciplina = nome_da_disciplina.title()
             try:
                 evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, nome_do_professor=nome_do_professor, sobrenome_do_professor=sobrenome_do_professor, email=email, nome_da_disciplina=nome_da_disciplina, visivel=visivel)
                 evento.save()
@@ -244,6 +245,7 @@ def formulario(request):
                 return redirect('dashboard')            
             try:
                 nome_do_curso = nome_do_curso.title()
+                modalidade_do_curso = modalidade_do_curso.title()
                 evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, visivel=visivel, modalidade_do_curso=modalidade_do_curso, nome_do_curso=nome_do_curso, ano=ano, semestre=semestre, link_1=link_1)
                 evento.save()
                 messages.success(request, 'Grade de horários Cadastrado com Sucesso')
@@ -356,6 +358,8 @@ def formulario(request):
                 return redirect('dashboard')
             try:
                 nome_do_curso = nome_do_curso.title()
+                modalidade_do_curso = modalidade_do_curso.title()
+                coordenador_do_curso = coordenador_do_curso.title()
                 evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, visivel=visivel, modalidade_do_curso=modalidade_do_curso, nome_do_curso=nome_do_curso, descricao=descricao, forma_de_ingresso=forma_de_ingresso, requisitos=requisitos, turno=turno, numero_de_vagas=numero_de_vagas, coordenador_do_curso=coordenador_do_curso, email_do_coordenador=email_do_coordenador, email_do_curso=email_do_curso)
                 evento.save()
                 messages.success(request, 'Informações relevantes dos cursos Cadastrado com Sucesso')
@@ -474,6 +478,7 @@ def formulario(request):
                 dia = data_de_fim[8]+data_de_fim[9]
                 data_de_fim = f'{dia}/{mes}/{ano}'
                 nome_do_curso = nome_do_curso.title()
+                modalidade_do_curso = modalidade_do_curso.title()
                 evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, visivel=visivel, modalidade_do_curso=modalidade_do_curso, nome_do_curso=nome_do_curso, data_de_inicio=data_de_inicio, data_de_fim=data_de_fim, link_1=link_1, link_2=link_2, link_3=link_3)
                 evento.save()
                 messages.success(request, 'Informações sobre rematrícula Cadastrado com Sucesso')
