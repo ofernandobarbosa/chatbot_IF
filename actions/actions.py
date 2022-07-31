@@ -323,7 +323,7 @@ class GetCourses(Action):
         }
 
         # Dispatcher the button selector according with the chosen modality
-        button = dispatcher.utter_message(
+        dispatcher.utter_message(
             text="Para qual curso gostaria de mais informações?",
             buttons=modalities_buttons[modality],
             button_type="vertical")
@@ -488,8 +488,6 @@ class InformToRedoRegister(Action):
         dictionary = {
             "modalidade_do_curso": course_modality,
             "nome_do_curso": course_name
-            "data_de_inicio": 
-            "data_de_fim":
         }
         req = last_info(data=data, dictionary=dictionary)
        
