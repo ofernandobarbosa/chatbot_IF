@@ -572,15 +572,7 @@ def formulario(request):
             try:
                 link_2 = request.POST['link_2']            
             except:
-                link_2 = ""
-            try:
-                arquivo_1 = request.POST['arquivo_1']            
-            except:
-                arquivo_1 = ""
-            try:
-                arquivo_2 = request.POST['arquivo_2']            
-            except:
-                arquivo_2 = ""            
+                link_2 = ""        
             if not nome_do_sistema.strip():
                 messages.error(request, 'O campo nome_do_sistema não pode ficar em branco')
                 print('O campo nome do sistema não pode ficar em branco')
@@ -595,7 +587,7 @@ def formulario(request):
                 return redirect('dashboard')            
             try:
                 nome_do_sistema = nome_do_sistema.title()
-                evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, visivel=visivel, nome_do_sistema=nome_do_sistema, descricao=descricao, link_1=link_1, link_2=link_2, arquivo_1=arquivo_1, arquivo_2=arquivo_2)
+                evento = Evento.objects.create(categoria=Categorias.objects.get(pk=id), usuario=usuario, visivel=visivel, nome_do_sistema=nome_do_sistema, descricao=descricao, link_1=link_1, link_2=link_2)
                 evento.save()
                 messages.success(request, 'Tutoriais de acessos a sistemas acadêmicos Cadastrado com Sucesso')
                 print("Tutoriais de acessos a sistemas acadêmicos Cadastrado com Sucesso")
