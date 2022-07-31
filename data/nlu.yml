@@ -284,3 +284,11 @@ nlu:
     - tutorial sistemas
     - como acessar sistemas academicos
     - tutorial de acesso a sistemas acadêmicos
+
+- intent: ingress_modality
+  examples: |
+    - [Enem](ingress_modality)
+    - [Prova](ingress_modality)
+    - [PS indígina](ingress_modality)
+    - [Processo seletivo EJA](ingress_modality)
+    - [Sorteio](ingress_modality)

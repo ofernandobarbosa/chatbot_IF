@@ -243,14 +243,25 @@ class GetCalendar(Action):
         A action GetCalendar retorna ao usuário do Bot o calendário acadêmico, via link, do ano em vigência.
         Link único, uma vez que é um calendário para todos os cursos disponíveis no IFRS. A action recebe o valor do slot calendar
         """
-    # variável link para inserir o calendário 
-        link_calendar = "https://ifrs.edu.br/riogrande/wp-content/uploads/sites/16/2022/05/Calendario-Academico-Campus-Rio-Grande-2022-alterado-em-abril-2022.pdf"
+        # variável link para inserir o calendário 
+        # definindo variáveis setadas pelo slot do usaário
+        import datetime
+        now = datetime.datetime.now()
+        ano = now.year
+        print(ano)
 
-        ano_corrente = 2022
-        dispatcher.utter_message(
-            text=f"Confira aqui o calendário acadêmico 👇")
-        dispatcher.utter_message(attachment=link_calendar)
-
+        # buscando informações na api
+        data = req_json("calendario_academico/")
+        # buscar no json o atributo e o valor setado pelo usuário=
+        req = last_info("ano", ano, data)
+       
+        # varáveis de banco de dados
+        # arquivo_1 = req["arquivo_1"]
+        link = req["link_1"]
+       
+        # dispatcher.utter_message(document=arquivo_1)
+        dispatcher.utter_message(text=f"Para acessar o calendário acadêmico clique aqui [🔗]({link})")
+        
         return []
 
 
@@ -391,15 +402,20 @@ class ImformToDoRegister(Action):
         """
         Action para direcionar a forma de ingresso no IFRS. Recebe o valor do slot ingress_modality. Retorna ao usuário o link correto
         """
-       
-       # varáveis de banco de dados
-       
-        link_ingress = "https://ingresso.ifrs.edu.br/" #fica na aplicação
+        # definindo variáveis setadas pelo slot do usaário
         ingress_modality= tracker.get_slot("ingress_modality")
        
-        msg=f"Aqui você confere as formas de ingresso no IFRS {link_ingress} e {ingress_modality}"
-
-        dispatcher.utter_message(text=msg)
+        # buscando informações na api
+        data = req_json("informacoes_sobre_inscricao_ou_matricula/")
+        # buscar no json o atributo e o valor setado pelo usuário=
+        req = last_info("nome_evento", ingress_modality, data)
+       
+        # varáveis de banco de dados
+        descricao = req["descricao"]
+        link = req["link_1"]
+       
+        dispatcher.utter_message(text=descricao)
+        dispatcher.utter_message(text=f"Para acessar as formas de ingresso no IFRS acesse o [🔗]({link_1})")
         
         return []
 
@@ -455,8 +471,6 @@ class InformToRedoRegister(Action):
                 "payload": '/courses{"courses_name": "pedagógica não licenciados"}'}
         ]
         #variables declaration
-        modality = tracker.get_slot("courses_modality").lower()
-
         modalities = {
             "integrado": {
                 "link":"cursos-tecnicos-integrados/",
@@ -471,6 +485,30 @@ class InformToRedoRegister(Action):
                 "button": buttons_superior,
             },
         }
+
+        #variables declaration
+        course_modality = tracker.get_slot("courses_modality").title()
+        course_name = tracker.get_slot("courses_name").title()
+        
+        # buscando informações na api
+        data = req_json("informacoes_sobre_rematricula/")
+       
+        # buscando a ultima atualização conforme slots de busca do usuário
+        dictionary = {
+            "modalidade_do_curso": course_modality,
+            "nome_do_curso": course_name
+            "data_de_inicio": 
+            "data_de_fim":
+        }
+        req = last_info(data=data, dictionary=dictionary)
+       
+        # varáveis de banco de dados
+        modality = req["courses_modality"]
+        courses = req["course_name"]
+        data_de_inicio = req["data_de_inicio"]
+        data_de_fim = req["data_de_fim"]
+        link = req["link_1"]
+       
         # Dispatcher the button selector according with the chosen modality
         dispatcher.utter_message(
             text="Para qual curso gostaria de obter informações sobre a rematricula?", 
@@ -506,29 +544,28 @@ class SystemType(Action):
             "formação pedagógica": "curso-de-formacao-pedagogica/",
             "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
         }
+        # definindo variáveis setadas pelo slot do usuário
+        courses_modality = tracker.get_slot("courses_modality") #ou coloco pelo nome do evento, precisa inserir no banco
+        course_name = tracker.get_slot("courses_name")
 
-        courses_name = tracker.get_slot("courses_name")
-        courses_modality = tracker.get_slot("courses_modality")
-        link_sia = "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
-        link_sigaa = "https://sig.ifrs.edu.br/sigaa/verTelaLogin.do"
-        link_superior = "https://www.youtube.com/watch?v=STZYUidrVAg&feature=youtu.be"
-        link_subsequente = "https://www.youtube.com/watch?v=ndrJ-TY71wY&feature=youtu.be"
+        # buscando informações na api
+        data = req_json("informacoes_sobre_rematricula/")
 
-        
-        data = sort_updated_date("calendarios.json")
+        # link_2 = sigaa "https://sig.ifrs.edu.br/sigaa/verTelaLogin.do"
+        # link_3 = sia "https://sia.ifrs.edu.br/aplicacoes/frame/index.php"
 
         for order in data:
             try:
                 if(order["modalidade_curso"] == courses_modality and order["nome_curso"] == courses_name):
 
                     if(order["nome_curso"] == "tads"):  
-                        link_sigaa = order["link_sistema"]
-                        msg=f"Para realizar a rematricula no {courses_name.upper()} acesse o Sigaa {link_sigaa}! Fique atento ao prazo que vai do dia 25/07 até 27/05/22!"
+                        link_2 = order["link_2"]
+                        msg=f"Para realizar a rematricula no {courses_name.upper()} acesse o Sigaa {link_2}! Fique atento ao prazo que vai do dia {data_de_inicio} até {data_de_fim}!"
                         dispatcher.utter_message(text=msg)
                         break
                     else: 
-                        link_sia = order["link_sistema"]
-                        msg=f"Para realizar a rematrícula no {courses_name} acesse o Sia {link_sia}! Fique atento ao prazo que vai do dia 25/07 até 27/05/22! Em caso de dúvidas de como acessar o sistema veja o tutorial {link_superior} e {link_subsequente} "
+                        link_3 = order["link_3"]
+                        msg=f"Para realizar a rematrícula no {courses_name} acesse o Sia {link_3}! Fique atento ao prazo que vai do dia {data_de_inicio} até {data_de_fim}!"
                         dispatcher.utter_message(text=msg)
                         break
             

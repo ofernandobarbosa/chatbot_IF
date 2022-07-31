@@ -36,7 +36,7 @@ class grade_de_horariosViewSet(viewsets.ModelViewSet):
 
 class calendario_academicoViewSet(viewsets.ModelViewSet):
     """calendario_academico"""
-    id = 5
+    id = 4
     queryset = Evento.objects.all().order_by(
         '-data_atualizacao').filter(categoria=id)
     serializer_class = calendario_academicoSerializer
@@ -44,7 +44,7 @@ class calendario_academicoViewSet(viewsets.ModelViewSet):
 
 class informacoes_relevantes_dos_cursosViewSet(viewsets.ModelViewSet):
     """informacoes_relevantes_dos_cursos"""
-    id = 6
+    id = 5
     queryset = Evento.objects.all().order_by(
         '-data_atualizacao').filter(categoria=id)
     serializer_class = informacoes_relevantes_dos_cursosSerializer
@@ -52,7 +52,7 @@ class informacoes_relevantes_dos_cursosViewSet(viewsets.ModelViewSet):
 
 class informacoes_sobre_inscricao_ou_matriculaViewSet(viewsets.ModelViewSet):
     """informacoes_sobre_inscricao_ou_matricula"""
-    id = 7
+    id = 6
     queryset = Evento.objects.all().order_by(
         '-data_atualizacao').filter(categoria=id)
     serializer_class = informacoes_sobre_inscricao_ou_matriculaSerializer
@@ -60,7 +60,7 @@ class informacoes_sobre_inscricao_ou_matriculaViewSet(viewsets.ModelViewSet):
 
 class informacoes_sobre_rematriculaViewSet(viewsets.ModelViewSet):
     """informacoes_sobre_rematricula"""
-    id = 8
+    id = 7
     queryset = Evento.objects.all().order_by(
         '-data_atualizacao').filter(categoria=id)
     serializer_class = informacoes_sobre_rematriculaSerializer
@@ -68,7 +68,7 @@ class informacoes_sobre_rematriculaViewSet(viewsets.ModelViewSet):
 
 class requerimentos_ou_formulariosViewSet(viewsets.ModelViewSet):
     """requerimentos_ou_formularios"""
-    id = 9
+    id = 8
     queryset = Evento.objects.all().order_by(
         '-data_atualizacao').filter(categoria=id)
     serializer_class = requerimentos_ou_formulariosSerializer
@@ -76,7 +76,7 @@ class requerimentos_ou_formulariosViewSet(viewsets.ModelViewSet):
 
 class tutoriais_de_acessos_a_sistemas_academicosViewSet(viewsets.ModelViewSet):
     """tutoriais_de_acessos_a_sistemas_academicos"""
-    id = 10
+    id = 9
     queryset = Evento.objects.all().order_by(
         '-data_atualizacao').filter(categoria=id)
     serializer_class = tutoriais_de_acessos_a_sistemas_academicosSerializer
