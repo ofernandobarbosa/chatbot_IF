@@ -30,12 +30,16 @@ stories:
     - active_loop: professor_name_form
     - slot_was_set:
       - requested_slot: professor_name
-    # - slot_was_set:
-    #   - professor_name: Fernando
+    - slot_was_set:
+      - professor_name: fernando
+    - slot_was_set:
+      - professor_name: Fernando
     - slot_was_set:
       - requested_slot: professor_last_name
-    # - slot_was_set:
-    #   - professor_last_name: Barbosa
+    - slot_was_set:
+      - professor_last_name: barbosa
+    - slot_was_set:
+      - professor_last_name: Barbosa
     - slot_was_set:
       - requested_slot: null
     - active_loop: null
