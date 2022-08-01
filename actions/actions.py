@@ -172,21 +172,6 @@ class GetInfoClasses(Action):
         Além de validar o curso, a action recebe o valor do slot (courses_modality_link) para interpolar com o endpoint de acordo com o curso selecionado.
         Por fim, despacha para o usuário a informação com o link correto.
         """
-        courses = {
-            "automação": "automacao-industrial/",
-            "fabricação": "fabricacao-mecanica/",
-            "informática": "informatica-para-internet/",
-            "eletrotécnica": "eletrotecnica/",
-            "geoprocessamento": "geoprocessamento/",
-            "refrigeração": "refrigeracao-e-climatizacao/",
-            "enfermagem": "enfermagem/",
-            "engenharia mecânica": "engenharia-mecanica/",
-            "tads": "tads/",
-            "tce": "curso-superior-de-tecnologia-em-construcao-de-edificios/",
-            "formação pedagógica": "curso-de-formacao-pedagogica/",
-            "pedagógica não licenciados": "curso-de-formacao-pedagogica-para-graduados-nao-licenciados/"
-        }
-
         course_name = tracker.get_slot("courses_name").title()
         course_modality = tracker.get_slot("courses_modality").title()
 
@@ -198,7 +183,7 @@ class GetInfoClasses(Action):
                 print(order["modalidade_do_curso"], order["nome_do_curso"])
                 if(order["modalidade_do_curso"] == course_modality and order["nome_do_curso"] == course_name):
                     link = order["link_1"]
-                    msg=f"Segue o link de acesso dos horários do curso {course_name} {link}"
+                    msg = f"Segue o link de acesso dos horários do curso {course_name} {link}"
                     dispatcher.utter_message(text=msg)
                     break
             except:
@@ -238,7 +223,7 @@ class GetCalendar(Action):
         A action GetCalendar retorna ao usuário do Bot o calendário acadêmico, via link, do ano em vigência.
         Link único, uma vez que é um calendário para todos os cursos disponíveis no IFRS. A action recebe o valor do slot calendar
         """
-        # variável link para inserir o calendário 
+        # variável link para inserir o calendário
         # definindo variáveis setadas pelo slot do usaário
         import datetime
         now = datetime.datetime.now()
@@ -249,14 +234,15 @@ class GetCalendar(Action):
         data = req_json("calendario_academico/")
         # buscar no json o atributo e o valor setado pelo usuário=
         req = last_info("ano", ano, data)
-       
+
         # varáveis de banco de dados
         # arquivo_1 = req["arquivo_1"]
         link = req["link_1"]
-       
+
         # dispatcher.utter_message(document=arquivo_1)
-        dispatcher.utter_message(text=f"Para acessar o calendário acadêmico clique aqui [🔗]({link})")
-        
+        dispatcher.utter_message(
+            text=f"Para acessar o calendário acadêmico clique aqui [🔗]({link})")
+
         return []
 
 
@@ -392,23 +378,24 @@ class ImformToDoRegister(Action):
         Action para direcionar a forma de ingresso no IFRS. Recebe o valor do slot ingress_modality. Retorna ao usuário o link correto
         """
         # definindo variáveis setadas pelo slot do usaário
-        ingress_modality= tracker.get_slot("ingress_modality")
-       
+        ingress_modality = tracker.get_slot("ingress_modality")
+
         # buscando informações na api
         data = req_json("informacoes_sobre_inscricao_ou_matricula/")
         # buscar no json o atributo e o valor setado pelo usuário
         dictionary = {
             "nome_evento": ingress_modality
         }
-        req = last_info(data= data, dictionary=dictionary)
-       
+        req = last_info(data=data, dictionary=dictionary)
+
         # varáveis de banco de dados
         descricao = req["descricao"]
         link = req["link_1"]
-       
+
         dispatcher.utter_message(text=descricao)
-        dispatcher.utter_message(text=f"Para acessar as formas de ingresso no IFRS acesse o [🔗]({link_1})")
-        
+        dispatcher.utter_message(
+            text=f"Para acessar as formas de ingresso no IFRS acesse o [🔗]({link})")
+
         return []
 
 
@@ -470,11 +457,11 @@ class InformCoursesRedoRegister(Action):
             "subsequente": buttons_subsequente,
             "superior": buttons_superior,
         }
-       
+
         # Dispatcher the button selector according with the chosen modality
         dispatcher.utter_message(
             text="Para qual curso gostaria de obter informações sobre a rematricula?",
-            buttons= modalities_buttons[modality],
+            buttons=modalities_buttons[modality],
             button_type="vertical")
 
         return []
@@ -493,10 +480,10 @@ class InformReDoRegister(Action):
         # definindo variáveis setadas pelo slot do usuário
         course_modality = tracker.get_slot("courses_modality").title()
         course_name = tracker.get_slot("courses_name").title()
-        
+
         # buscando informações na api
         data = req_json("informacoes_sobre_rematricula/")
-       
+
         # buscando a ultima atualização conforme slots de busca do usuário
         dictionary = {
             "modalidade_do_curso": course_modality,
@@ -504,17 +491,20 @@ class InformReDoRegister(Action):
         }
         try:
             req = last_info(data=data, dictionary=dictionary)
-        
+
             # varáveis de banco de dados
             data_de_inicio = req["data_de_inicio"]
             data_de_fim = req["data_de_fim"]
             link = req["link_1"]
             # descricao = req["descricao"]
 
-            dispatcher.utter_message(text=f'Para realizar a rematrícula no {course_name} acesse o [link]({link})!')
-            dispatcher.utter_message(text=f'Fique atento ao período de rematrícula que vai do dia {data_de_inicio} até {data_de_fim}!')
+            dispatcher.utter_message(
+                text=f'Para realizar a rematrícula no {course_name} acesse o [link]({link})!')
+            dispatcher.utter_message(
+                text=f'Fique atento ao período de rematrícula que vai do dia {data_de_inicio} até {data_de_fim}!')
         except:
-            dispatcher.utter_message(text=f'Desculpa tivemos alguns problemas para encontrar sua requisição'!)
+            dispatcher.utter_message(
+                text=f'Desculpa tivemos alguns problemas para encontrar sua requisição!')
 
         return [SlotSet("course_modality", None), SlotSet("course_name", None)]
 
@@ -646,10 +636,12 @@ class ProfessorNameFormValidate(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
 
-        name = clean_name(slot_value).title()
-        if len(name) == 0:
+        name = slot_value.title()
+        if len(name) == 0 or " " in name:
             dispatcher.utter_message(
                 text="Não entendi, pode ter sido um erro de digitação")
+            dispatcher.utter_message(
+                text="Digite apenas o primeiro nome do professor!")
             return {"professor_name": None}
         return {"professor_name": name}
 
@@ -662,8 +654,10 @@ class ProfessorNameFormValidate(FormValidationAction):
     ) -> Dict[Text, Any]:
 
         name = (slot_value).title()
-        if len(name) == 0:
+        if len(name) == 0 or " " in name:
             dispatcher.utter_message(
                 text="Não entendi, pode ter sido um erro de digitação")
+            dispatcher.utter_message(
+                text="Digite apenas um sobrenome do professor!")
             return {"professor_last_name": None}
         return {"professor_last_name": name}
