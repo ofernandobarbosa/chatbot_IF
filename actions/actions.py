@@ -487,8 +487,8 @@ class InformReDoRegister(Action):
 
         # buscando a ultima atualização conforme slots de busca do usuário
         dictionary = {
-            "modalidade_do_curso": courses_modality,
-            "nome_do_curso": courses_name
+            "modalidade_do_curso": course_modality,
+            "nome_do_curso": course_name
         }
         try:
             req = last_info(data=data, dictionary=dictionary)
@@ -499,7 +499,7 @@ class InformReDoRegister(Action):
             link = req["link_1"]
             # descricao = req["descricao"]
 
-            dispatcher.utter_message(text=f'Para realizar a rematrícula no {courses_name} acesse o [link]({link})!')
+            dispatcher.utter_message(text=f'Para realizar a rematrícula no {course_name} acesse o [link]({link})!')
             dispatcher.utter_message(text=f'Fique atento ao período de rematrícula que vai do dia {data_de_inicio} até {data_de_fim}!')
         except:
             dispatcher.utter_message(text=f'Desculpa tivemos alguns problemas para encontrar sua requisição!')
