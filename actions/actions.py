@@ -180,14 +180,15 @@ class GetInfoClasses(Action):
         try:
             dictionary = {
                 "modalidade_do_curso": course_modality,
-                "nome_do_curso": course_name         
+                "nome_do_curso": course_name
             }
             req = last_info(data=data, dictionary=dictionary)
             link = req["link_1"]
             msg = f"Segue o link de acesso dos horários do curso {course_name} {link}"
             dispatcher.utter_message(text=msg)
         except:
-            pass
+            dispatcher.utter_message(
+                text=f"Estamos com dificuldades de encontrar informações para o curso {course_name}")
 
         return []
 
@@ -238,7 +239,7 @@ class GetCalendar(Action):
                 "ano": ano
             }
             req = last_info(data=data, dictionary=dictionary)
-            
+
             # varáveis de banco de dados
             # arquivo_1 = req["arquivo_1"]
             link = req["link_1"]
@@ -246,7 +247,8 @@ class GetCalendar(Action):
             dispatcher.utter_message(
                 text=f"Para acessar o calendário acadêmico [clique aqui 🔗]({link})")
         except:
-            dispatcher.utter_message(text="Desculpe, estamos com dificuldades para encontrar tua solicitação, tente novamente mais tarde!")
+            dispatcher.utter_message(
+                text="Desculpe, estamos com dificuldades para encontrar tua solicitação, tente novamente mais tarde!")
         return []
 
 
@@ -367,9 +369,11 @@ class GetInfoCours(Action):
                 text=f'➡️ *Coordenador do curso*: {coordinator_name}')
             dispatcher.utter_message(
                 text=f'➡️ *Email do coordenador*: {coordinator_email}')
-            dispatcher.utter_message(text=f'➡️ *Email do curso*: {course_email}')
-        except: 
-            dispatcher.utter_message(text= "Desculpe, estamos com dificuldades para encontrar tua solicitação.")
+            dispatcher.utter_message(
+                text=f'➡️ *Email do curso*: {course_email}')
+        except:
+            dispatcher.utter_message(
+                text="Desculpe, estamos com dificuldades para encontrar tua solicitação.")
 
         return [SlotSet("courses_modality", None), SlotSet("courses_name", None)]
 
