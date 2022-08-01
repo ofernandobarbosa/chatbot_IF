@@ -177,17 +177,17 @@ class GetInfoClasses(Action):
 
         endpoint = 'grade_de_horarios'
         data = req_json(endpoint)
-
-        for order in data:
-            try:
-                print(order["modalidade_do_curso"], order["nome_do_curso"])
-                if(order["modalidade_do_curso"] == course_modality and order["nome_do_curso"] == course_name):
-                    link = order["link_1"]
-                    msg = f"Segue o link de acesso dos horários do curso {course_name} {link}"
-                    dispatcher.utter_message(text=msg)
-                    break
-            except:
-                pass
+        try:
+            dictionary = {
+                "modalidade_do_curso": course_modality,
+                "nome_do_curso": course_name         
+            }
+            req = last_info(data=data, dictionary=dictionary)
+            link = req["link_1"]
+            msg = f"Segue o link de acesso dos horários do curso {course_name} {link}"
+            dispatcher.utter_message(text=msg)
+        except:
+            pass
 
         return []
 
