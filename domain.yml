@@ -242,6 +242,7 @@ responses:
         payload: '/modality{{"courses_modality":"subsequente"}}'
       - title: Superiores
         payload: '/modality{{"courses_modality":"superior"}}'
+    button_type: vertical
   utter_ask_system_doc_register:
     - text: Sua matrícula é em qual sistema?
       buttons:

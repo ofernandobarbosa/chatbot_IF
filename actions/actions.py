@@ -22,7 +22,7 @@ class GetProfessorContact(Action):
         # with open("calendarios.json", encoding="utf8") as file:
         #     data = json.loads(file.read())
 
-        data = req_json("contato_dos_professores/")
+        data = req_json("contato_dos_professores")
 
         for order in data:
             try:
@@ -57,7 +57,7 @@ class GetDocRegister(Action):
         system = tracker.get_slot("system")
 
         # request json
-        data = req_json("comprovante_de_matricula/")
+        data = req_json("comprovante_de_matricula")
 
         try:
             # retorno da ultima atualização
@@ -246,7 +246,7 @@ class GetCalendar(Action):
         print(ano)
 
         # buscando informações na api
-        data = req_json("calendario_academico/")
+        data = req_json("calendario_academico")
         # buscar no json o atributo e o valor setado pelo usuário=
         dictionary = {
             "ano": ano
@@ -351,7 +351,7 @@ class GetInfoCours(Action):
         courses_modality = tracker.get_slot("courses_modality").title()
         courses_name = tracker.get_slot("courses_name").title()
         # recuperando dados da API
-        data = req_json("informacoes_relevantes_dos_cursos/")
+        data = req_json("informacoes_relevantes_dos_cursos")
         # buscando a ultima atualização conforme slots de busca do usuário
         dictionary = {
             "modalidade_do_curso": course_modality,
@@ -398,7 +398,7 @@ class ImformToDoRegister(Action):
         ingress_modality= tracker.get_slot("ingress_modality")
 
         # buscando informações na api
-        data = req_json("informacoes_sobre_inscricao_ou_matricula/") 
+        data = req_json("informacoes_sobre_inscricao_ou_matricula") 
         # buscar no json o atributo e o valor setado pelo usuário
         dictionary = {
             "modalidade_de_ingresso": ingress_modality
@@ -498,7 +498,8 @@ class InformReDoRegister(Action):
         courses_name = tracker.get_slot("courses_name").title()
         
         # buscando informações na api
-        data = req_json("informacoes_sobre_rematricula/")
+        data = req_json("informacoes_sobre_rematricula")
+        print(data)
        
         # buscando a ultima atualização conforme slots de busca do usuário
         dictionary = {
@@ -514,7 +515,7 @@ class InformReDoRegister(Action):
             link = req["link_1"]
             # descricao = req["descricao"]
 
-            dispatcher.utter_message(text=f'Para realizar a rematrícula no {course_name} acesse o [link]({link})!')
+            dispatcher.utter_message(text=f'Para realizar a rematrícula no {courses_name} acesse o [link]({link})!')
             dispatcher.utter_message(text=f'Fique atento ao período de rematrícula que vai do dia {data_de_inicio} até {data_de_fim}!')
         except:
             dispatcher.utter_message(text=f'Desculpa tivemos alguns problemas para encontrar sua requisição!')
@@ -555,7 +556,7 @@ class Requirements(Action):
         # recebe slot pelo input do usuário
         requirement = tracker.get_slot("requirements").title()
         # difine arquivo padrão para busca do dado ordenado por ultima atualização
-        data = req_json("requerimentos_ou_formularios/")
+        data = req_json("requerimentos_ou_formularios")
         try:
             # busca por todas as recorrencias do requerimento no json e recebe a ultima atualização do requerimento
             dictionary = {
@@ -589,7 +590,7 @@ class SystemsTutorial(Action):
         system = tracker.get_slot("system")
 
         # request json
-        data = req_json("tutoriais_de_acessos_a_sistemas_academicos/")
+        data = req_json("tutoriais_de_acessos_a_sistemas_academicos")
 
         try:
             # retorno da ultima atualização
