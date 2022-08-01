@@ -248,14 +248,17 @@ class GetCalendar(Action):
         # buscando informações na api
         data = req_json("calendario_academico/")
         # buscar no json o atributo e o valor setado pelo usuário=
-        req = last_info("ano", ano, data)
-       
+        dictionary = {
+            "ano": ano
+        }
+        req = last_info(data=data, dictionary=dictionary)
+        
         # varáveis de banco de dados
         # arquivo_1 = req["arquivo_1"]
         link = req["link_1"]
        
         # dispatcher.utter_message(document=arquivo_1)
-        dispatcher.utter_message(text=f"Para acessar o calendário acadêmico clique aqui [🔗]({link})")
+        dispatcher.utter_message(text=f"Para acessar o calendário acadêmico [clique aqui 🔗]({link})")
         
         return []
 
@@ -345,8 +348,8 @@ class GetInfoCours(Action):
         Por fim, despacha para o usuário a informação com o link correto.
         """
         # definindo variaveis definidas por slots do usuário
-        course_modality = tracker.get_slot("courses_modality").title()
-        course_name = tracker.get_slot("courses_name").title()
+        courses_modality = tracker.get_slot("courses_modality").title()
+        courses_name = tracker.get_slot("courses_name").title()
         # recuperando dados da API
         data = req_json("informacoes_relevantes_dos_cursos/")
         # buscando a ultima atualização conforme slots de busca do usuário
@@ -393,12 +396,12 @@ class ImformToDoRegister(Action):
         """
         # definindo variáveis setadas pelo slot do usaário
         ingress_modality= tracker.get_slot("ingress_modality")
-       
+
         # buscando informações na api
-        data = req_json("informacoes_sobre_inscricao_ou_matricula/")
+        data = req_json("informacoes_sobre_inscricao_ou_matricula/") 
         # buscar no json o atributo e o valor setado pelo usuário
         dictionary = {
-            "nome_evento": ingress_modality
+            "modalidade_de_ingresso": ingress_modality
         }
         req = last_info(data= data, dictionary=dictionary)
        
@@ -407,9 +410,9 @@ class ImformToDoRegister(Action):
         link = req["link_1"]
        
         dispatcher.utter_message(text=descricao)
-        dispatcher.utter_message(text=f"Para acessar as formas de ingresso no IFRS acesse o [🔗]({link_1})")
+        dispatcher.utter_message(text=f"Para acessar as formas de ingresso no IFRS acesse o [🔗]({link})")
         
-        return []
+        return [SlotSet("ingress_modality", None)]
 
 
 class InformCoursesRedoRegister(Action):
@@ -491,16 +494,16 @@ class InformReDoRegister(Action):
         Action que direciona para o link do sistema de rematricula de acordo com o nome do curso/modalidade
         """
         # definindo variáveis setadas pelo slot do usuário
-        course_modality = tracker.get_slot("courses_modality").title()
-        course_name = tracker.get_slot("courses_name").title()
+        courses_modality = tracker.get_slot("courses_modality").title()
+        courses_name = tracker.get_slot("courses_name").title()
         
         # buscando informações na api
         data = req_json("informacoes_sobre_rematricula/")
        
         # buscando a ultima atualização conforme slots de busca do usuário
         dictionary = {
-            "modalidade_do_curso": course_modality,
-            "nome_do_curso": course_name
+            "modalidade_do_curso": courses_modality,
+            "nome_do_curso": courses_name
         }
         try:
             req = last_info(data=data, dictionary=dictionary)
@@ -511,12 +514,12 @@ class InformReDoRegister(Action):
             link = req["link_1"]
             # descricao = req["descricao"]
 
-            dispatcher.utter_message(text=f'Para realizar a rematrícula no {course_name} acesse o [link]({link_1})!')
+            dispatcher.utter_message(text=f'Para realizar a rematrícula no {courses_name} acesse o [link]({link_1})!')
             dispatcher.utter_message(text=f'Fique atento ao período de rematrícula que vai do dia {data_de_inicio} até {data_de_fim}!')
         except:
-            dispatcher.utter_message(text=f'Desculpa tivemos alguns problemas para encontrar sua requisição'!)
+            dispatcher.utter_message(text=f'Desculpa tivemos alguns problemas para encontrar sua requisição!')
 
-        return [SlotSet("course_modality", None), SlotSet("course_name", None)]
+        return [SlotSet("courses_modality", None), SlotSet("courses_name", None)]
 
 
 class WhatBotDo(Action):

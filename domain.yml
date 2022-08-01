@@ -31,6 +31,7 @@ intents:
 - request_requirements
 - request_system_tutorials
 - system
+- ingress_modality
 entities:
 - PER
 - LOC
@@ -44,6 +45,7 @@ entities:
 - courses_modality_link
 - requirements
 - system
+- ingress_modality
 slots:
   professor_name:
     type: text
@@ -115,6 +117,11 @@ slots:
     mappings:
     - type: from_entity
       entity: system
+  ingress_modality:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: ingress_modality
 forms:
   professor_name_form:
     ignored_intents:
@@ -247,13 +254,13 @@ responses:
     - text: Qual a forma de ingresso?
       buttons:
         - title: Enem
-          payload: '/ingress_modality{{"ingress_modality":"Enem"}}'
+          payload: '/ingress_modality{{"ingress_modality":"ENEM"}}'
         - title: Processo seletivo EJA
-          payload: '/ingress_modality{{"ingress_modality":"Processo seletivo EJA"}}'
+          payload: '/ingress_modality{{"ingress_modality":"Processo Seletivo EJA"}}'
         - title: Prova
           payload: '/ingress_modality{{"ingress_modality":"Prova"}}'
         - title: PS indígena
-          payload: '/ingress_modality{{"ingress_modality":"PS indígena"}}'
+          payload: '/ingress_modality{{"ingress_modality":"Pessoa Indígena"}}'
         - title: Sorteio
           payload: '/ingress_modality{{"ingress_modality":"Sorteio"}}'
       button_type: vertical

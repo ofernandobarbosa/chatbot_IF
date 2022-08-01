@@ -266,7 +266,7 @@ def formulario(request):
                 visivel = False
             nome_evento = request.POST['nome_evento']
             link_1 = request.POST['link_1']
-            arquivo_1 = request.POST['arquivo_1']
+            arquivo_1 = request.FILES['arquivo_1']
             ano = request.POST['ano']
             
             if not nome_evento.strip():
@@ -276,11 +276,7 @@ def formulario(request):
             if not link_1.strip():
                 messages.error(request, 'O campo link 1 não pode ficar em branco')
                 print('O campo link 1 não pode ficar em branco')
-                return redirect('dashboard')            
-            if not arquivo_1.strip():
-                messages.error(request, 'O campo arquivo 1 não pode ficar em branco')
-                print('O campo arquivo 1 não pode ficar em branco')
-                return redirect('dashboard')            
+                return redirect('dashboard')                       
             if not ano.strip():
                 messages.error(request, 'O campo ano não pode ficar em branco')
                 print('O campo ano não pode ficar em branco')
