@@ -108,6 +108,7 @@ nlu:
     - [rodrigo](PER)
     - [Gustavo Guanabara](PER)
     - [Fernando](PER)
+    - [fernando](PER)
 - intent: inform_professor_last_name
   examples: |
     - [Silva Oliveira](PER)
@@ -120,7 +121,7 @@ nlu:
     - é [Rodrigues](PER)
     - [marques](PER)
     - [peres](PER)
-    - [Barbosa](PER)
+    - [barbosa](PER)
 - intent: request_email
   examples: |
     - email dos professores
@@ -132,6 +133,7 @@ nlu:
     - contato dos professores
     - email dos professores do curso
     - email dos prof
+    - contato dos prof
 - intent: request_classes
   examples: |
     - preciso da grade de horarios de aulas
@@ -250,7 +252,6 @@ nlu:
     - tutorial sistemas
     - como acessar sistemas academicos
     - tutorial de acesso a sistemas acadêmicos
-
 - intent: ingress_modality
   examples: |
     - [Enem](ingress_modality)

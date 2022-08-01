@@ -17,6 +17,7 @@ intents:
 - inform_professor_name:
     ignore_entities:
     - LOC
+- ingress_modality
 - modality
 - req_students
 - request_calendar:
@@ -44,12 +45,13 @@ entities:
 - courses_modality_link
 - requirements
 - system
+- ingress_modality
 slots:
   professor_name:
     type: text
     influence_conversation: true
     mappings:
-    - type: from_entity
+    - type: from_text
       entity: PER
       and:
       - not_intent: professor_last_name
@@ -61,7 +63,7 @@ slots:
     influence_conversation: true
     mappings:
     - type: from_text
-      #entity: PER
+      entity: PER
       and:
       - not_intent: inform_professor_name
       conditions:
@@ -115,6 +117,11 @@ slots:
     mappings:
     - type: from_entity
       entity: system
+  ingress_modality:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: ingress_modality
 forms:
   professor_name_form:
     ignored_intents:
@@ -154,14 +161,6 @@ responses:
   - text: Até logo! :)
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
-  utter_ask_classes:
-  - text: Os horários de suas aulas e disciplinas você pode conferir aqui!
-  utter_ask_calendar:
-  - text: Confira aqui seu calendário acadêmico!
-  utter_ask_courses:
-  - text: Os cursos disponíveis no IFRS campus Rio Grande pode ser visualizados aqui!
-  utter_ask_documents:
-  - text: Estes são os documentos que você precisa manter atualizados no IFRS = CPF, Comprovante de residência e dados cadastrais!
   utter_req_to_ask:
   - text: Pode dizer ou então me pergunte o que posso fazer!
   utter_please_rephrase:
@@ -229,36 +228,36 @@ responses:
   utter_ask_modality_redo_register:
   - text: Qual a modalidade do curso que você quer fazer a rematrícula?
     buttons:
-      - title: Técnicos integrados
-        payload: '/modality{{"courses_modality":"integrado"}}'
-      - title: Técnicos subsequente
-        payload: '/modality{{"courses_modality":"subsequente"}}'
-      - title: Superiores
-        payload: '/modality{{"courses_modality":"superior"}}'
+    - title: Técnicos integrados
+      payload: /modality{{"courses_modality":"integrado"}}
+    - title: Técnicos subsequente
+      payload: /modality{{"courses_modality":"subsequente"}}
+    - title: Superiores
+      payload: /modality{{"courses_modality":"superior"}}
   utter_ask_system_doc_register:
-    - text: Sua matrícula é em qual sistema?
-      buttons:
-        - title: SIA
-          payload: '/system{{"system":"SIA"}}'
-        - title: SIGAA
-          payload: '/system{{"system":"SIGAA"}}'
-      button_type: inline
+  - text: Sua matrícula é em qual sistema?
+    buttons:
+    - title: SIA
+      payload: /system{{"system":"SIA"}}
+    - title: SIGAA
+      payload: /system{{"system":"SIGAA"}}
+    button_type: inline
   utter_ask_ingress_modality:
-    - text: Qual a forma de ingresso?
-      buttons:
-        - title: Enem
-          payload: '/ingress_modality{{"ingress_modality":"Enem"}}'
-        - title: Processo seletivo EJA
-          payload: '/ingress_modality{{"ingress_modality":"Processo seletivo EJA"}}'
-        - title: Prova
-          payload: '/ingress_modality{{"ingress_modality":"Prova"}}'
-        - title: PS indígena
-          payload: '/ingress_modality{{"ingress_modality":"PS indígena"}}'
-        - title: Sorteio
-          payload: '/ingress_modality{{"ingress_modality":"Sorteio"}}'
-      button_type: vertical
-
+  - text: Qual a forma de ingresso?
+    buttons:
+    - title: Enem
+      payload: /ingress_modality{{"ingress_modality":"Enem"}}
+    - title: Processo seletivo EJA
+      payload: /ingress_modality{{"ingress_modality":"Processo seletivo EJA"}}
+    - title: Prova
+      payload: /ingress_modality{{"ingress_modality":"Prova"}}
+    - title: PS indígena
+      payload: /ingress_modality{{"ingress_modality":"PS indígena"}}
+    - title: Sorteio
+      payload: /ingress_modality{{"ingress_modality":"Sorteio"}}
+    button_type: vertical
 actions:
+- action_courses_redo_register
 - action_get_calendar
 - action_get_classes
 - action_get_courses
@@ -270,17 +269,11 @@ actions:
 - action_get_system_tutorials
 - action_goodbye_and_clear_slots
 - action_inform_do_register
-- action_courses_redo_register
-- action_what_bot_do
 - action_inform_redo_register
-- utter_ask_calendar
-- utter_ask_classes
-- utter_ask_courses
-- utter_ask_documents
+- action_what_bot_do
 - utter_ask_help
 - utter_ask_more_help
 - utter_examples
-- utter_goodbye
 - utter_greet
 - validate_name_form
 - validate_professor_name_form
