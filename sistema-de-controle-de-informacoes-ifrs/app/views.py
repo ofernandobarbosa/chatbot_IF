@@ -48,10 +48,27 @@ def buscar(request):
     if 'buscar' in request.GET:
         nome_a_buscar = request.GET['buscar']
         if buscar:
-            lista_eventos = lista_eventos.filter(nome_evento__icontains=nome_a_buscar)
-
+            lista_1 = lista_eventos.filter(nome_evento__icontains=nome_a_buscar)
+            lista_2 = lista_eventos.filter(nome_do_professor__icontains=nome_a_buscar)
+            lista_3 = lista_eventos.filter(nome_do_curso__icontains=nome_a_buscar)
+            lista_4 = lista_eventos.filter(nome_do_requerimento__icontains=nome_a_buscar)
+            lista_5 = lista_eventos.filter(nome_do_sistema__icontains=nome_a_buscar)
+            lista_6 = lista_eventos.filter(nome_da_disciplina__icontains=nome_a_buscar)
+            lista_7 = lista_eventos.filter(descricao__icontains=nome_a_buscar)
+            lista_8 = lista_eventos.filter(sobrenome_do_professor__icontains=nome_a_buscar)
+            lista_9 = lista_eventos.filter(modalidade_de_ingresso__icontains=nome_a_buscar)
+            lista_10 = lista_eventos.filter(coordenador_do_curso__icontains=nome_a_buscar)
     dados = {
-	    'eventos' : lista_eventos,
+	    'eventos1' : lista_1,
+        'eventos2' : lista_2,
+        'eventos3' : lista_3,
+        'eventos4' : lista_4,
+        'eventos5' : lista_5,
+        'eventos6' : lista_6,
+        'eventos7' : lista_7,
+        'eventos8' : lista_8,
+        'eventos9' : lista_9,
+        'eventos10' : lista_10,             
         'categorias': categorias
     }
     return render(request, 'buscar.html', dados)

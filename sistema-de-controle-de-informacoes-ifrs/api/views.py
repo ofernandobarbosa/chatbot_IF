@@ -8,7 +8,6 @@ from app.views import categoria
 
 def api(request):
     categorias = Categorias.objects.all()
-
     dados = {
         'categorias': categorias,
     }
