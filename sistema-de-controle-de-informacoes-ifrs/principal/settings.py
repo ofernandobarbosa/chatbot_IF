@@ -78,6 +78,7 @@ DATABASES = {
         'PASSWORD':'123456',
         'HOST':'localhost'
     }
+    
 }
 
 
