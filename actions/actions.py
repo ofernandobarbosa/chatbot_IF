@@ -326,7 +326,7 @@ class GetCourses(Action):
         }
 
         # Dispatcher the button selector according with the chosen modality
-        button = dispatcher.utter_message(
+        dispatcher.utter_message(
             text="Para qual curso gostaria de mais informações?",
             buttons=modalities_buttons[modality],
             button_type="vertical")
@@ -514,7 +514,7 @@ class InformReDoRegister(Action):
             link = req["link_1"]
             # descricao = req["descricao"]
 
-            dispatcher.utter_message(text=f'Para realizar a rematrícula no {courses_name} acesse o [link]({link_1})!')
+            dispatcher.utter_message(text=f'Para realizar a rematrícula no {course_name} acesse o [link]({link})!')
             dispatcher.utter_message(text=f'Fique atento ao período de rematrícula que vai do dia {data_de_inicio} até {data_de_fim}!')
         except:
             dispatcher.utter_message(text=f'Desculpa tivemos alguns problemas para encontrar sua requisição!')

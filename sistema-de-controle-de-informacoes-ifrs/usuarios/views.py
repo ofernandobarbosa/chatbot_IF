@@ -276,7 +276,7 @@ def formulario(request):
             if not link_1.strip():
                 messages.error(request, 'O campo link 1 não pode ficar em branco')
                 print('O campo link 1 não pode ficar em branco')
-                return redirect('dashboard')                       
+                return redirect('dashboard')           
             if not ano.strip():
                 messages.error(request, 'O campo ano não pode ficar em branco')
                 print('O campo ano não pode ficar em branco')
@@ -387,15 +387,15 @@ def formulario(request):
             except:
                 link_3 = ""
             try:
-                arquivo_1 = request.POST['arquivo_1']            
+                arquivo_1 = request.FILES['arquivo_1']            
             except:
                 arquivo_1 = ""
             try:
-                arquivo_2 = request.POST['arquivo_2']            
+                arquivo_2 = request.FILES['arquivo_2']            
             except:
                 arquivo_2 = ""
             try:
-                arquivo_3 = request.POST['arquivo_3']            
+                arquivo_3 = request.FILES['arquivo_3']            
             except:
                 arquivo_3 = ""
             
