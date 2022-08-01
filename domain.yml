@@ -32,6 +32,7 @@ intents:
 - request_requirements
 - request_system_tutorials
 - system
+- ingress_modality
 entities:
 - PER
 - LOC
@@ -228,12 +229,13 @@ responses:
   utter_ask_modality_redo_register:
   - text: Qual a modalidade do curso que você quer fazer a rematrícula?
     buttons:
-    - title: Técnicos integrados
-      payload: /modality{{"courses_modality":"integrado"}}
-    - title: Técnicos subsequente
-      payload: /modality{{"courses_modality":"subsequente"}}
-    - title: Superiores
-      payload: /modality{{"courses_modality":"superior"}}
+      - title: Técnicos integrados
+        payload: '/modality{{"courses_modality":"integrado"}}'
+      - title: Técnicos subsequente
+        payload: '/modality{{"courses_modality":"subsequente"}}'
+      - title: Superiores
+        payload: '/modality{{"courses_modality":"superior"}}'
+    button_type: vertical
   utter_ask_system_doc_register:
   - text: Sua matrícula é em qual sistema?
     buttons:
@@ -243,19 +245,20 @@ responses:
       payload: /system{{"system":"SIGAA"}}
     button_type: inline
   utter_ask_ingress_modality:
-  - text: Qual a forma de ingresso?
-    buttons:
-    - title: Enem
-      payload: /ingress_modality{{"ingress_modality":"Enem"}}
-    - title: Processo seletivo EJA
-      payload: /ingress_modality{{"ingress_modality":"Processo seletivo EJA"}}
-    - title: Prova
-      payload: /ingress_modality{{"ingress_modality":"Prova"}}
-    - title: PS indígena
-      payload: /ingress_modality{{"ingress_modality":"PS indígena"}}
-    - title: Sorteio
-      payload: /ingress_modality{{"ingress_modality":"Sorteio"}}
-    button_type: vertical
+    - text: Qual a forma de ingresso?
+      buttons:
+        - title: Enem
+          payload: '/ingress_modality{{"ingress_modality":"ENEM"}}'
+        - title: Processo seletivo EJA
+          payload: '/ingress_modality{{"ingress_modality":"Processo Seletivo EJA"}}'
+        - title: Prova
+          payload: '/ingress_modality{{"ingress_modality":"Prova"}}'
+        - title: PS indígena
+          payload: '/ingress_modality{{"ingress_modality":"Pessoa Indígena"}}'
+        - title: Sorteio
+          payload: '/ingress_modality{{"ingress_modality":"Sorteio"}}'
+      button_type: vertical
+
 actions:
 - action_courses_redo_register
 - action_get_calendar

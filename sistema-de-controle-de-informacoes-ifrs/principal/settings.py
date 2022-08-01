@@ -73,12 +73,11 @@ WSGI_APPLICATION = 'principal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ifrs',
+        'NAME': 'db',
         'USER': 'postgres',
         'PASSWORD':'123456',
         'HOST':'localhost'
-    }
-    
+    }    
 }
 
 
