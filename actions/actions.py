@@ -232,19 +232,21 @@ class GetCalendar(Action):
 
         # buscando informações na api
         data = req_json("calendario_academico")
-        # buscar no json o atributo e o valor setado pelo usuário=
-        dictionary = {
-            "ano": ano
-        }
-        req = last_info(data=data, dictionary=dictionary)
-        
-        # varáveis de banco de dados
-        # arquivo_1 = req["arquivo_1"]
-        link = req["link_1"]
-
-        # dispatcher.utter_message(document=arquivo_1)
-        dispatcher.utter_message(text=f"Para acessar o calendário acadêmico [clique aqui 🔗]({link})")
-        
+        try:
+            # buscar no json o atributo e o valor setado pelo usuário=
+            dictionary = {
+                "ano": ano
+            }
+            req = last_info(data=data, dictionary=dictionary)
+            
+            # varáveis de banco de dados
+            # arquivo_1 = req["arquivo_1"]
+            link = req["link_1"]
+            # dispatcher.utter_message(document=arquivo_1)
+            dispatcher.utter_message(
+                text=f"Para acessar o calendário acadêmico [clique aqui 🔗]({link})")
+        except:
+            dispatcher.utter_message(text="Desculpe, estamos com dificuldades para encontrar tua solicitação, tente novamente mais tarde!")
         return []
 
 
@@ -335,36 +337,39 @@ class GetInfoCours(Action):
         # definindo variaveis definidas por slots do usuário
         course_modality = tracker.get_slot("courses_modality").title()
         course_name = tracker.get_slot("courses_name").title()
-        # recuperando dados da API
-        data = req_json("informacoes_relevantes_dos_cursos")
-        # buscando a ultima atualização conforme slots de busca do usuário
-        dictionary = {
-            "modalidade_do_curso": course_modality,
-            "nome_do_curso": course_name
-        }
-        req = last_info(data=data, dictionary=dictionary)
-        # definindo variaveis do json
-        description = req["descricao"]
-        ingress_modality = req["forma_de_ingresso"]
-        requirements = req["requisitos"]
-        shift = req["turno"]
-        vacancies = req["numero_de_vagas"]
-        coordinator_name = req["coordenador_do_curso"]
-        coordinator_email = req["email_do_coordenador"]
-        course_email = req["email_do_curso"]
+        try:
+            # recuperando dados da API
+            data = req_json("informacoes_relevantes_dos_cursos")
+            # buscando a ultima atualização conforme slots de busca do usuário
+            dictionary = {
+                "modalidade_do_curso": course_modality,
+                "nome_do_curso": course_name
+            }
+            req = last_info(data=data, dictionary=dictionary)
+            # definindo variaveis do json
+            description = req["descricao"]
+            ingress_modality = req["forma_de_ingresso"]
+            requirements = req["requisitos"]
+            shift = req["turno"]
+            vacancies = req["numero_de_vagas"]
+            coordinator_name = req["coordenador_do_curso"]
+            coordinator_email = req["email_do_coordenador"]
+            course_email = req["email_do_curso"]
 
-        # dispachando mensagens para o usuário
-        dispatcher.utter_message(text=f'➡️ {description}')
-        dispatcher.utter_message(
-            text=f'➡️ *Modalidade de ingresso*: {ingress_modality}')
-        dispatcher.utter_message(text=f'➡️ *Requisitos*: {requirements}')
-        dispatcher.utter_message(text=f'➡️ *Turno*: {shift}')
-        dispatcher.utter_message(text=f'➡️ *Vagas*: {vacancies}')
-        dispatcher.utter_message(
-            text=f'➡️ *Coordenador do curso*: {coordinator_name}')
-        dispatcher.utter_message(
-            text=f'➡️ *Email do coordenador*: {coordinator_email}')
-        dispatcher.utter_message(text=f'➡️ *Email do curso*: {course_email}')
+            # dispachando mensagens para o usuário
+            dispatcher.utter_message(text=f'➡️ {description}')
+            dispatcher.utter_message(
+                text=f'➡️ *Modalidade de ingresso*: {ingress_modality}')
+            dispatcher.utter_message(text=f'➡️ *Requisitos*: {requirements}')
+            dispatcher.utter_message(text=f'➡️ *Turno*: {shift}')
+            dispatcher.utter_message(text=f'➡️ *Vagas*: {vacancies}')
+            dispatcher.utter_message(
+                text=f'➡️ *Coordenador do curso*: {coordinator_name}')
+            dispatcher.utter_message(
+                text=f'➡️ *Email do coordenador*: {coordinator_email}')
+            dispatcher.utter_message(text=f'➡️ *Email do curso*: {course_email}')
+        except: 
+            dispatcher.utter_message(text= "Desculpe, estamos com dificuldades para encontrar tua solicitação.")
 
         return [SlotSet("courses_modality", None), SlotSet("courses_name", None)]
 
@@ -383,7 +388,7 @@ class ImformToDoRegister(Action):
         ingress_modality = tracker.get_slot("ingress_modality")
 
         # buscando informações na api
-        data = req_json("informacoes_sobre_inscricao_ou_matricula") 
+        data = req_json("informacoes_sobre_inscricao_ou_matricula")
         # buscar no json o atributo e o valor setado pelo usuário
         dictionary = {
             "modalidade_de_ingresso": ingress_modality
@@ -395,8 +400,9 @@ class ImformToDoRegister(Action):
         link = req["link_1"]
 
         dispatcher.utter_message(text=descricao)
-        dispatcher.utter_message(text=f"Para acessar as formas de ingresso no IFRS acesse o [🔗]({link})")
-        
+        dispatcher.utter_message(
+            text=f"Para acessar as formas de ingresso no IFRS acesse o [🔗]({link})")
+
         return [SlotSet("ingress_modality", None)]
 
 
@@ -483,7 +489,7 @@ class InformReDoRegister(Action):
         course_name = tracker.get_slot("courses_name").title()
 
         # buscando informações na api
-        data = req_json("informacoes_sobre_rematricula/")
+        data = req_json("informacoes_sobre_rematricula")
 
         # buscando a ultima atualização conforme slots de busca do usuário
         dictionary = {
@@ -499,10 +505,13 @@ class InformReDoRegister(Action):
             link = req["link_1"]
             # descricao = req["descricao"]
 
-            dispatcher.utter_message(text=f'Para realizar a rematrícula no {course_name} acesse o [link]({link})!')
-            dispatcher.utter_message(text=f'Fique atento ao período de rematrícula que vai do dia {data_de_inicio} até {data_de_fim}!')
+            dispatcher.utter_message(
+                text=f'Para realizar a rematrícula no {course_name} acesse o [link]({link})!')
+            dispatcher.utter_message(
+                text=f'Fique atento ao período de rematrícula que vai do dia {data_de_inicio} até {data_de_fim}!')
         except:
-            dispatcher.utter_message(text=f'Desculpa tivemos alguns problemas para encontrar sua requisição!')
+            dispatcher.utter_message(
+                text=f'Desculpa tivemos alguns problemas para encontrar sua requisição!')
 
         return [SlotSet("courses_modality", None), SlotSet("courses_name", None)]
 
