@@ -333,8 +333,8 @@ class GetInfoCours(Action):
         Por fim, despacha para o usuário a informação com o link correto.
         """
         # definindo variaveis definidas por slots do usuário
-        courses_modality = tracker.get_slot("courses_modality").title()
-        courses_name = tracker.get_slot("courses_name").title()
+        course_modality = tracker.get_slot("courses_modality").title()
+        course_name = tracker.get_slot("courses_name").title()
         # recuperando dados da API
         data = req_json("informacoes_relevantes_dos_cursos")
         # buscando a ultima atualização conforme slots de busca do usuário
