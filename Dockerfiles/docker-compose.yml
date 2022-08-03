@@ -1,0 +1,71 @@
+version: '3.1'
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: bot.dockerfile
+    depends_on:
+      - actions
+    ports:
+      - 5005:5005
+    volumes:
+      - ./:/app
+    command:
+      - run
+      - --enable-api
+      - --cors
+      - "*"
+      - --credentials
+      - credentials.yml
+      - --debug
+
+# rasa run --enable-api --cors "*" --credentials credentials.yml --debug
+  actions:
+    build:
+      context: .
+      dockerfile: actions.Dockerfile
+    ports:
+      - 5055:5055
+    volumes:
+      - ./actions:/app/actions
+
+  app:
+    build:
+      context: .
+      dockerfile: app.dockerfile
+    ports:
+      - 8000:8000
+    
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  # to tracker history of conversation
+  # mongo:
+  #   image: mongo
+  #   container_name: db
+  #   ports:
+  #     - 27017:27017
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: example
+  #     MONGO_INITDB_DATABASE: rasa
+  # mongo-express:
+  #   image: mongo-express
+  #   depends_on:
+  #     - mongo
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: example
+  #     ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
