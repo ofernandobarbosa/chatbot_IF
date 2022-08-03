@@ -1,4 +1,3 @@
 .rasa
 venv
 okteto.exe
-django
