@@ -499,7 +499,6 @@ class InformReDoRegister(Action):
         
         # buscando informações na api
         data = req_json("informacoes_sobre_rematricula")
-        print(data)
        
         # buscando a ultima atualização conforme slots de busca do usuário
         dictionary = {
