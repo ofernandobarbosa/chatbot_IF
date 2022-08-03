@@ -1,0 +1,272 @@
+version: '3.1'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- affirm
+- ask_what_bot_do
+- bot_challenge
+- courses
+- deny
+- goodbye
+- greet
+- inform_professor_last_name:
+    ignore_entities:
+    - LOC
+    - PER
+- inform_professor_name:
+    ignore_entities:
+    - LOC
+- ingress_modality
+- modality
+- req_students
+- request_calendar:
+    ignore_entities:
+    - PER
+- request_classes
+- request_courses
+- request_do_register
+- request_doc_register
+- request_email
+- request_redo_register
+- request_requirements
+- request_system_tutorials
+- system
+entities:
+- PER
+- LOC
+- register
+- classes
+- calendar
+- courses
+- documents
+- courses_modality
+- courses_name
+- courses_modality_link
+- requirements
+- system
+- ingress_modality
+slots:
+  professor_name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: professor_name_form
+        requested_slot: professor_name
+  professor_last_name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: professor_name_form
+        requested_slot: professor_last_name
+  classes:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: classes
+      conditions:
+      - active_loop: classes_form
+  calendar:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: calendar
+      conditions:
+      - active_loop: calendar_form
+  courses_name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: courses_name
+  courses_modality:
+    influence_conversation: true
+    type: text
+    mappings:
+    - type: from_entity
+      entity: courses_modality
+  courses_modality_link:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: courses_modality_link
+  documents:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: documents
+      conditions:
+      - active_loop: documents_form
+  requirements:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: requirements
+  system:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: system
+  ingress_modality:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: ingress_modality
+forms:
+  professor_name_form:
+    required_slots:
+    - professor_name
+    - professor_last_name
+  classes_form:
+    required_slots:
+    - classes
+  calendar_form:
+    required_slots:
+    - calendar
+  documents_form:
+    required_slots:
+    - documents
+  requirement_form:
+    required_slots:
+    - requirements
+  system_form:
+    required_slots:
+    - system
+responses:
+  utter_greet:
+  - text: Eai, seja bem-vindo :)
+  - text: Olá, seja bem-vindo :)
+  utter_examples:
+  - text: Me pergunte o que faço para ver algumas opções
+  utter_ask_professor_name:
+  - text: Qual o primeiro nome do professor?
+  utter_ask_professor_last_name:
+  - text: Qual o sobrenome do professor?
+  utter_ask_help:
+  - text: Em que posso ajudar?
+  utter_goodbye:
+  - text: Até logo! :)
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_req_to_ask:
+  - text: Pode dizer ou então me pergunte o que posso fazer!
+  utter_please_rephrase:
+  - text: Me desculpe, mas não posso ajudar sobre isso?
+  utter_ask_more_help:
+  - buttons:
+    - payload: /affirm
+      title: Sim
+    - payload: /deny
+      title: Não
+    button_type: inline
+    text: Gostaria de mais alguma ajuda?
+  utter_ask_courses_modality:
+  - text: Para qual modalidade gostaria de informações?
+    buttons:
+    - title: Técnicos integrados
+      payload: /modality{{"courses_modality":"integrado"}}
+    - title: Técnicos subsequente
+      payload: /modality{{"courses_modality":"subsequente"}}
+    - title: Superiores
+      payload: /modality{{"courses_modality":"superior"}}
+    button_type: vertical
+  utter_ask_requirements:
+  - text: Qual requerimento tu precisa? 📃
+    buttons:
+    - title: Aproveitamento de Estudos
+      payload: /req_students{{"requirements":"aproveitamento de estudos"}}
+    - title: Atividades Complementares
+      payload: /req_students{{"requirements":"atividades complementares"}}
+    - title: Cancelamento de Matrícula
+      payload: /req_students{{"requirements":"cancelamento de matrícula"}}
+    - title: Certificação de Conhecimentos
+      payload: /req_students{{"requirements":"certificação de conhecimento"}}
+    - title: Justificativa de Falta / Segunda Chamada
+      payload: /req_students{{"requirements":"segunda chamada"}}
+    - title: Quebra de Pré-Requisito
+      payload: /req_students{{"requirements":"quebra de pré-requisito"}}
+    - title: Reingresso
+      payload: /req_students{{"requirements":"reingresso"}}
+    - title: Trancamento de Disciplina
+      payload: /req_students{{"requirements":"trancamento de disciplina"}}
+    - title: Trancamento de Matrícula
+      payload: /req_students{{"requirements":"trancamento de matrícula"}}
+    button_type: vertical
+  utter_ask_system:
+  - text: Qual sistema tu precisa de ajuda? 🆘
+    buttons:
+    - title: AVA
+      payload: /system{{"system":"AVA"}}
+    - title: SIA
+      payload: /system{{"system":"SIA"}}
+    - title: SIGAA
+      payload: /system{{"system":"SIGAA"}}
+    button_type: inline
+  utter_ask_classes_modality:
+  - text: Para qual modalidade gostaria de informações?
+    buttons:
+    - title: Técnicos integrados
+      payload: /modality{{"courses_modality":"integrado"}}
+    - title: Técnicos subsequente
+      payload: /modality{{"courses_modality":"subsequente"}}
+    - title: Superiores
+      payload: /modality{{"courses_modality":"superior"}}
+    button_type: vertical
+  utter_ask_modality_redo_register:
+  - text: Qual a modalidade do curso que você quer fazer a rematrícula?
+    buttons:
+      - title: Técnicos integrados
+        payload: '/modality{{"courses_modality":"integrado"}}'
+      - title: Técnicos subsequente
+        payload: '/modality{{"courses_modality":"subsequente"}}'
+      - title: Superiores
+        payload: '/modality{{"courses_modality":"superior"}}'
+    button_type: vertical
+  utter_ask_system_doc_register:
+  - text: Sua matrícula é em qual sistema?
+    buttons:
+    - title: SIA
+      payload: /system{{"system":"SIA"}}
+    - title: SIGAA
+      payload: /system{{"system":"SIGAA"}}
+    button_type: inline
+  utter_ask_ingress_modality:
+    - text: Qual a forma de ingresso?
+      buttons: 
+        - title: Enem
+          payload: '/ingress_modality{{"ingress_modality":"ENEM"}}'
+        - title: Processo seletivo EJA
+          payload: '/ingress_modality{{"ingress_modality":"Processo Seletivo EJA"}}'
+        - title: Prova
+          payload: '/ingress_modality{{"ingress_modality":"Prova"}}'
+        - title: PS indígena
+          payload: '/ingress_modality{{"ingress_modality":"Pessoa Indígena"}}'
+        - title: Sorteio
+          payload: '/ingress_modality{{"ingress_modality":"Sorteio"}}'
+      button_type: vertical
+
+actions:
+- action_courses_redo_register
+- action_get_calendar
+- action_get_classes
+- action_get_courses
+- action_get_doc_register
+- action_get_info_classe
+- action_get_info_course
+- action_get_professor_contact
+- action_get_requirements
+- action_get_system_tutorials
+- action_goodbye_and_clear_slots
+- action_inform_do_register
+- action_inform_redo_register
+- action_what_bot_do
+- utter_ask_help
+- utter_ask_more_help
+- utter_examples
+- utter_greet
+- validate_name_form
+- validate_professor_name_form
