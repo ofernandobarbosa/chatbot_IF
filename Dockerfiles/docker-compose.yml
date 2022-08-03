@@ -2,14 +2,16 @@ version: '3.1'
 services:
   bot:
     build:
-      context: .
-      dockerfile: bot.dockerfile
+      context: ../bot
+      dockerfile: bot.Dockerfile
+    restart: always
     depends_on:
       - actions
+      - db
     ports:
       - 5005:5005
     volumes:
-      - ./:/app
+      - .:/bot
     command:
       - run
       - --enable-api
@@ -22,30 +24,36 @@ services:
 # rasa run --enable-api --cors "*" --credentials credentials.yml --debug
   actions:
     build:
-      context: .
+      context: ../bot
       dockerfile: actions.Dockerfile
+    restart: always
     ports:
       - 5055:5055
     volumes:
-      - ./actions:/app/actions
+      - ./actions:/actions
 
   app:
     build:
-      context: .
-      dockerfile: app.dockerfile
+      context: ../sistema-de-controle-de-informacoes-ifrs
+      dockerfile: app.Dockerfile
+    restart: always
     ports:
       - 8000:8000
-    
+    volumes:
+      - .:/app
+
   db:
     image: postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: 123456
 
   adminer:
     image: adminer
     restart: always
+    depends_on:
+      - db
     ports:
       - 8080:8080
 

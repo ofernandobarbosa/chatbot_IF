@@ -20,3 +20,7 @@ toml==0.10.2
 toposort==1.7
 tzdata==2022.1
 whitenoise==6.2.0
+backports.zoneinfo==0.2.1
+gunicorn==20.1.0
+importlib-metadata==4.12.0
+zipp==3.8.1
