@@ -59,7 +59,7 @@ def buscar(request):
             lista_9 = lista_eventos.filter(modalidade_de_ingresso__icontains=nome_a_buscar)
             lista_10 = lista_eventos.filter(coordenador_do_curso__icontains=nome_a_buscar)
     dados = {
-	    'eventos1' : lista_1,
+        'eventos1' : lista_1,
         'eventos2' : lista_2,
         'eventos3' : lista_3,
         'eventos4' : lista_4,
