@@ -9,7 +9,9 @@ O projeto final do programa de bolsas de Chatbot RASA é uma ação filantrópic
 
 # 📝 Documentação
 
-* Arquivo de documentação da aplicação e do chatbot RASA 🔗.
+* Arquivo de [documentação](xxxx) da aplicação e do chatbot RASA 🔗.
+* [Bot](/bot)
+* [Sistema de controle da informação](/sistema-de-controle-de-informacoes-ifrs)
 
 
 # 📩 Informações adicionais
@@ -20,8 +22,9 @@ O projeto final do programa de bolsas de Chatbot RASA é uma ação filantrópic
 # 💼 Projeto
 
 * O objetivo desse projeto é criar um ChatBot para a secretária do IFRS RG com a finalidade de sanar dúvidas e agilizar serviços como:
-            ➡ Calendário Acadêmico
-            ➡ Comprovante de matrícula  
+
+            ➡ Calendário Acadêmico 
+            ➡ Comprovante de matrícula
             ➡ Contato dos professores
             ➡ Cursos disponíveis
             ➡ Grade de horários  
@@ -63,4 +66,4 @@ O projeto final do programa de bolsas de Chatbot RASA é uma ação filantrópic
 
 # ✔ Release
 
-🔗 Confira [aqui] a versão do chatbot IFRS-RG
+🔗 Confira [aqui](xxxxx) a versão do chatbot IFRS-RG
