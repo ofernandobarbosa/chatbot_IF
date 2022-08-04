@@ -12,7 +12,7 @@
 
 # rodando localhost
  action_endpoint:
-    url: "http://localhost:5055/webhook"
+    url: "https://actions:5055/webhook"
 
 # rodando no okteto
 # action_endpoint:

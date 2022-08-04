@@ -8,17 +8,22 @@ services:
     depends_on:
       - actions
       - db
+      - sci
     ports:
       - 5005:5005
     volumes:
       - ./bot:/app
+    networks: 
+      - rasa-network
 
   actions:
     build:
       context: .
       dockerfile: ./bot/actions.Dockerfile
     ports:
-      - 5055:5055
+      - 5055:443
+    networks: 
+      - rasa-network
       
   sci:
     build:
@@ -30,16 +35,22 @@ services:
       - 8000:8000
     volumes:
       - ./sistema-de-controle-de-informacoes-ifrs:/sci
+    networks: 
+      - rasa-network
 
   db:
     image: postgres
     restart: always
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    networks: 
+      - rasa-network
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: ifrs
-    ports:
-      - 5432:5432
     
   adminer:
     image: adminer
@@ -48,3 +59,9 @@ services:
       - db
     ports:
       - 8080:8080
+    networks: 
+      - rasa-network
+
+networks: 
+  rasa-network:
+      driver: bridge
