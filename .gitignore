@@ -131,6 +131,7 @@ dmypy.json
 # Rasa docs
 # models/
 .rasa
+models
 credentials.yml
 
 #Okteto 
