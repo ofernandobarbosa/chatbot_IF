@@ -7,8 +7,8 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
 
 WORKDIR /sci
-COPY ../sistema-de-controle-de-informacoes-ifrs /sci
-RUN pip install -r ../sistema-de-controle-de-informacoes-ifrs/requirements.txt
+COPY ./sistema-de-controle-de-informacoes-ifrs/requirements.txt /sci
+RUN pip install -r ./requirements.txt
 EXPOSE 8000
 ENTRYPOINT [ "python3" ]
 CMD ["manage.py", "runserver", "0.0.0.0:8000"]

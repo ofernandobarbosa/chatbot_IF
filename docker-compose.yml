@@ -3,34 +3,33 @@ services:
   bot:
     build:
       context: .
-      dockerfile: bot.Dockerfile
+      dockerfile: ./bot/bot.Dockerfile
+    user: root
     depends_on:
       - actions
       - db
     ports:
       - 5005:5005
     volumes:
-      - ../bot:/app
+      - ./bot:/app
 
   actions:
     build:
       context: .
-      dockerfile: actions.Dockerfile
+      dockerfile: ./bot/actions.Dockerfile
     ports:
       - 5055:5055
-    volumes:
-      - ../bot/actions:/app/actions
       
   sci:
     build:
       context: .
-      dockerfile: sci.Dockerfile
+      dockerfile: ./sistema-de-controle-de-informacoes-ifrs/sci.Dockerfile
     depends_on:
       - db
     ports:
       - 8000:8000
     volumes:
-      - ../sistema-de-controle-de-informacoes-ifrs:/sci
+      - ./sistema-de-controle-de-informacoes-ifrs:/sci
 
   db:
     image: postgres
