@@ -42,7 +42,6 @@ entities:
 - documents
 - courses_modality
 - courses_name
-- courses_modality_link
 - requirements
 - system
 - ingress_modality
@@ -89,11 +88,6 @@ slots:
     mappings:
     - type: from_entity
       entity: courses_modality
-  courses_modality_link:
-    type: text
-    mappings:
-    - type: from_entity
-      entity: courses_modality_link
   documents:
     type: text
     mappings:
