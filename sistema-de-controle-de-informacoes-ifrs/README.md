@@ -150,10 +150,52 @@ class Categorias(models.Model):
 ### Repartindo arquivos
 
 ## Dos Arquivos Estáticos
- 
+
+## Dos Formulários
+
+### Temos, em nossa aplicação, diversos formulários, dentre eles aqueles que cadastram os eventos. Note-se que o caminho dos formulários é diretamente proporcional ao ID da categoria de mesmo nome e, também, que cada formulário possui apenas os campos necessários para determinada categoria.
+
+#### Comprovante de Matrícula
+
+![usuarios-add_evento-1](https://user-images.githubusercontent.com/90530503/183003644-2a7d1838-8fc1-4049-8b63-e40ff2f386d0.png)
+
+#### Contato dos Professores
+
+![usuarios-add_evento-2](https://user-images.githubusercontent.com/90530503/183003646-5dfeb821-6306-49ce-a9f8-82fe6a423615.png)
+
+#### Grade de Horários
+
+![usuarios-add_evento-3](https://user-images.githubusercontent.com/90530503/183003648-11f6fd24-d482-41ac-9ec5-63c4518c46bf.png)
+
+#### Calendário Acadêmico
+
+![usuarios-add_evento-4](https://user-images.githubusercontent.com/90530503/183003649-1dc0e65e-6c2e-4d43-91b6-aad382fe5985.png)
+
+#### Informações Relevantes dos Cursos
+
+![usuarios-add_evento-5](https://user-images.githubusercontent.com/90530503/183003651-c797d5e8-647a-47a2-b128-7a4b8d277257.png)
+
+#### Informações Sobre Inscrição ou Matrícula
+
+![usuarios-add_evento-6](https://user-images.githubusercontent.com/90530503/183003652-c22f961a-012c-4bce-8291-71b2150aa4b3.png)
+
+#### Informações Sobre Rematrícula
+
+![usuarios-add_evento-7](https://user-images.githubusercontent.com/90530503/183003654-890fd64a-4bb6-4fba-aaba-9cfdefde0a9b.png)
+
+#### Requerimentos ou Formulários
+
+![usuarios-add_evento-8](https://user-images.githubusercontent.com/90530503/183003655-8097630d-9192-476f-a195-2ecd35caaee6.png)
+
+#### Tutoriais de Acessos a Sistemas Acadêmicos
+
+![usuarios-add_evento-9](https://user-images.githubusercontent.com/90530503/183003657-68b678d2-c92b-47c1-a174-f08aad36872e.png)
+
 
 # DOS URLS
+
 ## App Api
+
 ```py
 from django.urls import path
 from . import views
@@ -161,7 +203,9 @@ urlpatterns = [
   	path('', views.api, name='api'),
 ]
 ```
+
 ## App App
+
 ```py
 from django.urls import path
 from . import views
@@ -172,7 +216,9 @@ urlpatterns = [
    	path('buscar', views.buscar, name = 'buscar'),
 ]
 ```
+
 ## App Categorias
+
 ```py
 from django.urls import path
 from . import views
@@ -180,7 +226,9 @@ urlpatterns = [
 	path('categorias', views.categorias, name='categorias'),
 ]
 ```
+
 ## App Usuarios
+
 ```py
 from django.urls import path
 from . import views
@@ -194,7 +242,9 @@ urlpatterns = [
     path('formulario', views.formulario, name='formulario'),
 ]
 ```
+
 ## App Principal
+
 ```py
 from django.conf import settings
 from django.contrib import admin
@@ -222,12 +272,12 @@ urlpatterns = [
     path('api/tutoriais_de_acessos_a_sistemas_academicos', tutoriais_de_acessos_a_sistemas_academicos.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT )
 ```
-
-
  
 
 # DO BANCO DE DADOS
+
 ## Da Instalação do Postgresql
+
 ### Optamos por utilizar o Postgresql por sua fácil comunicação com o Django, e porque nossa aplicação não necessitava de banco de dados não relacional. Após a instalação do Postgres que pode ser feita de diferentes formas em diferentes plataformas, passamos à instalação dos módulos em nossa aplicação via ‘pip’.
 
 ### Além disso, instalamos o módulo de comunicação do Django com este banco de dados, o psycopg2 e seus binários através do psycopg2-binary, ou seja, instalamos via pip da seguinte forma:
