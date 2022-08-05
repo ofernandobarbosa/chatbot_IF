@@ -267,9 +267,24 @@ DATABASES = {
 # DA INTERFACE E UTILIZAÇÃO
  
 # DOS ENDPOINTS
+------------
 ## Página Principal Com Lista dos Endpoints:
 ### http://localhost:8000/api/
+![api](https://user-images.githubusercontent.com/90530503/183002328-295218d5-0396-46de-a642-c766c94468df.png)
+
+------------
+
 ## Endpoints de Todos Eventos
+
+------------
+### No browser como api e em formato json:
+
+![api-eventos](https://user-images.githubusercontent.com/90530503/183002412-adec1c79-0bdf-4d86-bbc6-b4823de94056.png)
+
+![api-eventos(formato json)](https://user-images.githubusercontent.com/90530503/183002420-7b781383-bedf-462c-b8a0-20e3e6994b90.png)
+
+------------
+
 ```
 GET /api/eventos
 EXEMPLO:
@@ -359,7 +374,11 @@ Vary: Accept
     }
 ]
 ```
+------------
 ## Endpoints de Comprovante De Matricula
+![api-comprovante_de_matricula](https://user-images.githubusercontent.com/90530503/183003127-98da7c39-321e-4045-a1ef-f95106ba6168.png)
+
+------------
 ```
 GET /api/comprovante_de_matricula
 
@@ -384,7 +403,11 @@ Vary: Accept
     }
 ]
 ```
+------------
 ## Endpoints de Contato Dos Professores
+![api-contato_dos_professores](https://user-images.githubusercontent.com/90530503/183003119-562d2cef-b054-4efc-bf98-07b35f4acf85.png)
+
+------------
 ```
 GET /api/contato_dos_professores
 
@@ -410,7 +433,11 @@ Vary: Accept
 ]
 
 ```
+------------
 ## Endpoints de Grade De Horarios
+![api-grade_de_horarios](https://user-images.githubusercontent.com/90530503/183003086-fd6364ed-1fcf-425c-bde4-9b7f9759d5b5.png)
+
+------------
 ```
 GET /api/grade_de_horarios
 
@@ -436,7 +463,11 @@ Vary: Accept
     }
 ]
 ```
+------------
 ## Endpoints de Calendario Academico
+![api-calendario_academico](https://user-images.githubusercontent.com/90530503/183003103-7f4cb6af-07bd-4958-b9fe-ecd18981c128.png)
+
+------------
 ```
 GET /api/calendario_academico
 
@@ -461,7 +492,11 @@ Vary: Accept
     }
 ]
 ```
+------------
 ## Endpoints de Informacoes Relevantes Dos Cursos
+![api-informacoes_relevantes_dos_cursos](https://user-images.githubusercontent.com/90530503/183003056-9d8725fc-15d7-4bfb-818d-c8871775af8c.png)
+
+------------
 ```
 GET /api/informacoes_relevantes_dos_cursos
 
@@ -492,7 +527,11 @@ Vary: Accept
     }
 ]
 ```
+------------
 ## Endpoints de Informacoes Sobre Inscricao Ou Matricula
+![api-informacoes_sobre_inscricao_ou_matricula](https://user-images.githubusercontent.com/90530503/183003032-ae2a57a1-0587-4f00-84b3-60e7fcc8eb49.png)
+
+------------
 ```
 GET /api/informacoes_sobre_inscricao_ou_matricula
 
@@ -522,7 +561,12 @@ Vary: Accept
     }
 ]
 ```
+------------
 ## Endpoints de Informacoes Sobre Rematricula
+![api-informacoes_sobre_rematricula](https://user-images.githubusercontent.com/90530503/183003017-9e27367e-de48-48cd-9398-9e16ad161bd7.png)
+
+
+------------
 ```
 GET /api/informacoes_sobre_rematricula
 
@@ -550,7 +594,12 @@ Vary: Accept
     }
 ]
 ```
+------------
 ## Endpoints de Requerimentos Ou Formularios
+![api-requerimentos_ou_formularios](https://user-images.githubusercontent.com/90530503/183003000-1b77f293-173d-4726-bf4a-44268e7bd786.png)
+
+
+------------
 ```
 GET /api/requerimentos_ou_formularios
 
@@ -577,7 +626,11 @@ Vary: Accept
     }
 ]
 ```
+------------
 ## Endpoints de Tutoriais De Acessos A Sistemas Academicos
+![api-tutoriais_de_acessos_a_sistemas_academicos](https://user-images.githubusercontent.com/90530503/183002987-af76e21e-697f-439a-97f0-90e2788d053d.png)
+
+------------
 ```
 GET /api/tutoriais_de_acessos_a_sistemas_academicos
 
