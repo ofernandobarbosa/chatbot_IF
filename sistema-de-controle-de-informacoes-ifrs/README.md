@@ -9,9 +9,7 @@
 ### dentro dessa pasta que acabamos de criar, digitando ```cd  Sistema de Controle de Informações```, digitaremos o comando:
 
 ```
-
 python3 -m venv ./venv
-
 ```
 
 ### Neste caso, estamos instalando o ambiente virtual na pasta atual '.' e colocando os arquivos da instalação na subpasta 'venv'.
@@ -145,8 +143,11 @@ class Categorias(models.Model):
  
 
 # DOS TEMPLATES
+
 ## Dos Arquivos HTML
+
 ### Dos Elementos Python no HTML
+
 ### Repartindo arquivos
 
 ## Dos Arquivos Estáticos
