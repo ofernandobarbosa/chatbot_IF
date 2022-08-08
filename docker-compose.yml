@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.4"
 services:
   bot:
     build:
@@ -18,6 +18,8 @@ services:
       - 5005:5005
     volumes:
       - ./bot:/app
+    env_file:
+      - ".env"
 
   actions:
     build:
@@ -30,6 +32,8 @@ services:
       - 5055
     ports:
       - 5055:5055
+    env_file:
+      - ".env"
 
   sci:
     build:
