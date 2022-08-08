@@ -11,7 +11,7 @@ O projeto final do programa de bolsas de Chatbot RASA é uma ação filantrópic
 
 * Arquivo de [documentação](/chatbot_IF/documentacao/Documenta%C3%A7%C3%A3o_chatbot.pdf) da aplicação e do chatbot RASA 🔗.
 * [Bot](/bot)
-* [Sistema de controle da informação](/chatbot_IF/sistema-de-controle-de-informacoes-ifrs/README.md)
+* [Sistema de controle da informação](sistema-de-controle-de-informacoes-ifrs/)
 
 
 # 📩 Informações adicionais
