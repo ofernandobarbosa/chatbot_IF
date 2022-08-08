@@ -746,9 +746,3 @@ pip install psycopg2-binary
 
 - [PgAdmin / Postgresql](https://www.pgadmin.org/)
  
-# DO TRABALHO
-## SOBRE O PROJETO
-
-## SOBRE O GRUPO
-### INTEGRANTES
-
