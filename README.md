@@ -59,11 +59,11 @@ O projeto final do programa de bolsas de Chatbot RASA é uma ação filantrópic
 * IFRS RG
 
 # 👨‍💻 Autores
-        * Anderson de Aguiar de Oliveira
-        * Fernando Oliveira Barbosa
-        * Juan Carlos Quevedo Weimar
-        * Tatieli Silveira
+* [Anderson de Aguiar de Oliveira](https://github.com/andersonaoliveira)
+* [Fernando Oliveira Barbosa](https://github.com/ofernandobarbosa)
+* [Juan Carlos Quevedo Weimar](https://github.com/JuanWeimar)
+* [Tatieli Silveira](https://github.com/tatius7)
 
 # ✔ Release
 
-🔗 Confira [aqui](xxxxx) a versão do chatbot IFRS-RG
+🔗 Confira [aqui](https://t.me/IFRS_RG_bot) a versão do chatbot IFRS-RG
