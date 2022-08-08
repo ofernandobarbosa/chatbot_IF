@@ -132,9 +132,11 @@ dmypy.json
 # models/
 .rasa
 models
-credentials.yml
+.config
+.keras
 
 #Okteto 
 okteto.exe
 
 #aplication
+__pycache__

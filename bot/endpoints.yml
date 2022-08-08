@@ -10,13 +10,13 @@
 # Server which runs your custom actions.
 # https://rasa.com/docs/rasa/custom-actions
 
-# rodando localhost
- action_endpoint:
-    url: "http://actions:5055/webhook"
+# # rodando localhost
+#  action_endpoint:
+#     url: "http://localhost:5055/webhook"
 
-# rodando no okteto
-# action_endpoint:
-#   url: "http://actions:5055/webhook"
+# rodando no docker
+action_endpoint:
+  url: "http://actions:5055/webhook"
 
 # tracker_store:
 #   type: mongod
