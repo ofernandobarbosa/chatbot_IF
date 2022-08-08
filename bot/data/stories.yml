@@ -4,12 +4,7 @@ stories:
 - story: hello story
   steps:
     - intent: greet
-    - action: user_name_form
-    - active_loop: user_name_form
-    - slot_was_set:
-      - requested_slot: user_name
-    - slot_was_set:
-      - user_name: carlos
+    - action: action_get_user_name
     - action: utter_greet
     - action: utter_examples
     - action: utter_ask_help

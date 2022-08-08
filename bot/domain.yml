@@ -274,4 +274,4 @@ actions:
 - utter_examples
 - utter_greet
 - validate_professor_name_form
-- validate_user_name_form
+- action_get_user_name

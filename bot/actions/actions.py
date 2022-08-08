@@ -624,22 +624,18 @@ class SystemsTutorial(Action):
         return [SlotSet("system", None)]
 
 
-class UserNameFormValidate(FormValidationAction):
+class GetUserName(Action):
     def name(self) -> Text:
-        return "validate_user_name_form"
+        return "action_get_user_name"
 
-    def validate_user_name(
-        self,
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         user_id = tracker.sender_id
         name = get_username(user_id)
 
-        return {"user_name": name}
+        return [SlotSet("user_name", name)]
 
 
 class ProfessorNameFormValidate(FormValidationAction):
