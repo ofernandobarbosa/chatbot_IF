@@ -2,9 +2,21 @@ def clean_name(name):
     return "".join([c for c in name if c.isalpha()])
 
 
+def get_username(sender_id):
+    import requests
+    import os
+    TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+    
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getChat"
+    body = {"chat_id": sender_id}
+    response = requests.post(url, data=body)
+    response = response.json()
+    name = response["result"]["first_name"]
+    return name
+
 def req_json(endpoint):
     import requests
-    url = f"http://localhost:8000/api/{endpoint}"
+    url = f"http://sci/api/{endpoint}"
     payload = ""
     headers = {}
     response = requests.request("GET", url, headers=headers, data=payload)

@@ -46,6 +46,14 @@ entities:
 - system
 - ingress_modality
 slots:
+  user_name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: user_name_form
+        requested_slot: user_name
   professor_name:
     type: text
     influence_conversation: true
@@ -111,6 +119,9 @@ slots:
     - type: from_entity
       entity: ingress_modality
 forms:
+  user_name_form:
+    required_slots:
+    - user_name
   professor_name_form:
     required_slots:
     - professor_name
@@ -132,24 +143,24 @@ forms:
     - system
 responses:
   utter_greet:
-  - text: Eai, seja bem-vindo :)
-  - text: Olá, seja bem-vindo :)
+  - text: Eai {user_name}, seja bem-vind@ :)
+  - text: Olá {user_name}, seja bem-vind@ :)
   utter_examples:
   - text: Me pergunte o que faço para ver algumas opções
   utter_ask_professor_name:
-  - text: Qual o primeiro nome do professor?
+  - text: Qual o primeiro nome d@ professor(a)?
   utter_ask_professor_last_name:
-  - text: Qual o sobrenome do professor?
+  - text: Qual o sobrenome d@ professor(a)?
   utter_ask_help:
   - text: Em que posso ajudar?
   utter_goodbye:
-  - text: Até logo! :)
+  - text: Até logo, {user_name}! :)
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   utter_req_to_ask:
   - text: Pode dizer ou então me pergunte o que posso fazer!
   utter_please_rephrase:
-  - text: Me desculpe, mas não posso ajudar sobre isso?
+  - text: Me desculpe, mas não consigo te ajudar nisso 😓
   utter_ask_more_help:
   - buttons:
     - payload: /affirm
@@ -262,5 +273,5 @@ actions:
 - utter_ask_more_help
 - utter_examples
 - utter_greet
-- validate_name_form
 - validate_professor_name_form
+- validate_user_name_form

@@ -3,8 +3,7 @@ from rasa_sdk import Action, Tracker  # type: ignore
 from rasa_sdk.executor import CollectingDispatcher  # type: ignore
 from rasa_sdk.types import DomainDict  # type: ignore
 from rasa_sdk.forms import FormValidationAction  # type: ignore
-from rasa_sdk.events import SlotSet, AllSlotsReset  # type: ignore
-import json
+from rasa_sdk.events import SlotSet, AllSlotsReset # type: ignore
 from actions.utils import *
 
 
@@ -19,8 +18,6 @@ class GetProfessorContact(Action):
 
         nome_professor = tracker.get_slot("professor_name")
         sobrenome_professor = tracker.get_slot("professor_last_name")
-        # with open("calendarios.json", encoding="utf8") as file:
-        #     data = json.loads(file.read())
 
         data = req_json("contato_dos_professores")
         dictionary = {
@@ -28,18 +25,24 @@ class GetProfessorContact(Action):
             "sobrenome_do_professor": sobrenome_professor
         }
 
+        user_id = tracker.sender_id
+        name = tracker.get_slot("user_name")
+        dispatcher.utter_message(text=f"Olá {name}")
+
         try:
             req = last_info(dictionary=dictionary, data=data)
             dispatcher.utter_message(text=req["email"])
         except:
             try:
-                
-                req = all_info(dictionary= dictionary, data=data)
-                dispatcher.utter_message(text="Infelizmente não localizei o contato do professor que tu me informou, seguem abaixo alguns contatos parecidos que encontrei")
+
+                req = all_info(dictionary=dictionary, data=data)
+                dispatcher.utter_message(
+                    text="Infelizmente não localizei o contato do professor que tu me informou, seguem abaixo alguns contatos parecidos que encontrei")
                 for item in req:
                     nome = item["nome_do_professor"]
                     sobrenome = item["sobrenome_do_professor"]
-                    dispatcher.utter_message(text=f'*{nome} {sobrenome}* 👇\n{item["email"]}')
+                    dispatcher.utter_message(
+                        text=f'*{nome} {sobrenome}* 👇\n{item["email"]}')
             except:
                 dispatcher.utter_message(
                     text=f"Não foi possivel encontrar o contato com os nomes informados, tente novamente 😊")
@@ -621,26 +624,22 @@ class SystemsTutorial(Action):
         return [SlotSet("system", None)]
 
 
-class NameFormValidate(FormValidationAction):
+class UserNameFormValidate(FormValidationAction):
     def name(self) -> Text:
-        return "validate_name_form"
+        return "validate_user_name_form"
 
-    def validate_name(
+    def validate_user_name(
         self,
         slot_value: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        """
-        A action NameFormValidate serve para a validação do name form. Para informar que ocorreu um possível erro na informação da mensagem ou nome, retornando em caso de erro nome como None. Também serve para o preenchimento do respectivo slot
-        """
-        name = clean_name(slot_value).title()
-        if len(name) == 0:
-            dispatcher.utter_message(
-                text="Não entendi, pode ter sido um erro de digitação")
-            return {"name": None}
-        return {"name": name}
+
+        user_id = tracker.sender_id
+        name = get_username(user_id)
+
+        return {"user_name": name}
 
 
 class ProfessorNameFormValidate(FormValidationAction):
